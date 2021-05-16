@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>JPetStore</title>
+</head>
+<body>
+	<div th:replace="~{IncludeTop::includeTop}"></div>
+
+	<table>
+		<tr>
+			<td>
+				<table>
+					<tr>
+						<td><a href="" th:href="@{/shop/Cart.do}">Shopping Cart</a></td>
+					</tr>
+				</table>
+			</td>
+			<td>
+				<h2>Checkout Summary</h2>
+				<form th:action="@{/shop/updateCartQuantities.do}" th:object"${ordersCommand}" method="post">
+					<table border='1' bgcolor="#FFFF88">
+						<tr>
+							<td colspan="4"><font color="green" size="4"><b>주문내용</b></font></td>
+						</tr>
+						<tr>
+							<td><b>상품설명</b></td>
+							<td><b>수량</b></td>
+							<td><b>정가</b></td>
+							<td><b>총액</b></td>
+						</tr>
+						<tr th:if="${cart.numberOfItems == 0}">
+							<td colspan="6"><b>Your cart is empty.</b></td>
+						</tr>
+
+						<tr th:each="cartItem : ${cart.cartItemList.pageList}"
+							bgcolor="#FFFF88">
+							<td><a href=""
+								th:href="@{/shop/viewItem.do(itemId=${cartItem.item.itemId})}"
+								th:text="${cartItem.item.itemId}">Name</a></td>
+							<td th:text="${cartItem.quantity}">Quantity
+							<td th:text="${cartItem.item.listPrice}">List Price</td>
+							<td th:text="${cartItem.totalPrice}">Total Price</td>
+						</tr>
+						<tr>
+							<td colspan="4"><font color="green" size="4"><b>배송정보</b></font></td>
+						</tr>
+						<tr>
+							<td colspan="4"><input type="checkbox" /> <label>저장해둔
+									주소로 배송하겠습니다</label></td>
+						</tr>
+						<tr>
+							<td colspan="1">이름 :</td>
+							<td colspan="3"><input type="text" th:field="${ordersCommand.name}"/></td>
+						</tr>
+						<tr>
+							<td colspan="1">전화번호 :</td>
+							<td colspan="3"><input type="text" th:field="${ordersCommand.phone}"/></td>
+						</tr>
+						<tr>
+							<td colspan="1">주소 :</td>
+							<td colspan="3"><input type="text" th:field="${ordersCommand.shipaddr}"/></td>
+						</tr>
+						<tr>
+							<td colspan="4"><font color="green" size="4"><b>결제정보</b></font></td>
+						</tr>
+						<tr>
+							<td>은행 :</td>
+							<td><select th:field="${ordersCommand.bankName}">
+							<option th:each="type:${bankAllTypes}" th:value="${type}"
+								th:text="${type}"></option>
+					</select></td>
+						</tr>
+						<tr>
+							<td>카드번호 :</td>
+							<td colspan="3"><input type="text" th:field="${ordersCommand.cardNumber}"/></td>
+						</tr>
+						<tr>
+							<td>만료일 (MM/YYYY):</td>
+							<td colspan="3"><input type="text" th:field="${ordersCommand.expiryDate}"/></td>
+						</tr>
+					</table>
+				</form> 
+				<th:if test="${cart.numberOfItems > 0}">
+					<br />
+					<div style="text-align: center">
+						<a href="" th:href="@{/personalDeal/order/submitted}">결제하기</a>
+					</div>
+				</th:if>
+			</td>
+		</tr>
+	</table>
+
+</body>
+</html>

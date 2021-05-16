@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>JPetStore</title>
+</head>
+<body>
+	<div th:fragment="includeQuickHeader" align="center">
+		<a href="" th:href="@{/shop/viewCategory.do?categoryId=PersonalDeal}">개인간거래</a> 
+		<a href="" th:href="@{/shop/viewCategory.do?categoryId=Auction}">경매</a>
+		<a href="" th:href="@{/shop/viewCategory.do?categoryId=CrowdFunding}">크라우드펀딩</a>
+	</div>
+</body>
+</html>

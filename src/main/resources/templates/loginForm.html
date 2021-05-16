@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>JPetStore</title>
+</head>
+<body>
+	<div th:replace="~{IncludeTop::includeTop}"></div>
+
+	<div align="center">
+		<form th:action="@{/signon}" th:object="${signonCommand}"
+			method="POST">
+			<table>
+				<tr>
+					<td colspan="2">Please enter your username and password. <br />&nbsp;
+					</td>
+				</tr>
+				<tr>
+					<td>ID:</td>
+					<td><input type="text" name="id" size="20" value="j2ee"
+						th:field="${signonCommand.id}" /></td>
+				</tr>
+				<tr>
+					<td>Password:</td>
+					<td><input type="password" name="password" size="20"
+						value="j2ee" th:field="${signonCommand.password}" /></td>
+				</tr>
+				<tr>
+					<td>&nbsp;</td>
+					<td><input type="submit"></td>
+				</tr>
+			</table>
+		</form>
+		<div>
+			<a href="" th:href="@{/account/add}">회원가입</a>
+		</div>
+	</div>
+</body>
+</html>
