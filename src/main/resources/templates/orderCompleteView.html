@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>JPetStore</title>
+</head>
+<body>
+	<div th:replace="~{IncludeTop::includeTop}"></div>
+
+	<table id="main-menu">
+		<tr>
+			<td><a href="" th:href="@{/main.do}"> <b><font
+						color="black" size="2">&lt;&lt; Main Menu</font></b></a></td>
+		</tr>
+	</table>
+
+	<div align="center">
+		<p>
+			<b>결제가 완료되었습니다.</b>
+		</p>
+		<p>
+			<a href="" th:href="@{/myAccount}"> 마이페이지로 돌아가기</a>
+		</p>
+	</div>
+
+</body>
+</html>

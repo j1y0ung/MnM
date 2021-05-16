@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>JPetStore</title>
+</head>
+<body>
+
+	<div th:replace="~{IncludeTop::includeTop}"></div>
+	<table style="border: none; border-collapse: collapse; width: 100%">
+		<tr>
+			<td style="text-align: left; vertical-align: top; width: 100%">
+				<table style="border: none; border-collapse: collapse; width: 80%">
+					<tr>
+						<td valign="top">
+							<!-- SIDEBAR -->
+							<table id="index">
+								<tr>
+									<td><a href="" th:href="@{/personalDeal}">PersonalDeal</a></td>
+								</tr>
+								<tr>
+									<td><a href="" th:href="@{/auction/recently}">Auction</a></td>
+								</tr>
+								<tr>
+									<td><a href="" th:href="@{/crowdFunding/list}">CrowdFunding</a></td>
+								</tr>
+							</table>
+						</td>
+						<td>
+							<table>
+								<tr>
+									<td>PersonalDeal <a href="" th:href="@{/personalDeal}">>See
+											more</a>
+									</td>
+								</tr>
+								<tr>
+									<td><br>PersonalDeal Post
+										<hr /></td>
+								</tr>
+								<tr>
+									<td>Auction <a href="" th:href="@{/auction/recently}">>See
+											more</a>
+									</td>
+								</tr>
+								<tr>
+									<td><br>Auction Post
+										<hr /></td>
+								</tr>
+								<tr>
+									<td>CrowdFunding <a href=""
+										th:href="@{/crowdFunding/list}">>See more</a>
+									</td>
+								</tr>
+								<tr>
+									<td><br>CrowdFunding Post
+										<hr /></td>
+								</tr>
+							</table>
+						</td>
+
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+
+</body>
+</html>
