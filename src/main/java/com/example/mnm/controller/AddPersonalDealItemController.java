@@ -1,17 +1,37 @@
 package com.example.mnm.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class AddPersonalDealItemController {
+
+	@Autowired
+	private StoreFacade store;
 	
-//	판매 물품 등록 완료
+	@ModelAttribute("personalDealForm")
+	public PersonalDealForm createPersonalDealForm() {
+		return new PersonalDealForm();
+	
+	//	판매 물품 등록 완료
 	@RequestMapping("/sellerPage/addItem/complete")
-	public String addPersonalDealItemHandler(Model model) {
+	public ModelAndView handleRequest(HttpServletRequest request, 
+			@Session("username") String username,
+			@ModelAttribute("personalDeal") PersonalDeal personalDeal,
+			Model model) throws Exception {
 		
-		return "myAccountView";
+		store.addPersonalDealItemById(username, personalDeal);
+		
+		ModelAndView mav = new ModelAndView("myAccountView");
+		mav.addObject("personalDeal", personalDeal.addItem());
+		
+		return mav;
 	}
-	
+
 }
