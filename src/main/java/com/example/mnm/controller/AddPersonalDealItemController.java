@@ -22,9 +22,11 @@ public class AddPersonalDealItemController {
 	//	판매 물품 등록 완료
 	@RequestMapping("/sellerPage/addItem/complete")
 	public ModelAndView handleRequest(HttpServletRequest request, 
-			@Session("username") String username,
 			@ModelAttribute("personalDeal") PersonalDeal personalDeal,
 			Model model) throws Exception {
+		
+		UserSession userSession = new UserSession(
+				mnmStore.getAccount(accountForm.getAccount().getUsername()));
 		
 		store.addPersonalDealItemById(username, personalDeal);
 		

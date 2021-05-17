@@ -22,7 +22,7 @@ public class AddNewOrderController {
 			@ModelAttribute("addPersonalDealItemForm") PersonalDealItemForm addPersonalDealItemForm ,
 			Model model) throws Exception {
 		
-		store.add
+		store.addPersonalDealItemForm()
 		
 		
 		return new ModelAndView("orderCompleteView");
