@@ -18,9 +18,6 @@
 		<form:input path="price" />
 	</p>
 	<p>
-		<form:checkbox path="type" label="경매 기능 사용 여부"/>
-	</p>
-	<p>
 		<form:label path="condition">상품상태</form:label>
 		<form:input path="condition" />
 	</p>
