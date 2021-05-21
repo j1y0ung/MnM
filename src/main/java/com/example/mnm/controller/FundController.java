@@ -13,21 +13,21 @@ import org.springframework.web.servlet.ModelAndViewDefiningException;
 
 @Controller
 public class FundController {
-	@Autowired
-	private StoreFacade store;
+//	@Autowired
+//	private StoreFacade store;
+//
+//	@ModelAttribute("fundForm")
+//	public FundForm createFundForm() {
+//		return new FundForm();
+//	}
 
-	@ModelAttribute("fundForm")
-	public FundForm createFundForm() {
-		return new FundForm();
-	}
-
-	@RequestMapping("/crowdFunding/fund.do")
+	@RequestMapping("/crowdFunding/fund")
 	protected ModelAndView fund(
-			@ModelAttribute("fundForm") FundForm fundForm, 
+//			@ModelAttribute("fundForm") FundForm fundForm, 
 			SessionStatus status) {
-		store.fund(fundForm.getFund());
-		ModelAndView mav = new ModelAndView("ViewFund");
-		mav.addObject("fund", fundForm.getFund());
+//		store.fund(fundForm.getFund());
+		ModelAndView mav = new ModelAndView("cartView");
+//		mav.addObject("fund", fundForm.getFund());
 		status.setComplete();
 		return mav;
 	}

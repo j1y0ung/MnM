@@ -6,21 +6,28 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.example.mnm.domain.CrowdFundingItem;
+import com.example.mnm.service.CrowdFunding;
+import com.example.mnm.service.StoreFacade;
+
+import java.util.ArrayList;
+import java.util.List;
+
 @Controller
 public class ViewCrowdFundingItemListController {
-	private StoreFacade store;
+//	private StoreFacade store;
+//
+//	@Autowired
+//	public void setStore(StoreFacade store) {
+//		this.store = store;
+//	}
 
-	@Autowired
-	public void setStore(StoreFacade store) {
-		this.store = store;
-	}
-
-	@RequestMapping("/crowdFunding/viewList.do")
+	@RequestMapping("/crowdFunding/list")
 	public ModelAndView handleRequest(
-		@ModelAttribute("crowdFunding") CrowdFunding crowdFunding
-		) throws Exception {
-		return new ModelAndView("CrowdFundingItemList", "crowdFundingItemList", 
-				store.getCrowdFundingItemList());
+		@ModelAttribute("crowdFunding") CrowdFunding crowdFunding) throws Exception {
+		
+		return new ModelAndView("crowdFundingListView"
+//				, "crowdFundingItemList", store.getCrowdFundingItemList()
+				);
 	}
-
 }

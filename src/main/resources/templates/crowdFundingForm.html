@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
 <title>펀딩 등록 화면</title>
 </head>
@@ -9,26 +8,26 @@
 <br><h1 align="center">펀딩 아이템 등록하기</h1><br>
 <div class="container">
 	<div class="row-lg-10">
-		<form action="#" th:action="@{}" th:object="${crowdFundingItem}" method="post" enctype="multipart/form-data">
-		  <div class="row-lg-10">
+		<form action="" th:action="@{/crowdFunding/add}" th:object="${crowdFundingItem}" method="post" enctype="multipart/form-data">
+		 <!--  <div class="row-lg-10">
             <div class="form-group">
 				<p>
-			        <label for="title" th:text="#{title}">제목</label>:<br>
-			        <input type="text" id="title" th:field="*{title}" />
+			        <label for="title" th:text="#{item.title}">제목</label>:<br>
+			        <input type="text" id="title" th:field="*{item.title}" />
 	    		</p>
             </div>
 		  </div>
 		  <div class="row-lg-10">
             <div class="form-group">
             	<p>
-            		<label for="img" th:text="#{img}">대표 이미지</label>:<br>
-				    <input type="file" id="img" th:field="*{img}" placeholder="파일 선택">
+            		<label for="img" th:text="#{item.img}">대표 이미지</label>:<br>
+				    <input type="file" id="img" th:field="*{item.img}" placeholder="파일 선택">
 				</p>
             </div>
 		  </div>
 		  <div class="row-lg-10">
-            <div class="form-group">
-				카테고리: <select class="form-select form-select-sm" th:field="*{category}">
+           <div class="form-group">
+				카테고리: <select class="form-select form-select-sm" th:field="*{item.category.name}">
   							<option th:each="category : ${categories}"
   								th:value="${category}"
   								th:text="">카테고리</option>
@@ -111,11 +110,11 @@
 		  </div>
 		  <br>
 		  <div class="row-lg-10">
-		  	<div class="form-group">
-		  		<input type="submit" class="btn btn-primary btn-lg" value="등록 요청하기" th:value="#{}">
+		  	<div class="form-group">-->
+		  		<input type="submit" class="btn btn-primary btn-lg" value="등록 요청하기">
             </div>
 		  </div>
-		</form>
+		</form> 
 	</div>						
 </div>
 </body>
