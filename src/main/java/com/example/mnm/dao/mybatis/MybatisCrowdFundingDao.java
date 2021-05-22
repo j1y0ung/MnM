@@ -21,8 +21,8 @@ public class MybatisCrowdFundingDao implements CrowdFundingDao{
 	}
 
 	@Override
-	public List<CrowdFundingItem> getfundingItemList() throws DataAccessException {
-		return crowdFundingMapper.getfundingItemList();
+	public CrowdFundingItem getFundingItemById(String crowdFundingId) throws DataAccessException {
+		return crowdFundingMapper.getFundingItemById(crowdFundingId);
 	}
 
 	@Override

@@ -26,5 +26,5 @@ public interface StoreFacade {
 	Category getCategory(String categoryId);
 
 	List<CrowdFundingItem> getCrowdFundingItemList();
-	
+	CrowdFundingItem getFundingItemById(String crowdFundingId);
 }

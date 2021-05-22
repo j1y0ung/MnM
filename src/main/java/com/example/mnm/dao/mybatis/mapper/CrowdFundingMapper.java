@@ -12,7 +12,7 @@ import com.example.mnm.domain.CrowdFundingItem;
 public interface CrowdFundingMapper {
 
 	List<CrowdFundingItem> getAllFundingItems(); // 모든 펀딩 반환
-	List<CrowdFundingItem> getfundingItemList(); // 펀딩 리스트 반환
+	CrowdFundingItem getFundingItemById(String crowdFundingId); // 펀딩 반환
 	void addFundingItem(CrowdFundingItem crowdFundingItem); // 펀딩 추가
 	void removeFundingItemById(int id); // 펀딩 삭제
 	void updateFundingItemById(int id, CrowdFundingItem crowdFundingItem); // 펀딩 내용 수정
