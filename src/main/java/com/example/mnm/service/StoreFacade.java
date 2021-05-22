@@ -8,6 +8,7 @@ import com.example.mnm.domain.Account;
 import com.example.mnm.domain.Category;
 import com.example.mnm.domain.CrowdFundingItem;
 
+@Service("storeFacade")
 public interface StoreFacade {
 	Account getAccount(String username);
 
@@ -25,4 +26,5 @@ public interface StoreFacade {
 	Category getCategory(String categoryId);
 
 	List<CrowdFundingItem> getCrowdFundingItemList();
+	
 }

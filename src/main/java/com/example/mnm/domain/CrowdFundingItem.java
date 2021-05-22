@@ -1,17 +1,20 @@
 package com.example.mnm.domain;
 
-public class CrowdFundingItem{
-	private String crowdFundingId;
+import java.io.Serializable;
+import java.util.Date;
+
+@SuppressWarnings("serial")
+public class CrowdFundingItem implements Serializable{
+	private int crowdFundingId;
 	private String shortInfo; // 간략한 설명
-	private String targetAmount; // 목표액
-	private String startDate; // 펀딩 시작일
-	private String closingDate; // 펀딩 마감일
+	private int targetAmount; // 목표액
+	private Date startDate; // 펀딩 시작일
+	private Date closingDate; // 펀딩 마감일
 	private String productComposition; // 구성 물품
-	private String currentSponsoredAmount; // 현재 모금액
-	private String numberOfSponsor; // 후원자 수
-	private String detailInfo; // 본문 내용
+	private int currentSponsoredAmount; // 현재 모금액
+	private int numberOfSponsor; // 후원자 수
+	private String status;
 	private Item item;
-	private Account account; //등록자 
 	
 	public CrowdFundingItem() {
 		super();
@@ -19,11 +22,10 @@ public class CrowdFundingItem{
 	public CrowdFundingItem(Item item) {
 		this.item = item;
 	}
-	
-	public String getCrowdFundingId() {
+	public int getCrowdFundingId() {
 		return crowdFundingId;
 	}
-	public void setCrowdFundingId(String crowdFundingId) {
+	public void setCrowdFundingId(int crowdFundingId) {
 		this.crowdFundingId = crowdFundingId;
 	}
 	public String getShortInfo() {
@@ -32,22 +34,22 @@ public class CrowdFundingItem{
 	public void setShortInfo(String shortInfo) {
 		this.shortInfo = shortInfo;
 	}
-	public String getTargetAmount() {
+	public int getTargetAmount() {
 		return targetAmount;
 	}
-	public void setTargetAmount(String targetAmount) {
+	public void setTargetAmount(int targetAmount) {
 		this.targetAmount = targetAmount;
 	}
-	public String getStartDate() {
+	public Date getStartDate() {
 		return startDate;
 	}
-	public void setStartDate(String startDate) {
+	public void setStartDate(Date startDate) {
 		this.startDate = startDate;
 	}
-	public String getClosingDate() {
+	public Date getClosingDate() {
 		return closingDate;
 	}
-	public void setClosingDate(String closingDate) {
+	public void setClosingDate(Date closingDate) {
 		this.closingDate = closingDate;
 	}
 	public String getProductComposition() {
@@ -56,43 +58,30 @@ public class CrowdFundingItem{
 	public void setProductComposition(String productComposition) {
 		this.productComposition = productComposition;
 	}
-	public String getCurrentSponsoredAmount() {
+	public int getCurrentSponsoredAmount() {
 		return currentSponsoredAmount;
 	}
-	public void setCurrentSponsoredAmount(String currentSponsoredAmount) {
+	public void setCurrentSponsoredAmount(int currentSponsoredAmount) {
 		this.currentSponsoredAmount = currentSponsoredAmount;
 	}
-	public String getNumberOfSponsor() {
+	public int getNumberOfSponsor() {
 		return numberOfSponsor;
 	}
-	public void setNumberOfSponsor(String numberOfSponsor) {
+	public void setNumberOfSponsor(int numberOfSponsor) {
 		this.numberOfSponsor = numberOfSponsor;
 	}
-	public String getDetailInfo() {
-		return detailInfo;
+	public String getStatus() {
+		return status;
 	}
-	public void setDetailInfo(String detailInfo) {
-		this.detailInfo = detailInfo;
+	public void setStatus(String status) {
+		this.status = status;
 	}
-
-
-	public Account getAccount() {
-		return account;
-	}
-
-	public void setAccount(Account account) {
-		this.account = account;
-	}
-
 	public Item getItem() {
 		return item;
 	}
-
 	public void setItem(Item item) {
 		this.item = item;
 	}
 	
 	
-	
-
 }

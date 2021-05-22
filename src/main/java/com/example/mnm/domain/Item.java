@@ -1,19 +1,20 @@
 package com.example.mnm.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Item {
+@SuppressWarnings("serial")
+public class Item implements Serializable {
 	private Product product; 
 	private String itemId;
 	private String title;
 	private String description;
-	private String status;
 	private String img;
 	private int quantity;
 	private Date regiDate;
 	private int views;
 	private int shippingFee;
-	private String userId;
+	private Account account;
 	private String type;
 	
 	public String getItemId() {
@@ -33,12 +34,6 @@ public class Item {
 	}
 	public void setDescription(String description) {
 		this.description = description;
-	}
-	public String getStatus() {
-		return status;
-	}
-	public void setStatus(String status) {
-		this.status = status;
 	}
 	public String getImg() {
 		return img;
@@ -70,12 +65,6 @@ public class Item {
 	public void setShippingFee(int shippingFee) {
 		this.shippingFee = shippingFee;
 	}
-	public String getUserId() {
-		return userId;
-	}
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
 	public String getType() {
 		return type;
 	}
@@ -87,6 +76,12 @@ public class Item {
 	}
 	public void setProduct(Product product) {
 		this.product = product;
+	}
+	public Account getAccount() {
+		return account;
+	}
+	public void setAccount(Account account) {
+		this.account = account;
 	}
 
 	

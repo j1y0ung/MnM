@@ -1,9 +1,13 @@
 package com.example.mnm.domain;
 
-public class Product {
+import java.io.Serializable;
+
+@SuppressWarnings("serial")
+public class Product implements Serializable {
 	private Category category;
 	private String productId;
 	private String name;
+	
 	public String getName() {
 		return name;
 	}

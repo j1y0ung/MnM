@@ -1,6 +1,9 @@
 package com.example.mnm.domain;
 
-public class Bid {
+import java.io.Serializable;
+
+@SuppressWarnings("serial")
+public class Bid implements Serializable {
 	private int bidPrice;
 	private String userId;
 	

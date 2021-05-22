@@ -1,7 +1,10 @@
 package com.example.mnm.domain;
 
-public class Account {
-	private String id;
+import java.io.Serializable;
+
+@SuppressWarnings("serial")
+public class Account implements Serializable {
+	private String userId;
 	private String password;
 	private String email;
 	private String name;
@@ -9,12 +12,8 @@ public class Account {
 	private String phone;
 	private String favouriteCategoryId;
 	
-	public String getId() {
-		return id;
-	}
-	public void setId(String id) {
-		this.id = id;
-	}
+	
+	
 	public String getPassword() {
 		return password;
 	}
@@ -50,6 +49,12 @@ public class Account {
 	}
 	public void setFavouriteCategoryId(String favouriteCategoryId) {
 		this.favouriteCategoryId = favouriteCategoryId;
+	}
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 	
 	

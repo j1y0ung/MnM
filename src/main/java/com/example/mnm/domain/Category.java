@@ -1,6 +1,9 @@
 package com.example.mnm.domain;
 
-public class Category {
+import java.io.Serializable;
+
+@SuppressWarnings("serial")
+public class Category implements Serializable {
 	private String catId;
 	private String name;
 	
