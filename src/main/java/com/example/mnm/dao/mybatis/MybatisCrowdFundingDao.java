@@ -55,6 +55,11 @@ public class MybatisCrowdFundingDao implements CrowdFundingDao{
 		return crowdFundingMapper.getMyFundingItemListByUserId(userId);
 	}
 
+	@Override
+	public void updateItemById(String itemId, Item item) throws DataAccessException {
+		crowdFundingMapper.updateItemById(itemId, item);
+	}
+
 	
 
 

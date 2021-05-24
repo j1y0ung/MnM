@@ -11,7 +11,7 @@
 		<form action="" th:action="@{/crowdFunding/add}" th:object="${crowdFundingItem}" method="post" enctype="multipart/form-data">
 		<div class="row-lg-10">
             <div class="form-group">
-            	<input type="hidden" th:field="*{item.account.userId}"
+            	<input type="hidden" th:field="*{item.account.userId}">
 				<p>
 			        <label for="title">제목</label>:<br>
 			        <input type="text" id="title" th:field="*{item.title}" />

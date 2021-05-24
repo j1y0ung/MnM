@@ -90,6 +90,12 @@ public class Item implements Serializable {
 	public void setItemId(int itemId) {
 		this.itemId = itemId;
 	}
+	@Override
+	public String toString() {
+		return "Item [product=" + product + ", itemId=" + itemId + ", title=" + title + ", description=" + description
+				+ ", img=" + img + ", quantity=" + quantity + ", regiDate=" + regiDate + ", views=" + views
+				+ ", shippingFee=" + shippingFee + ", account=" + account + ", type=" + type + "]";
+	}
 
 	
 	

@@ -15,6 +15,7 @@ public interface CrowdFundingDao {
 	public void addItem(Item item) throws DataAccessException;
 	public void removeFundingItemById(String crowdFundingId) throws DataAccessException; // 펀딩 삭제
 	public void updateFundingItemById(String crowdFundingId, CrowdFundingItem crowdFundingItem) throws DataAccessException; // 펀딩 내용 수정
+	public void updateItemById(String itemId, Item item) throws DataAccessException;
 	public void fund(String crowdFundingId) throws DataAccessException; // 후원하기
 	public List<CrowdFundingItem> getMyFundingItemListByUserId(String userId);
 

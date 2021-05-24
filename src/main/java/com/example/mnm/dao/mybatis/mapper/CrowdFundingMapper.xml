@@ -36,14 +36,22 @@
 	<!-- 수정 -->
 	<update id="updateFundingItemById"
 		parameterType="CrowdFundingItem">
-		UPDATE crowdfundingitem SET
-		shortInfo=#{shortInfo},
-		targetAmount=#{targetAmount},
-		startDate=#{startDate},
-		closingDate=#{closingDate},
-		productComposition=#{productComposition},
-		status=#{status}
-		WHERE crowdfundingid=#{crowdfundingid}
+		UPDATE crowdfundingitem SET 
+		shortInfo=#{crowdFundingItem.shortInfo},
+		targetAmount=#{crowdFundingItem.targetAmount},
+		startDate=#{crowdFundingItem.startDate},
+		closingDate=#{crowdFundingItem.closingDate},
+		productComposition=#{crowdFundingItem.productComposition}
+		WHERE crowdfundingid=#{crowdFundingItem.crowdFundingId}
+	</update>
+	<update id="updateItemById"
+		parameterType="Item">
+		UPDATE item SET 
+		productId=#{item.product.productId}, 
+		title=#{item.title}, 
+		description=#{item.description}, 
+		img=#{item.img} 
+		WHERE itemId=#{item.itemId}
 	</update>
 
 	<!-- 삭제 -->
@@ -52,11 +60,15 @@
 		crowdfundingitem
 		WHERE itemid=#{itemid}
 	</delete>
+	<delete id="removeItemById" parameterType="string">
+		DELETE FROM
+		item
+		WHERE itemid=#{itemid}
+	</delete>
 
 	<!-- 펀딩하기(구매) -->
 	<insert id="fund" parameterType="Orders">
-		INSERT INTO orders (itemid,
-		quantity)
+		INSERT INTO orders (itemid, quantity)
 		VALUES (#{itemid}, #{quantity})
 	</insert>
 
@@ -109,7 +121,7 @@
 		i.shippingFee AS "item.shippingFee", 
 		i.userid AS "item.account.userid", 
 		i.productid AS "item.product.productid",
-		c.crowdfundingid AS "crowdfundingid", 
+		c.crowdfundingid AS "crowdFundingId", 
 		c.shortInfo AS "shortInfo",
 		c.targetAmount AS "targetAmount",
 		c.startDate AS "startDate", 
@@ -122,7 +134,10 @@
 		p.productid AS "item.product.productid", 
 		p.name AS "item.product.name",
 		ca.catid AS "item.product.category.catid", 
-		ca.name AS "item.product.category.name"
+		ca.name AS "item.product.category.name", 
+		a.name AS "item.account.name", 
+		a.email AS "item.account.email", 
+		a.accountNum AS "item.account.accountNum"
 		FROM crowdFundingItem c, item i, product p, category ca, account a
 		WHERE c.itemid = i.itemid AND i.productid = p.productid AND p.catid =
 		ca.catid AND i.userid = a.userid

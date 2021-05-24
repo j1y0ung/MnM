@@ -55,15 +55,15 @@ public class StoreFacadeImpl implements StoreFacade{
 	}
 
 	@Override
-	public void removeFundingItemById(int crowdFundingId) {
+	public void removeFundingItemById(String crowdFundingId) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void updateFundingItemById(int crowdFundingId, CrowdFundingItem crowdFundingItem) {
-		// TODO Auto-generated method stub
-		
+	public void updateFundingItemById(String crowdFundingId, CrowdFundingItem crowdFundingItem) {
+		crowdFundingDao.updateFundingItemById(crowdFundingId, crowdFundingItem);
+		crowdFundingDao.updateItemById(Integer.toString(crowdFundingItem.getItem().getItemId()), crowdFundingItem.getItem());
 	}
 
 	@Override
