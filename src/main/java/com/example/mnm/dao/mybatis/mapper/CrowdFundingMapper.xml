@@ -9,17 +9,30 @@
 	<insert id="addFundingItem" parameterType="CrowdFundingItem">
 		INSERT INTO
 		crowdfundingitem (crowdfundingid, shortInfo, targetAmount,
-		startDate,
-		closingDate, productComposition, currentSponsoredAmount,
-		numberOfSponsor, status, itemid)
-		VALUES (#{crowdfundingid},
-		#{shortInfo}, #{targetAmount}, #{startDate},
-		#{closingDate},
-		#{productComposition}, #{currentSponsoredAmount},
-		#{numberOfSponsor},
-		#{status}, #{itemid})
+		startDate, closingDate, productComposition, currentSponsoredAmount,
+		numberOfSponsor, status, itemId)
+		VALUES (crowdfundingid_seq.nextval, #{shortInfo}, #{targetAmount},
+		#{startDate}, #{closingDate}, #{productComposition}, 0,
+		0, '등록', #{item.itemId})
 	</insert>
-
+	<!-- 새로운 아이템 등록 -->
+	<insert id="addItem" parameterType="Item">
+		<selectKey keyProperty="itemId" resultType="integer" order="BEFORE">
+			select ITEMID_SEQ.nextval FROM DUAL
+		</selectKey>
+		INSERT INTO
+		item (itemId, title, description, img, quantity, regiDate,
+		views,  userId, productId, type)
+		VALUES (#{itemId}, #{title}, #{description}, #{img}, #{quantity}, to_char(sysdate,'yy/mm/dd'),
+		0, #{account.userId}, #{product.productId}, 'crowdFunding')
+	</insert>
+		<!-- INSERT INTO
+		item (itemId, title, description, img, quantity, regiDate,
+		views, shipppingFee, userId, productId, type)
+		VALUES (#{itemId}, #{title}, #{description}, #{img}, #{quantity}, #{regiDate},
+		0, #{shipppingFee}, #{userId}, #{productId}, 'crowdFunding') -->
+		
+		
 	<!-- 수정 -->
 	<update id="updateFundingItemById"
 		parameterType="CrowdFundingItem">
@@ -50,17 +63,35 @@
 	<!-- 펀딩 목록 가져오기 -->
 	<select id="getAllFundingItems" resultType="CrowdFundingItem">
 		SELECT
-		i.title AS "title", i.description AS "description", c.status as "status", i.img AS "item.img",
-		i.quantity AS "item.quantity", i.regiDate AS "item.regiDate", i.views AS "item.views",
-		i.shippingFee AS "item.shippingFee", i.userid AS "item.account.userid", i.productid AS "item.product.productid",
-		c.crowdfundingid AS "crowdfundingid", c.shortInfo AS "shortInfo", c.targetAmount AS "targetAmount", 
-		c.startDate AS "startDate", c.closingDate AS "closingDate", c.productComposition AS "productComposition", 
-		c.currentSponsoredAmount AS "currentSponsoredAmount", c.numberOfSponsor AS "numberOfSponsor", 
-		c.status AS "status", c.itemid AS "item.itemid",
-		p.productid AS "item.product.productid", p.name AS "item.product.name", 
-		ca.catid AS "item.product.category.catid", ca.name AS "item.product.category.name"  
-		FROM crowdFundingItem c, item i, product p, category ca, account a 
-		WHERE c.itemid = i.itemid AND i.productid = p.productid AND p.catid = ca.catid AND i.userid = a.userid 
+		i.title AS "item.title", 
+		i.description AS "item.description", 
+		c.status as "status", 
+		i.img AS "item.img",
+		i.quantity AS "item.quantity",
+		i.regiDate AS "item.regiDate", 
+		i.views AS "item.views",
+		i.shippingFee AS "item.shippingFee", 
+		i.userid AS "item.account.userid", 
+		i.productid AS "item.product.productid", 
+		c.crowdfundingid AS "crowdfundingid",
+		c.shortInfo AS "shortInfo", 
+		c.targetAmount AS "targetAmount", 
+		c.startDate AS "startDate", 
+		c.closingDate AS "closingDate",
+		c.productComposition AS "productComposition",
+		c.currentSponsoredAmount AS "currentSponsoredAmount", 
+		c.numberOfSponsor AS "numberOfSponsor",
+		c.status AS "status", 
+		c.itemid AS "item.itemid",
+		p.productid AS "item.product.productid", 
+		p.name AS "item.product.name",
+		ca.catid AS "item.product.category.catid", 
+		ca.name AS "item.product.category.name"
+		FROM crowdFundingItem c, item i, product p, category ca, account a
+		WHERE c.itemid = i.itemid 
+		AND i.productid = p.productid 
+		AND p.catid = ca.catid 
+		AND i.userid = a.userid 
 		order by regiDate DESC
 	</select>
 
@@ -68,17 +99,33 @@
 	<select id="getFundingItemById" parameterType="string"
 		resultType="CrowdFundingItem">
 		SELECT
-		i.title AS "title", i.description AS "description", c.status as "status", i.img AS "item.img",
-		i.quantity AS "item.quantity", i.regiDate AS "item.regiDate", i.views AS "item.views",
-		i.shippingFee AS "item.shippingFee", i.userid AS "item.account.userid", i.productid AS "item.product.productid",
-		c.crowdfundingid AS "crowdfundingid", c.shortInfo AS "shortInfo", c.targetAmount AS "targetAmount", 
-		c.startDate AS "startDate", c.closingDate AS "closingDate", c.productComposition AS "productComposition", 
-		c.currentSponsoredAmount AS "currentSponsoredAmount", c.numberOfSponsor AS "numberOfSponsor", 
-		c.status AS "status", c.itemid AS "item.itemid",
-		p.productid AS "item.product.productid", p.name AS "item.product.name", 
-		ca.catid AS "item.product.category.catid", ca.name AS "item.product.category.name"  
-		FROM crowdFundingItem c, item i, product p, category ca, account a 
-		WHERE c.itemid = i.itemid AND i.productid = p.productid AND p.catid = ca.catid AND i.userid = a.userid 
+		i.title AS "item.title", 
+		i.description AS "item.description",
+		c.status as "status", 
+		i.img AS "item.img",
+		i.quantity AS "item.quantity", 
+		i.regiDate AS "item.regiDate", 
+		i.views AS "item.views",
+		i.shippingFee AS "item.shippingFee", 
+		i.userid AS "item.account.userid", 
+		i.productid AS "item.product.productid",
+		c.crowdfundingid AS "crowdfundingid", 
+		c.shortInfo AS "shortInfo",
+		c.targetAmount AS "targetAmount",
+		c.startDate AS "startDate", 
+		c.closingDate AS "closingDate", 
+		c.productComposition AS "productComposition",
+		c.currentSponsoredAmount AS "currentSponsoredAmount", 
+		c.numberOfSponsor AS "numberOfSponsor",
+		c.status AS "status", 
+		c.itemid AS "item.itemid",
+		p.productid AS "item.product.productid", 
+		p.name AS "item.product.name",
+		ca.catid AS "item.product.category.catid", 
+		ca.name AS "item.product.category.name"
+		FROM crowdFundingItem c, item i, product p, category ca, account a
+		WHERE c.itemid = i.itemid AND i.productid = p.productid AND p.catid =
+		ca.catid AND i.userid = a.userid
 		AND c.crowdFundingId=#{crowdFundingId}
 	</select>
 </mapper>

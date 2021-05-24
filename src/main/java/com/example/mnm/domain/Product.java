@@ -8,6 +8,12 @@ public class Product implements Serializable {
 	private String productId;
 	private String name;
 	
+	Product() {
+		super();
+	}
+	public Product(Category category) {
+		this.category = category;
+	}
 	public String getName() {
 		return name;
 	}

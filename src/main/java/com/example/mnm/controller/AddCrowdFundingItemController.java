@@ -1,22 +1,29 @@
 package com.example.mnm.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.support.SessionStatus;
+//import org.springframework.web.bind.annotation.RequestParam;
+//import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.example.mnm.domain.Category;
 import com.example.mnm.domain.CrowdFundingItem;
+import com.example.mnm.domain.Item;
+import com.example.mnm.domain.Product;
+import com.example.mnm.service.StoreFacade;
 
 @Controller
 @RequestMapping("/crowdFunding/add")
 public class AddCrowdFundingItemController {
-//	@Autowired
-//	private StoreFacade store;
+	
+	@Autowired private StoreFacade storeFacade;
 
 //	@ModelAttribute("addCrowdFundingItemForm")
 //	public CrowdFundingItemForm createCrowdFundingItemForm() {
@@ -24,17 +31,22 @@ public class AddCrowdFundingItemController {
 //	}
 	
 	@GetMapping("")
-	protected ModelAndView form() {
-		
-		return new ModelAndView("crowdFundingForm", "crowdFundingItem", new CrowdFundingItem());
+	protected String form(ModelMap model) {
+		List<Category> catlist = this.storeFacade.getCategoryList();
+		model.put("categories", catlist);
+		List<Product> prolist = this.storeFacade.getProductList();
+		model.put("products", prolist);
+		model.put("crowdFundingItem", new CrowdFundingItem(new Item(new Product(new Category()))));
+		return "crowdFundingForm";
 	}
 
 	@PostMapping("")
 	protected ModelAndView addCrowdFundingItem(
-			@ModelAttribute("addCrowdFundingItem") CrowdFundingItem crowdFundingItem 
+			@ModelAttribute("crowdFundingItem") CrowdFundingItem crowdFundingItem 
 //			, SessionStatus status
 			) {
-//		store.addCrowdFundingItem(crowdFundingItemForm.addItem());
+		System.out.println(crowdFundingItem.toString());
+		this.storeFacade.addFundingItem(crowdFundingItem);
 		ModelAndView mav = new ModelAndView("crowdFundingRegistration");
 //		mav.addObject("crowdFundingItem", crowdFundingItemForm.addItem());
 //		status.setComplete();

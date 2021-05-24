@@ -1,20 +1,18 @@
 package com.example.mnm.controller;
 
-import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.ModelAndViewDefiningException;
+
+import com.example.mnm.service.StoreFacade;
 
 @Controller
 public class FundController {
-//	@Autowired
-//	private StoreFacade store;
+	@Autowired private StoreFacade storeFacade;
 //
 //	@ModelAttribute("fundForm")
 //	public FundForm createFundForm() {
@@ -23,12 +21,14 @@ public class FundController {
 
 	@RequestMapping("/crowdFunding/fund")
 	protected ModelAndView fund(
-//			@ModelAttribute("fundForm") FundForm fundForm, 
+//			@ModelAttribute("fundForm") FundForm fundForm,
+			@ModelAttribute("crowdFundingId") int crowdFundongId,
 			SessionStatus status) {
-//		store.fund(fundForm.getFund());
-		ModelAndView mav = new ModelAndView("cartView");
+		
+		storeFacade.fund(crowdFundongId);
+		ModelAndView mav = new ModelAndView("ViewOrder");
 //		mav.addObject("fund", fundForm.getFund());
-		status.setComplete();
+		
 		return mav;
 	}
 

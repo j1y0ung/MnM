@@ -9,10 +9,11 @@
 <div class="container">
 	<div class="row-lg-10">
 		<form action="" th:action="@{/crowdFunding/add}" th:object="${crowdFundingItem}" method="post" enctype="multipart/form-data">
-		 <!--  <div class="row-lg-10">
+		<div class="row-lg-10">
             <div class="form-group">
+            	<input type="hidden" th:field="*{item.account.userId}"
 				<p>
-			        <label for="title" th:text="#{item.title}">제목</label>:<br>
+			        <label for="title">제목</label>:<br>
 			        <input type="text" id="title" th:field="*{item.title}" />
 	    		</p>
             </div>
@@ -20,32 +21,41 @@
 		  <div class="row-lg-10">
             <div class="form-group">
             	<p>
-            		<label for="img" th:text="#{item.img}">대표 이미지</label>:<br>
-				    <input type="file" id="img" th:field="*{item.img}" placeholder="파일 선택">
+            		<label for="img">대표 이미지</label>:<br>
+				    <input type="text" id="img" th:field="*{item.img}" placeholder="파일 선택">
 				</p>
-            </div>
+            </div> 
 		  </div>
 		  <div class="row-lg-10">
            <div class="form-group">
-				카테고리: <select class="form-select form-select-sm" th:field="*{item.category.name}">
+				카테고리: <select class="form-select form-select-sm" th:field="*{item.product.category.catId}">
   							<option th:each="category : ${categories}"
-  								th:value="${category}"
-  								th:text="">카테고리</option>
-							</select>
+  								th:value="${category.catId}"
+  								th:text="${category.name}">카테고리</option>
+						</select>
+            </div>
+          </div>
+           <div class="row-lg-10">
+            <div class="form-group">
+				카테고리: <select class="form-select form-select-sm" th:field="*{item.product.productId}">
+  							<option th:each="product : ${products}"
+  								th:value="${product.productId}"
+  								th:text="${product.name}">제품군</option>
+						</select>
             </div>
 		  </div>
 		  <div class="row-lg-10">
             <div class="form-group">
             	<p>
-			        <label for="name" th:text="#{name}">창작자 이름</label>:<br>
-			        <input type="text" id="name" th:field="*{name}" />
+			        <label for="name">창작자 이름</label>:<br>
+			        <input type="text" id="name" th:field="*{item.account.name}" />
 	    		</p>
             </div>
 		  </div>
 		  <div class="row-lg-10">
             <div class="form-group">
             	<p>
-			        <label for="shortInfo" th:text="#{shortInfo}">프로젝트 요약</label>:<br>
+			        <label for="shortInfo">프로젝트 요약</label>:<br>
 			        <textarea id="shortInfo" rows="3" th:field="*{shortInfo}"></textarea>
 	    		</p>
             </div>
@@ -53,8 +63,8 @@
 		  <div class="row-lg-10">
             <div class="form-group">
             	<p>
-			        <label for="detailInfo" th:text="#{detailInfo}">프로젝트 상세내용</label>:<br>
-			        <textarea id="detailInfo" rows="20" th:field="*{detailInfo}"></textarea>
+			        <label for="detailInfo">프로젝트 상세내용</label>:<br>
+			        <textarea id="detailInfo" rows="20" th:field="*{item.description}"></textarea>
 	    		</p>
             </div>
 		  </div>
@@ -62,7 +72,7 @@
 		  <div class="row-lg-10">
             <div class="form-group">
             	<p>
-			        <label for="targetAmount" th:text="#{targetAmount}">목표 금액</label>:<br>
+			        <label for="targetAmount">목표 금액</label>:<br>
 			        <input type="text" id="targetAmount" th:field="*{targetAmount}" />
 	    		</p>
             </div>
@@ -70,7 +80,7 @@
 		  <div class="row-lg-10">
             <div class="form-group">
                 <p>
-			        <label for="startDate" th:text="#{startDate}">펀딩 시작일</label>:<br>
+			        <label for="startDate">펀딩 시작일</label>:<br>
 			        <input type="date" id="startDate" th:field="*{startDate}" />
 	    		</p>
             </div>
@@ -78,7 +88,7 @@
 		  <div class="row-lg-10">
             <div class="form-group">
                 <p>
-			        <label for="closingDate" th:text="#{closingDate}">펀딩 종료일</label>:<br>
+			        <label for="closingDate">펀딩 종료일</label>:<br>
 			        <input type="date" id="closingDate" th:field="*{closingDate}" />
 	    		</p>
             </div>
@@ -86,7 +96,7 @@
 		  <div class="row-lg-10">
             <div class="form-group">
             	<p>
-			        <label for="productComposition" th:text="#{productComposition}">상품 구성</label>:<br>
+			        <label for="productComposition">상품 구성</label>:<br>
 			        <textarea id="productComposition" rows="3" th:field="*{productComposition}"></textarea>
 	    		</p>
             </div>
@@ -95,16 +105,16 @@
 		  <div class="row-lg-10">
             <div class="form-group">
             	<p>
-			        <label for="email" th:text="#{email}">이메일</label>:<br>
-			        <input type="text" id="email" th:field="*{email}" />
+			        <label for="email">이메일</label>:<br>
+			        <input type="text" id="email" th:field="*{item.account.email}" />
 			    </p>
             </div>
 		  </div>
 		  <div class="row-lg-10">
             <div class="form-group">
             	<p>
-			        <label for="account" th:text="#{account}">입금 계좌</label>:<br>
-			        <input type="text" id="account" th:field="*{account}" />
+			        <label for="account">입금 계좌</label>:<br>
+			        <input type="text" id="account" th:field="*{item.account.accountNum}" />
 			    </p>
             </div>
 		  </div>

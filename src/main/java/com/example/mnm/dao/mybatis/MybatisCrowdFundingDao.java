@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.example.mnm.dao.CrowdFundingDao;
 import com.example.mnm.dao.mybatis.mapper.CrowdFundingMapper;
 import com.example.mnm.domain.CrowdFundingItem;
+import com.example.mnm.domain.Item;
 
 @Repository
 public class MybatisCrowdFundingDao implements CrowdFundingDao{
@@ -29,21 +30,27 @@ public class MybatisCrowdFundingDao implements CrowdFundingDao{
 	public void addFundingItem(CrowdFundingItem crowdFundingItem) throws DataAccessException {
 		crowdFundingMapper.addFundingItem(crowdFundingItem);
 	}
-
 	@Override
-	public void removeFundingItemById(int id) throws DataAccessException {
-		crowdFundingMapper.removeFundingItemById(id);
+	public void addItem(Item item) throws DataAccessException {
+		crowdFundingMapper.addItem(item);
 	}
 
 	@Override
-	public void updateFundingItemById(int id, CrowdFundingItem crowdFundingItem) throws DataAccessException {
-		crowdFundingMapper.updateFundingItemById(id, crowdFundingItem);
+	public void removeFundingItemById(String crowdFundingId) throws DataAccessException {
+		crowdFundingMapper.removeFundingItemById(crowdFundingId);
 	}
 
 	@Override
-	public void fund(int id) throws DataAccessException {
-		crowdFundingMapper.fund(id);
+	public void updateFundingItemById(String crowdFundingId, CrowdFundingItem crowdFundingItem) throws DataAccessException {
+		crowdFundingMapper.updateFundingItemById(crowdFundingId, crowdFundingItem);
 	}
+
+	@Override
+	public void fund(String crowdFundingId) throws DataAccessException {
+		crowdFundingMapper.fund(crowdFundingId);
+	}
+
+	
 
 
 }

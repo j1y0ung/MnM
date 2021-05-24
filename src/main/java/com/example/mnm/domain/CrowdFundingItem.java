@@ -1,7 +1,7 @@
 package com.example.mnm.domain;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.sql.Date;
 
 @SuppressWarnings("serial")
 public class CrowdFundingItem implements Serializable{
@@ -82,6 +82,14 @@ public class CrowdFundingItem implements Serializable{
 	public void setItem(Item item) {
 		this.item = item;
 	}
+	@Override
+	public String toString() {
+		return "CrowdFundingItem [crowdFundingId=" + crowdFundingId + ", shortInfo=" + shortInfo + ", targetAmount="
+				+ targetAmount + ", startDate=" + startDate + ", closingDate=" + closingDate + ", productComposition="
+				+ productComposition + ", currentSponsoredAmount=" + currentSponsoredAmount + ", numberOfSponsor="
+				+ numberOfSponsor + ", status=" + status + ", item=" + item + "]";
+	}
+	
 	
 	
 }

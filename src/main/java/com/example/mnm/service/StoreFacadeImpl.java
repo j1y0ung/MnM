@@ -9,46 +9,17 @@ import org.springframework.stereotype.Service;
 
 import com.example.mnm.dao.CategoryDao;
 import com.example.mnm.dao.CrowdFundingDao;
-import com.example.mnm.domain.Account;
+import com.example.mnm.dao.ProductDao;
 import com.example.mnm.domain.Category;
 import com.example.mnm.domain.CrowdFundingItem;
+import com.example.mnm.domain.Product;
 
 @Service
 @Transactional
 public class StoreFacadeImpl implements StoreFacade{
 	@Autowired CrowdFundingDao crowdFundingDao;
-	@Autowired CategoryDao category;
-	
-	@Override
-	public Account getAccount(String username) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Account getAccount(String username, String password) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void insertAccount(Account account) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void updateAccount(Account account) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public List<String> getUsernameList() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	@Autowired CategoryDao categoryDao;
+	@Autowired ProductDao productDao;
 	
 
 	@Override
@@ -59,7 +30,12 @@ public class StoreFacadeImpl implements StoreFacade{
 
 	@Override
 	public List<Category> getCategoryList() {
-		return category.getCategoryList();
+		return categoryDao.getCategoryList();
+	}
+	
+	@Override
+	public List<Product> getProductList() {
+		return productDao.getProductList();
 	}
 	
 	@Override
@@ -71,5 +47,33 @@ public class StoreFacadeImpl implements StoreFacade{
 	public CrowdFundingItem getFundingItemById(String crowdFundingId) {
 		return crowdFundingDao.getFundingItemById(crowdFundingId);
 	}
+
+	@Override
+	public void addFundingItem(CrowdFundingItem crowdFundingItem) {
+		crowdFundingDao.addItem(crowdFundingItem.getItem());
+		crowdFundingDao.addFundingItem(crowdFundingItem);
+	}
+
+	@Override
+	public void removeFundingItemById(int crowdFundingId) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void updateFundingItemById(int crowdFundingId, CrowdFundingItem crowdFundingItem) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void fund(int crowdFundingId) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	
+
+	
 
 }

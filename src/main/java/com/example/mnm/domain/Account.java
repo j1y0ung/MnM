@@ -11,6 +11,7 @@ public class Account implements Serializable {
 	private String address;
 	private String phone;
 	private String favouriteCategoryId;
+	private String accountNum;
 	
 	
 	
@@ -55,6 +56,12 @@ public class Account implements Serializable {
 	}
 	public void setUserId(String userId) {
 		this.userId = userId;
+	}
+	public String getAccountNum() {
+		return accountNum;
+	}
+	public void setAccountNum(String accountNum) {
+		this.accountNum = accountNum;
 	}
 	
 	
