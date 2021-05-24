@@ -22,5 +22,6 @@ public interface StoreFacade {
 	void removeFundingItemById(int crowdFundingId);
 	void updateFundingItemById(int crowdFundingId, CrowdFundingItem crowdFundingItem); 
 	void fund(int crowdFundingId);
+	List<CrowdFundingItem> getMyFundingItemListByUserId(String userId);
 	
 }

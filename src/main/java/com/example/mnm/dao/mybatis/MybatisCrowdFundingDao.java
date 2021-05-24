@@ -50,6 +50,11 @@ public class MybatisCrowdFundingDao implements CrowdFundingDao{
 		crowdFundingMapper.fund(crowdFundingId);
 	}
 
+	@Override
+	public List<CrowdFundingItem> getMyFundingItemListByUserId(String userId) {
+		return crowdFundingMapper.getMyFundingItemListByUserId(userId);
+	}
+
 	
 
 

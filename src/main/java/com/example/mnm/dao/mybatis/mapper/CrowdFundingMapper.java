@@ -19,4 +19,5 @@ public interface CrowdFundingMapper {
 	void removeFundingItemById(String crowdFundingId); // 펀딩 삭제
 	void updateFundingItemById(String crowdFundingId, CrowdFundingItem crowdFundingItem); // 펀딩 내용 수정
 	void fund(String crowdFundingId); // 후원하기
+	List<CrowdFundingItem> getMyFundingItemListByUserId(String userId);
 }

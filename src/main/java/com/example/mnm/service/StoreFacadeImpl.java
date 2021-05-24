@@ -72,6 +72,11 @@ public class StoreFacadeImpl implements StoreFacade{
 		
 	}
 
+	@Override
+	public List<CrowdFundingItem> getMyFundingItemListByUserId(String userId) {
+		return crowdFundingDao.getMyFundingItemListByUserId(userId);
+	}
+
 	
 
 	

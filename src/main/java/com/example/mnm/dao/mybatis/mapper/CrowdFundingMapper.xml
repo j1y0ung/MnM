@@ -128,5 +128,40 @@
 		ca.catid AND i.userid = a.userid
 		AND c.crowdFundingId=#{crowdFundingId}
 	</select>
+	
+	<!-- 내가 등록한 펀딩 아이템 가져오기 -->
+	<select id="getMyFundingItemListByUserId" parameterType="string"
+		resultType="CrowdFundingItem">
+		SELECT
+		i.title AS "item.title", 
+		i.description AS "item.description",
+		c.status as "status", 
+		i.img AS "item.img",
+		i.quantity AS "item.quantity", 
+		i.regiDate AS "item.regiDate", 
+		i.views AS "item.views",
+		i.shippingFee AS "item.shippingFee", 
+		i.userid AS "item.account.userid", 
+		i.productid AS "item.product.productid",
+		c.crowdfundingid AS "crowdfundingid", 
+		c.shortInfo AS "shortInfo",
+		c.targetAmount AS "targetAmount",
+		c.startDate AS "startDate", 
+		c.closingDate AS "closingDate", 
+		c.productComposition AS "productComposition",
+		c.currentSponsoredAmount AS "currentSponsoredAmount", 
+		c.numberOfSponsor AS "numberOfSponsor",
+		c.status AS "status", 
+		c.itemid AS "item.itemid",
+		p.productid AS "item.product.productid", 
+		p.name AS "item.product.name",
+		ca.catid AS "item.product.category.catid", 
+		ca.name AS "item.product.category.name"
+		FROM crowdFundingItem c, item i, product p, category ca, account a
+		WHERE c.itemid = i.itemid AND i.productid = p.productid AND p.catid =
+		ca.catid AND i.userid = a.userid 
+		AND i.userid=#{userId}
+	</select>
+	
 </mapper>
 
