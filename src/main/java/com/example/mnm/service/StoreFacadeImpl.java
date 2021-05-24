@@ -55,9 +55,9 @@ public class StoreFacadeImpl implements StoreFacade{
 	}
 
 	@Override
-	public void removeFundingItemById(String crowdFundingId) {
-		// TODO Auto-generated method stub
-		
+	public void removeFundingItemById(String itemId) {
+		crowdFundingDao.removeFundingItemById(itemId);
+		crowdFundingDao.removeItemById(itemId);
 	}
 
 	@Override

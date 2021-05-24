@@ -19,7 +19,7 @@ public interface StoreFacade {
 	List<CrowdFundingItem> getCrowdFundingItemList();
 	CrowdFundingItem getFundingItemById(String crowdFundingId);
 	void addFundingItem(CrowdFundingItem crowdFundingItem); 
-	void removeFundingItemById(String crowdFundingId);
+	void removeFundingItemById(String itemId);
 	void updateFundingItemById(String crowdFundingId, CrowdFundingItem crowdFundingItem); 
 	void fund(int crowdFundingId);
 	List<CrowdFundingItem> getMyFundingItemListByUserId(String userId);

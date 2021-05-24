@@ -36,8 +36,13 @@ public class MybatisCrowdFundingDao implements CrowdFundingDao{
 	}
 
 	@Override
-	public void removeFundingItemById(String crowdFundingId) throws DataAccessException {
-		crowdFundingMapper.removeFundingItemById(crowdFundingId);
+	public void removeFundingItemById(String itemId) throws DataAccessException {
+		crowdFundingMapper.removeFundingItemById(itemId);
+	}
+	@Override
+	public void removeItemById(String itemId) throws DataAccessException {
+		crowdFundingMapper.removeItemById(itemId);
+		
 	}
 
 	@Override
@@ -59,6 +64,8 @@ public class MybatisCrowdFundingDao implements CrowdFundingDao{
 	public void updateItemById(String itemId, Item item) throws DataAccessException {
 		crowdFundingMapper.updateItemById(itemId, item);
 	}
+
+	
 
 	
 

@@ -16,7 +16,7 @@
 		<td th:text="${crowdFundingItem.item.img}">이미지</td>
 		<td th:text="${crowdFundingItem.shortInfo}">펀딩 간단 설명</td>
 		<td><button th:onclick="'location.href=\'/crowdFunding/update/' + ${crowdFundingItem.crowdFundingId} + '\''">수정하기</button></td>
-		<td><button th:onclick="'location.href=\'/crowdFunding/delete/' + ${crowdFundingItem.crowdFundingId} + '\''">삭제하기</button></td>
+		<td><button th:onclick="'location.href=\'/crowdFunding/delete/' + ${crowdFundingItem.item.itemId} + '\''">삭제하기</button></td>
 	</tr> 
 </table>
 </body>

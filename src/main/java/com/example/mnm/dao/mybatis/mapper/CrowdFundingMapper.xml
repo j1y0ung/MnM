@@ -58,12 +58,12 @@
 	<delete id="removeFundingItemById" parameterType="string">
 		DELETE FROM
 		crowdfundingitem
-		WHERE itemid=#{itemid}
+		WHERE itemid=#{itemId}
 	</delete>
 	<delete id="removeItemById" parameterType="string">
 		DELETE FROM
 		item
-		WHERE itemid=#{itemid}
+		WHERE itemid=#{itemId}
 	</delete>
 
 	<!-- 펀딩하기(구매) -->

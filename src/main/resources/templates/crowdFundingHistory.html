@@ -11,12 +11,12 @@
 	<tr>
 		<th>펀딩 일시</th><th>펀딩 아이템 제목</th><th>펀딩 마감일</th><th>상태</th>
 	</tr>
-	<tr th:each=" : ${}">
+	<!-- <tr th:each=" : ${}">
 		<td th:text="${#temporals.format(, 'yyyy-MM-dd')}">펀딩 일시</td>
 		<td th:text="${}">펀딩 아이템 제목</td>
 		<td th:text="${#temporals.format(, 'yyyy-MM-dd HH:mm:ss')}">펀딩 마감일</td>
 		<td th:text="${}">상태</td>
-	</tr>
+	</tr> -->
 </table>
 <input type="submit" value="펀딩 취소" class="btn btn-primary float-right" th:value="#{}"><br><br>
 </body>
