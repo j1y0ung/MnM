@@ -67,11 +67,31 @@
 	</delete>
 
 	<!-- 펀딩하기(구매) -->
-	<insert id="fund" parameterType="Orders">
-		INSERT INTO orders (itemid, quantity)
-		VALUES (#{itemid}, #{quantity})
+	<insert id="fund" parameterType="FundingForm">
+		<selectKey keyProperty="orders.orderId" resultType="integer" order="BEFORE">
+			select ORDERID_SEQ.nextval FROM DUAL
+		</selectKey>
+		INSERT INTO orders 
+		(orderid, orderDate, shipaddr, totalprice, shiptoname, bankname, cardnumber, expirydate, phone, userid)
+		VALUES 
+		(#{orders.orderId}, to_char(sysdate,'yy/mm/dd'), #{orders.shipAddr}, 
+		#{orders.totalPrice}, #{orders.shipToName}, #{orders.bankName}, #{orders.cardNumber}, 
+		#{orders.expiryDate}, #{orders.phone}, #{orders.userId})
 	</insert>
-
+	<insert id="fund2" parameterType="FundingForm">
+		INSERT INTO lineitem 
+		(orderid, linenum, quantity, unitprice, itemid)
+		VALUES 
+		(#{orders.orderId}, LINENUM_SEQ.nextval, 0, 
+		#{orders.totalPrice}, #{crowdFundingItem.item.itemId})
+	</insert>
+	<update id="fundUpdate"
+		parameterType="FundingForm">
+		UPDATE crowdfundingitem 
+		SET currentsponsoredamount=currentsponsoredamount + #{orders.totalPrice}
+		WHERE crowdfundingId=#{crowdFundingItem.crowdFundingId}
+	</update>
+	
 	<!-- 펀딩 목록 가져오기 -->
 	<select id="getAllFundingItems" resultType="CrowdFundingItem">
 		SELECT
@@ -98,7 +118,8 @@
 		p.productid AS "item.product.productid", 
 		p.name AS "item.product.name",
 		ca.catid AS "item.product.category.catid", 
-		ca.name AS "item.product.category.name"
+		ca.name AS "item.product.category.name", 
+		a.name AS "item.account.name" 
 		FROM crowdFundingItem c, item i, product p, category ca, account a
 		WHERE c.itemid = i.itemid 
 		AND i.productid = p.productid 
@@ -145,7 +166,7 @@
 	</select>
 	
 	<!-- 내가 등록한 펀딩 아이템 가져오기 -->
-	<select id="getMyFundingItemListByUserId" parameterType="string"
+	<select id="getMyFundingItemListById" parameterType="string"
 		resultType="CrowdFundingItem">
 		SELECT
 		i.title AS "item.title", 
@@ -178,5 +199,38 @@
 		AND i.userid=#{userId}
 	</select>
 	
+	<!-- 내가 펀딩한 펀딩 아이템 가져오기 -->
+	<select id="getMyFundingItemsCheckoutById" parameterType="string"
+		resultType="CrowdFundingItem">
+		SELECT
+		i.title AS "item.title", 
+		i.description AS "item.description",
+		c.status as "status", 
+		i.img AS "item.img",
+		i.quantity AS "item.quantity", 
+		i.regiDate AS "item.regiDate", 
+		i.views AS "item.views",
+		i.shippingFee AS "item.shippingFee", 
+		i.userid AS "item.account.userid", 
+		i.productid AS "item.product.productid",
+		c.crowdfundingid AS "crowdfundingid", 
+		c.shortInfo AS "shortInfo",
+		c.targetAmount AS "targetAmount",
+		c.startDate AS "startDate", 
+		c.closingDate AS "closingDate", 
+		c.productComposition AS "productComposition",
+		c.currentSponsoredAmount AS "currentSponsoredAmount", 
+		c.numberOfSponsor AS "numberOfSponsor",
+		c.status AS "status", 
+		c.itemid AS "item.itemid",
+		p.productid AS "item.product.productid", 
+		p.name AS "item.product.name",
+		ca.catid AS "item.product.category.catid", 
+		ca.name AS "item.product.category.name"
+		FROM crowdFundingItem c, item i, product p, category ca, account a
+		WHERE c.itemid = i.itemid AND i.productid = p.productid AND p.catid =
+		ca.catid AND i.userid = a.userid 
+		AND i.userid=#{userId}
+	</select>
 </mapper>
 

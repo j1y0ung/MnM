@@ -50,7 +50,8 @@
             <div class="form-group">
             	<p>
 			        <label for="name">창작자 이름</label>:<br>
-			        <input type="text" id="name" th:field="*{item.account.name}" />
+			        <span th:text=${session.name} th:field="*{item.account.name}"></span>
+			        <span th:text=${session.userId} th:field="*{item.account.userId}"></span>
 	    		</p>
             </div>
 		  </div>
