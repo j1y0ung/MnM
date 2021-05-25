@@ -63,7 +63,8 @@
 		</tr>
 		<tr>
 		
-			<td>
+			<td><input type="hidden" th:value="${fundingForm.crowdFundingItem.item.itemId}" th:field="${fundingForm.crowdFundingItem.item.itemId}">
+			<input type="hidden" th:value="${fundingForm.crowdFundingItem.crowdFundingId}" th:field="${fundingForm.crowdFundingItem.crowdFundingId}">
 			<input type="submit" value="결제하기"/></td>
 		</tr>
 	</table>

@@ -85,10 +85,9 @@
 		(#{orders.orderId}, LINENUM_SEQ.nextval, 0, 
 		#{orders.totalPrice}, #{crowdFundingItem.item.itemId})
 	</insert>
-	<update id="fundUpdate"
-		parameterType="FundingForm">
+	<update id="fundUpdate" parameterType="FundingForm">
 		UPDATE crowdfundingitem 
-		SET currentsponsoredamount=currentsponsoredamount + #{orders.totalPrice}
+		SET currentsponsoredamount=currentsponsoredamount+#{orders.totalPrice}
 		WHERE crowdfundingId=#{crowdFundingItem.crowdFundingId}
 	</update>
 	
