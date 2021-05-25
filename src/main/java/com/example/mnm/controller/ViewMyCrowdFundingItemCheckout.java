@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -27,9 +28,18 @@ public class ViewMyCrowdFundingItemCheckout {
 			, HttpSession session
 			) throws Exception {
 		// 테스트 용 : 사용자 id가 1이라고 가정 
-		List<CrowdFundingItem> list = storeFacade.getMyFundingItemListById("1");
+		List<CrowdFundingItem> myLists = storeFacade.getMyFundingItemListById("1");
 		// 세션에서 사용자 id 가져와서 사용 
-//		List<CrowdFundingItem> list = storeFacade.getMyFundingItemListByUserId();
-		return new ModelAndView("crowdFundingHistory", "myCrowdFundingItemList", list);
+//		List<CrowdFundingItem> myLists = storeFacade.getMyFundingItemListById();
+		return new ModelAndView("crowdFundingHistory", "myLists", myLists);
+	}
+	
+	@PostMapping("/cancel")
+	public String cancelFunding(HttpServletRequest request
+			, @ModelAttribute("userId") String userId
+			, HttpSession session
+			) throws Exception {
+		
+		return "redirect:/crowdFunding/myFundingCheckout";
 	}
 }

@@ -7,17 +7,24 @@
 </head>
 <body>
 <br><h1 align="center">펀딩 내역</h1><br>
-<table th:unless="${#lists.isEmpty()}">
+<table th:unless="${#lists.isEmpty(myLists)}">
 	<tr>
-		<th>펀딩 일시</th><th>펀딩 아이템 제목</th><th>펀딩 마감일</th><th>상태</th>
+		<th>펀딩 일시</th>
+		<th>펀딩 아이템 제목</th>
+		<th>펀딩 마감일</th>
+		<th>상태</th>
 	</tr>
-	<!-- <tr th:each=" : ${}">
-		<td th:text="${#temporals.format(, 'yyyy-MM-dd')}">펀딩 일시</td>
-		<td th:text="${}">펀딩 아이템 제목</td>
-		<td th:text="${#temporals.format(, 'yyyy-MM-dd HH:mm:ss')}">펀딩 마감일</td>
-		<td th:text="${}">상태</td>
-	</tr> -->
+	<tr th:each="myList : ${myLists}">
+		<!-- <form action="" th:action="@{/crowdFunding/myFundingCheckout/cancel} th:object="${myList}" method="post" enctype="multipart/form-data"> -->
+		<td th:text="${myList.startDate}">펀딩 일시</td>
+		<td th:text="${myList.item.title}">펀딩아이템 제목</td>
+		<td th:text="${myList.closingDate}">펀딩 마감일</td>
+		<td th:text="${myList.status}">상태</td>
+		<td><!-- <input type="hidden" th:value="${myList.crowdFundingItem.crowdFundingId}" th:field="${fundingForm.crowdFundingItem.crowdFundingId}"> -->
+		<!-- <input type="submit" value="펀딩 취소" class="btn btn-primary float-right">--></td>
+		</form>
+	</tr>
 </table>
-<input type="submit" value="펀딩 취소" class="btn btn-primary float-right" th:value="#{}"><br><br>
+
 </body>
 </html>
