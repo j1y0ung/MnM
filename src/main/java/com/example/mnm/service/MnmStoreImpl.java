@@ -13,13 +13,15 @@ public class MnmStoreImpl implements MnmStoreFacade {
 	@Autowired	
 	private AccountDao accountDao;
 
-//	public Account getAccount(String id) {
-//		return accountDao.getAccount(id);
-//	}
-//
-//	public Account getAccount(String id, String pwd) {
-//		return accountDao.getAccount(id, pwd);
-//	}
+	// 로그인시 비밀번호 비교하는 용도
+	public String getPwd(String id) {
+		return accountDao.getPwd(id);
+	}
+	
+	// 로그인 성공시 Account 얻어오는 용도
+	public Account getAccount(String id) {
+		return accountDao.getAccount(id);
+	}
 
 	public void insertAccount(Account account) {
 		accountDao.insertAccount(account);
@@ -32,9 +34,5 @@ public class MnmStoreImpl implements MnmStoreFacade {
 //	public List<String> getUsernameList() {
 //		return accountDao.getUsernameList();
 //	}
-
-	public String getPwd(String id) {
-		return accountDao.getPwd(id);
-	}
 
 }

@@ -15,9 +15,9 @@ public class MybatisAccountDao implements AccountDao {
 	@Autowired
 	private AccountMapper accountMapper;
 	
-//	public Account getAccount(String id) throws DataAccessException {
-//		return accountMapper.getAccountById(id);
-//	}
+	public Account getAccount(String id) throws DataAccessException {
+		return accountMapper.getAccount(id);
+	}
 //
 //	public Account getAccount(String username, String password) 
 //			throws DataAccessException {
