@@ -1,0 +1,31 @@
+<html lagn="ko" 
+      xmlns:th="http://www.thymeleaf.org">
+      
+<!-- headerFragment 선언-->
+<div th:fragment="headerFragment">
+    <table>
+		<tr>
+			<td style="text-align:left">
+				<a href="" th:href="@{/home}"><img border="0" src="/images/mnm_logo.png" width="150" /></a>
+			</td>
+			<td style="text-align:right">
+				<a th:if="${session.loginCheck == null}" th:href="@{/loginForm}">login</a>
+				<a th:if="${session.loginCheck == null}" th:href="@{/joinForm}">join</a>
+				<a th:if="${session.loginCheck != null}" th:href="@{/logout}">logout</a>
+				<a th:if="${session.loginCheck != null}" th:href="@{/cart}">cart</a>
+				<a th:if="${session.loginCheck != null}" th:href="@{/mypage}">mypage</a>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<a href="" th:href="@{/personalDeal/list}">PersonalDeal</a>
+				&nbsp&nbsp<img border="0" src="/images/separator.gif" />&nbsp&nbsp
+				<a href="" th:href="@{/auction/list}">Auction</a>
+				&nbsp&nbsp<img border="0" src="/images/separator.gif"/>&nbsp&nbsp
+				<a href="" th:href="@{/crowdFunding/list}">CrowdFunding</a>
+			</td>
+		</tr>
+		
+	</table>
+</div>
+</html>
