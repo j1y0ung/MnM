@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.jpetstore.dao.mybatis.mapper.AuctionMapper">
+  <cache />
+  
+  <insert id="insertAuctionItem" parameterType="AuctionItem" useGeneratedKeys="true" keyProperty="auctionId" keyColumn="auctionId">
+    INSERT INTO AUCTIONITEM
+      (AUCTIONID, STARTPRICE, BIDUNIT, IMMDPURCHASEPRICE, STARTDATE, ENDDATE, STATUS, ITEMID)
+    VALUES
+      (auctionid_seq.nextval, #{startPrice}, #{bidUnit}, #{immdPurchasePrice}, #{startDate}, #{endDate}, '경매대기중', #{item.itemId})
+  </insert>
+  
+  <update id="updateAuctionItem" parameterType="AuctionItem">
+  	UPDATE AUCTIONITEM
+    SET STARTPRICE = #{startPrice}, BIDUNIT = #{bidUnit}, IMMDPURCHASEPRICE = #{immdPurchasePrice}, STARTDATE = #{startDate}, ENDDATE = #{endDate}
+    WHERE AUCTIONID = #{auctionId}
+  </update>
+  
+  <select id="getAuctionItem" resultType="AuctionItem">
+    SELECT * FROM AUCTIONITEM
+    WHERE AUCTIONID=#{AUCTIONID}
+  </select>
+  
+  <select id="getRecentAuctionItemList" resultType="AuctionItemList">
+    SELECT AUCTIONID, TITLE, IMG, CURRENTPRICE, BIDNUM, VIEWS, STARTDATE, ENDDATE, A.ITEMID FROM AUCTIONITEM A, ITEM I
+    WHERE A.ITEMID=I.ITEMID AND type='auction' AND STATUS='경매진행중' ORDER BY STARTDATE DESC
+  </select>
+
+  <select id="getPopularAuctionItemList" resultType="AuctionItemList">
+    SELECT AUCTIONID, TITLE, IMG, CURRENTPRICE, BIDNUM, VIEWS, STARTDATE, ENDDATE FROM AUCTIONITEM A, ITEM I 
+    WHERE A.ITEMID=I.ITEMID AND type='auction' AND STATUS='경매진행중' ORDER BY VIEWS DESC
+  </select>
+
+  <select id="getMostBiddingAuctionItemList" resultType="AuctionItemList">
+    SELECT AUCTIONID, TITLE, IMG, CURRENTPRICE, BIDNUM, VIEWS, STARTDATE, ENDDATE FROM AUCTIONITEM A, ITEM I 
+    WHERE A.ITEMID=I.ITEMID AND type='auction' AND STATUS='경매진행중' ORDER BY BIDNUM DESC
+  </select>
+  
+  <select id="getClosingAuctionItemList" resultType="AuctionItemList">
+    SELECT AUCTIONID, TITLE, IMG, CURRENTPRICE, BIDNUM, VIEWS, STARTDATE, ENDDATE FROM AUCTIONITEM A, ITEM I 
+    WHERE A.ITEMID=I.ITEMID AND type='auction' AND STATUS='경매진행중' ORDER BY ENDDATE
+  </select>
+  
+  <select id="searchAuctionItemList" resultType="AuctionItemList" parameterType="string">
+    SELECT AUCTIONID, TITLE, IMG, CURRENTPRICE, BIDNUM, VIEWS, STARTDATE, ENDDATE FROM AUCTIONITEM A, ITEM I 
+    WHERE A.ITEMID=I.ITEMID AND type='auction' AND STATUS='경매진행중' AND TITLE LIKE '%' ||  #{word} || '%'
+  </select>
+  
+  <update id="startAuctionItemStatus">
+   <![CDATA[
+  	UPDATE AUCTIONITEM
+  	SET STATUS='경매진행중'
+  	WHERE STARTDATE <= #{param1} AND AUCTIONID=#{param2}
+   ]]>
+  </update>
+  
+  <update id="endAuctionItemStatus">
+   <![CDATA[
+  	UPDATE AUCTIONITEM
+  	SET STATUS='경매마감'
+  	WHERE ENDDATE <= #{param1} AND AUCTIONID=#{param2}
+   ]]>
+  </update>
+  
+  <delete id="deleteAuctionItem" parameterType="string">
+    DELETE FROM AUCTIONITEM WHERE AUCTIONID=#{AUCTIONID}
+  </delete>
+  
+  <insert id="insertBidding" parameterType="Bid">
+    INSERT INTO BID
+      (BIDID, AUCTIONID, BIDPRICE, USERID)
+    VALUES
+      (bid_seq.nextval, #{auctionId}, #{bidPrice}, #{userId})
+  </insert>
+  
+  <update id="updateCurrentPrice">
+  	UPDATE AUCTIONITEM
+  	SET CURRENTPRICE = #{param2}, BIDNUM = BIDNUM + 1
+  	WHERE AUCTIONID = #{param1}
+  </update>
+  
+  <select id="getBids" resultType="Bid">
+    SELECT * FROM BID
+    WHERE AUCTIONID=#{AUCTIONID} ORDER BY BIDPRICE
+  </select>
+  
+  <select id="findWinnerBid" resultType="bid">
+  	SELECT BIDPRICE, USERID, AUCTIONID
+	FROM (SELECT BIDPRICE, USERID, AUCTIONID FROM BID WHERE AUCTIONID = #{AUCTIONID} ORDER BY BIDPRICE DESC)
+	WHERE ROWNUM=1
+  </select>
+  
+  <update id="updateWinner">
+  	UPDATE AUCTIONITEM
+  	SET WINNERID=#{winnerId}, WINNINGBIDPRICE=#{bidPrice}
+  	WHERE AUCTIONID = #{auctionId}
+  </update>
+  
+  <select id="getStatus" resultType="string">
+  	SELECT STATUS
+	FROM AUCTIONITEM
+	WHERE AUCTIONID = #{auctionId}
+  </select>
+  
+  <update id="updateImmediatePurchase">
+  	UPDATE AUCTIONITEM
+  	SET WINNERID=#{param3}, IMMDPURCHASEPRICE=#{param2}, STATUS='즉시구매완료'
+  	WHERE AUCTIONID = #{param1}
+  </update>
+
+</mapper>
