@@ -63,10 +63,12 @@ public class AccountController {
     public String login(HttpSession session,
                              @RequestParam(value="id") String id, 
                              @RequestParam(value="pwd") String pwd) {
-                            
+		Account account = null;                            
         if((store.getPwd(id)).equals(pwd)) {
+        	account = store.getAccount(id);
             session.setAttribute("loginCheck", true);
             session.setAttribute("id", id);
+            session.setAttribute("account", account);
             System.out.println("로그인 성공");
             return "home";
         } else{
@@ -78,11 +80,22 @@ public class AccountController {
 
 	// 로그아웃 실행
 	@RequestMapping(value="/logout")
-    public String logout(HttpSession session) {
-        session.setAttribute("loginCheck", null);
-        session.setAttribute("id", null);
-        
-        return "home";
-    }
+	public String logout(HttpServletRequest request) throws Exception {
+		// 세션 비활성화
+		HttpSession session = request.getSession();
+		session.invalidate();
+
+		return "redirect:/home";
+	}
+	
+	// 세션 체크용
+//	@RequestMapping("/sessionCheck")
+//	private ModelAndView sessionCheck(@ModelAttribute Account account,
+//			HttpServletRequest request) throws Exception {
+//		HttpSession session = request.getSession();
+//		Account curSession = (Account) session.getAttribute("account");
+//		System.out.println(curSession.getName());
+//		return new ModelAndView("home");
+//	}
 	
 }

@@ -7,7 +7,7 @@ import org.springframework.dao.DataAccessException;
 import com.example.mnm.domain.Account;
 
 public interface AccountDao {
-//	Account getAccount(String username) throws DataAccessException;
+	Account getAccount(String id) throws DataAccessException;
 //
 //	Account getAccount(String username, String password) throws DataAccessException;
 

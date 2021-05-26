@@ -10,7 +10,7 @@ import com.example.mnm.domain.Account;
 @Mapper
 public interface AccountMapper {
 	
-//	Account getAccountById(String id);
+	Account getAccount(String id);
 //
 //	Account getAccountByUsernameAndPassword(String username, String password);
 //

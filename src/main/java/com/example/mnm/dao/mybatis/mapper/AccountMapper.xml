@@ -14,5 +14,10 @@
 		SELECT pwd FROM ACCOUNT
 		WHERE userid=#{id}
 	</select>
+	
+	<select id="getAccount" parameterType="String" resultType="Account">
+		SELECT * FROM ACCOUNT
+		WHERE userid=#{id}
+	</select>
 
 </mapper>
