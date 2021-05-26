@@ -8,6 +8,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.example.mnm.interceptor.AuthCheckInterceptor;
 
+//import com.example.mnm.interceptor.LoginInterceptor;
+
 @Configuration
 public class MvcConfig implements WebMvcConfigurer {
 
@@ -16,14 +18,14 @@ public class MvcConfig implements WebMvcConfigurer {
 
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry) {
-		registry.addViewController("/").setViewName("main");
+		registry.addViewController("/").setViewName("home");
 	}
 
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(authCheckInterceptor)
-				.addPathPatterns("/edit/**")
-				.excludePathPatterns("/edit/help/**");
+				.addPathPatterns("/shop/editAccount.do", "/shop/listOrders.do",
+					"/shop/viewOrder.do", "/shop/newOrder.do");		
 	}
 
 }
