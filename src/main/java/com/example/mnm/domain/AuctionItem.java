@@ -1,20 +1,28 @@
 package com.example.mnm.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashMap;
 
-public class AuctionItem {
+import org.springframework.format.annotation.DateTimeFormat;
+
+@SuppressWarnings("serial")
+public class AuctionItem implements Serializable {
 	private String auctionId;
 	private int currentPrice;
 	private int startPrice;
+	@DateTimeFormat(pattern="yyyy-MM-dd\'T\'HH:mm")
 	private Date startDate;
+	@DateTimeFormat(pattern="yyyy-MM-dd\'T\'HH:mm")
 	private Date endDate;
 	private int bidUnit;
 	private int bidNum;
 	private int immdPurchasePrice;
 	private HashMap<String, Integer> bidInfo;
 	private HashMap<String, Integer> finalBidInfo;
-	private int views;
+	private Item item;
+	private String itemId;
+	private String status;
 	
 	public AuctionItem() {
 	}
@@ -78,12 +86,31 @@ public class AuctionItem {
 	public void setFinalBidInfo(HashMap<String, Integer> finalBidInfo) {
 		this.finalBidInfo = finalBidInfo;
 	}
-	public int getViews() {
-		return views;
+	public Item getItem() {
+		return item;
 	}
-	public void setViews(int views) {
-		this.views = views;
+	public void setItem(Item item) {
+		this.item = item;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
 	}
 	
+	public String getItemId() {
+		return itemId;
+	}
+	public void setItemId(String itemId) {
+		this.itemId = itemId;
+	}
+	@Override
+	public String toString() {
+		return "AuctionItem [auctionId=" + auctionId + ", currentPrice=" + currentPrice + ", startPrice=" + startPrice
+				+ ", startDate=" + startDate + ", endDate=" + endDate + ", bidUnit=" + bidUnit + ", bidNum=" + bidNum
+				+ ", immdPurchasePrice=" + immdPurchasePrice + ", item=" + item + ", itemId=" + itemId + ", status="
+				+ status + "]";
+	}
 	
 }

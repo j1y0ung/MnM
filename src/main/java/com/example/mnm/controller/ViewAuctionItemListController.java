@@ -4,43 +4,47 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import com.example.mnm.domain.AuctionItem;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import com.example.mnm.service.MnmStoreFacade;
+import com.example.mnm.domain.AuctionItemList;
 @Controller
 public class ViewAuctionItemListController {
+	private MnmStoreFacade mnmStore;
 	@Autowired
-	private AuctionService auctionService;
+	public void setmnmStore(MnmStoreFacade mnmStore) {
+		this.mnmStore = mnmStore;
+	}
 	
 	@RequestMapping("/auction/recently")
 	public String handleRequest(Model model) {
-		List<AuctionItem> auctionItems = this.auctionService.getAuctionItemListBy("startDate");
-		model.addAttribute("auctionItemList", auctionItems);
-		return "AuctionItemListView";
+		List<AuctionItemList> auctionItems = mnmStore.getRecentAuctionItemList();
+		model.addAttribute("auctionItems", auctionItems);
+		return "thyme/AuctionItemListView";
 	}
 	@RequestMapping("/auction/mostViews")
 	public String handleRequest2(Model model) {
-		List<AuctionItem> auctionItems = this.auctionService.getAuctionItemListBy("views");
-		model.addAttribute("auctionItemList", auctionItems);
-		return "AuctionItemListView";
+		List<AuctionItemList> auctionItems = mnmStore.getPopularAuctionItemList();
+		model.addAttribute("auctionItems", auctionItems);
+		return "thyme/AuctionItemListView";
 	}
 	@RequestMapping("/auction/mostBids")
 	public String handleRequest3(Model model) {
-		List<AuctionItem> auctionItems = this.auctionService.getAuctionItemListBy("bidNum");
-		model.addAttribute("auctionItemList", auctionItems);
-		return "AuctionItemListView";
+		List<AuctionItemList> auctionItems = mnmStore.getMostBiddingAuctionItemList();
+		model.addAttribute("auctionItems", auctionItems);
+		return "thyme/AuctionItemListView";
 	}
 	@RequestMapping("/auction/deadline")
 	public String handleRequest4(Model model) {
-		List<AuctionItem> auctionItems = this.auctionService.getAuctionItemListBy("endDate");
-		model.addAttribute("auctionItemList", auctionItems);
-		return "AuctionItemListView";
+		List<AuctionItemList> auctionItems = mnmStore.getClosingAuctionItemList();
+		model.addAttribute("auctionItems", auctionItems);
+		return "thyme/AuctionItemListView";
 	}	
-	@RequestMapping("/auction/search/{word}")
-	public String handleRequest5(@PathVariable String word, Model model) {
-		List<AuctionItem> auctionItems = this.auctionService.searchAuctionItemList(word);
-		model.addAttribute("auctionItemList", auctionItems);
-		return "AuctionItemListView";
+	@RequestMapping("/auction/search")
+	public String handleRequest5(@RequestParam String word, Model model) {
+		List<AuctionItemList> auctionItems = mnmStore.searchAuctionItemList(word);
+		model.addAttribute("auctionItems", auctionItems);
+		return "thyme/AuctionItemListView";
 	}
 }
