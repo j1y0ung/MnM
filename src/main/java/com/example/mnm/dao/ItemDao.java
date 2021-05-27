@@ -10,7 +10,10 @@ import com.example.mnm.domain.Item;
 
 public interface ItemDao {
 	
-  public void insertItem(Item item) throws DataAccessException;
+  public static void insertItem(Item item) throws DataAccessException {
+	// TODO Auto-generated method stub
+	
+}
 
 //  public void updateQuantity(Order order) throws DataAccessException;
 

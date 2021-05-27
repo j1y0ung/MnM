@@ -1,5 +1,6 @@
 package com.example.mnm.controller;
 
+
 import java.io.File;
 import java.io.IOException;
 
@@ -8,10 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Controller;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.multipart.MultipartFile;
@@ -42,6 +45,7 @@ public class AddAuctionItemController implements ApplicationContextAware {
 
 	@GetMapping
 	public String form() {
+
 		return "thyme/RegistAuctionItemForm";
 	}
 	

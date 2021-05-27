@@ -2,6 +2,8 @@ package com.example.mnm.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 //import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.example.mnm.domain.Account;
 import com.example.mnm.domain.Category;
 import com.example.mnm.domain.CrowdFundingItem;
 import com.example.mnm.domain.Item;
@@ -31,12 +34,22 @@ public class AddCrowdFundingItemController {
 //	}
 	
 	@GetMapping("")
-	protected String form(ModelMap model) {
+	protected String form(ModelMap model, HttpSession session) {
+		Account account = (Account) session.getAttribute("account");
+		if(account == null) {
+			return "redirect:/crowdFunding/list";
+		} else {
+			model.put("session", account);
+		}
+		
 		List<Category> catlist = this.storeFacade.getCategoryList();
 		model.put("categories", catlist);
+		
 		List<Product> prolist = this.storeFacade.getProductList();
 		model.put("products", prolist);
+		
 		model.put("crowdFundingItem", new CrowdFundingItem(new Item(new Product(new Category()))));
+		
 		return "crowdFundingForm";
 	}
 
