@@ -59,7 +59,9 @@ public class MnmStoreImpl implements MnmStoreFacade {
 //		return accountDao.getUsernameList();
 //	}
 
-	
+	public Item getItem(String itemId) {
+		return itemDao.getItem(itemId);
+	}
 	//Auction
 	public void insertAuctionItem(AuctionItem auctionItem) {
 		auctionDao.insertAuctionItem(auctionItem);
@@ -219,7 +221,7 @@ public class MnmStoreImpl implements MnmStoreFacade {
 	@Override
 	public void updateFundingItemById(String crowdFundingId, CrowdFundingItem crowdFundingItem) {
 		crowdFundingDao.updateFundingItemById(crowdFundingId, crowdFundingItem);
-		crowdFundingDao.updateItemById(Integer.toString(crowdFundingItem.getItem().getItemId()), crowdFundingItem.getItem());
+		crowdFundingDao.updateItemById(crowdFundingItem.getItem().getItemId(), crowdFundingItem.getItem());
 	}
 
 	@Override

@@ -31,7 +31,7 @@ public class ViewMyCrowdFundingItemCheckout {
 		List<CrowdFundingItem> myLists = storeFacade.getMyFundingItemListById("1");
 		// 세션에서 사용자 id 가져와서 사용 
 //		List<CrowdFundingItem> myLists = storeFacade.getMyFundingItemListById();
-		return new ModelAndView("crowdFundingHistory", "myLists", myLists);
+		return new ModelAndView("thyme/crowdFundingHistory", "myLists", myLists);
 	}
 	
 	@PostMapping("/cancel")

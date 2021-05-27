@@ -52,7 +52,7 @@ public class UpdateCrowdFundingItemController {
 		List<Product> prolist = this.storeFacade.getProductList();
 		model.put("products", prolist);
 		
-		return "CrowdFundingUpdateForm";
+		return "thyme/CrowdFundingUpdateForm";
 	}
 	
 	@PostMapping("")
