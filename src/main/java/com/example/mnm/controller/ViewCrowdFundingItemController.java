@@ -8,12 +8,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.mnm.domain.CrowdFundingItem;
-import com.example.mnm.service.StoreFacade;
+import com.example.mnm.service.MnmStoreFacade;
 
 @Controller
 @RequestMapping("/crowdFunding/item")
 public class ViewCrowdFundingItemController {
-	@Autowired private StoreFacade storeFacade;
+	@Autowired private MnmStoreFacade storeFacade;
 
 	@GetMapping("")
 	public String handleRequest(

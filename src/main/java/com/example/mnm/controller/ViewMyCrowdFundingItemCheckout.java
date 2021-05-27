@@ -14,13 +14,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.mnm.domain.CrowdFundingItem;
-import com.example.mnm.service.StoreFacade;
+import com.example.mnm.service.MnmStoreFacade;
 
 @Controller
 @RequestMapping("/crowdFunding/myFundingCheckout")
 public class ViewMyCrowdFundingItemCheckout {
 
-	@Autowired private StoreFacade storeFacade;
+	@Autowired private MnmStoreFacade storeFacade;
 	
 	@GetMapping("")
 	public ModelAndView handleRequest(HttpServletRequest request

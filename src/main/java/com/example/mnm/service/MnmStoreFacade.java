@@ -8,7 +8,11 @@ import com.example.mnm.domain.Account;
 import com.example.mnm.domain.AuctionItem;
 import com.example.mnm.domain.AuctionItemList;
 import com.example.mnm.domain.Bid;
+import com.example.mnm.domain.Category;
+import com.example.mnm.domain.CrowdFundingItem;
+import com.example.mnm.domain.FundingForm;
 import com.example.mnm.domain.Item;
+import com.example.mnm.domain.Product;
 public interface MnmStoreFacade {
 //
 //	List<String> getUsernameList();
@@ -36,4 +40,19 @@ public interface MnmStoreFacade {
 	void endAuctionScheduler(Date endTime, String auctionId);
 	String getStatus(String auctionId);
 	void updateImmediatePurchase(String auctionId, int immdPurchasePrice, String winnerId);
+	
+	// CrowdFunding
+	List<Category> getCategoryList();
+	Category getCategory(String categoryId);
+
+	List<Product> getProductList();
+	
+	List<CrowdFundingItem> getCrowdFundingItemList();
+	CrowdFundingItem getFundingItemById(String crowdFundingId);
+	List<CrowdFundingItem> getMyFundingItemListById(String userId);
+	List<CrowdFundingItem> getMyFundingItemsCheckoutById(String userId);
+	void addFundingItem(CrowdFundingItem crowdFundingItem); 
+	void removeFundingItemById(String itemId);
+	void updateFundingItemById(String crowdFundingId, CrowdFundingItem crowdFundingItem); 
+	void fund(FundingForm fundingForm);
 }

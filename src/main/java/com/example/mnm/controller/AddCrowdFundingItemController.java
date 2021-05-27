@@ -20,13 +20,13 @@ import com.example.mnm.domain.Category;
 import com.example.mnm.domain.CrowdFundingItem;
 import com.example.mnm.domain.Item;
 import com.example.mnm.domain.Product;
-import com.example.mnm.service.StoreFacade;
+import com.example.mnm.service.MnmStoreFacade;
 
 @Controller
 @RequestMapping("/crowdFunding/add")
 public class AddCrowdFundingItemController {
 	
-	@Autowired private StoreFacade storeFacade;
+	@Autowired private MnmStoreFacade storeFacade;
 
 //	@ModelAttribute("addCrowdFundingItemForm")
 //	public CrowdFundingItemForm createCrowdFundingItemForm() {
