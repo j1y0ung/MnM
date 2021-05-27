@@ -6,12 +6,11 @@ import java.io.Serializable;
 public class FundingForm implements Serializable{
 	private Orders orders;
 	private CrowdFundingItem crowdFundingItem;
-
+	
 	public FundingForm() {
 		orders = new Orders();
 		crowdFundingItem = new CrowdFundingItem(new Item());
 	}
-
 	public Orders getOrders() {
 		return orders;
 	}

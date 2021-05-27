@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.mnm.dao.AuctionDao;
+import com.example.mnm.dao.ItemDao;
 import com.example.mnm.dao.AccountDao;
 import com.example.mnm.domain.Account;
 import com.example.mnm.domain.AuctionItem;
@@ -22,6 +23,8 @@ public class MnmStoreImpl implements MnmStoreFacade {
 	private AccountDao accountDao;
 	@Autowired
 	private AuctionDao auctionDao;
+	@Autowired
+	private ItemDao itemDao;
 	
 	@Autowired
 	private ThreadPoolTaskScheduler scheduler;
@@ -54,7 +57,7 @@ public class MnmStoreImpl implements MnmStoreFacade {
 		auctionDao.insertAuctionItem(auctionItem);
 	}
 	public void insertItem(Item item) {
-		itemDao.insertItem(item);
+		ItemDao.insertItem(item);
 	}
 	public List<AuctionItemList> getRecentAuctionItemList() {
 		return auctionDao.getRecentAuctionItemList();

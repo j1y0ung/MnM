@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>JPetStore</title>
+</head>
+<body>
+	<div th:replace="~{IncludeTop::includeTop}"></div>
+
+	<table align="center">
+		<tr>
+			<td>
+				<table>
+					<tr>
+						<td><a href="" th:href="@{/shop/Cart.do}">Shopping Cart</a></td>
+					</tr>
+				</table>
+			</td>
+			<td>
+				<h2>주문내역</h2>
+				<table border='1' bgcolor="#FFFF88">
+					<tr>
+						<td colspan="4"><font color="green" size="4"><b>주문내용</b></font></td>
+					</tr>
+					<tr>
+						<td><b></b></td>
+						<td><b>상품설명</b></td>
+						<td><b>주문날짜</b></td>
+						<td><b>금액</b></td>
+					</tr>
+					<tr th:each="orderList : ${orderList.pageList}"
+						bgcolor="#FFFF88">
+						<td><img th:src="${cartItem.item.img}"></td>
+						<td><a href=""
+							th:href="@{}"
+							th:text="${orderList.item.itemId}">Name</a></td>
+						<td th:text="${orderList.orderDate}">OrderDate</td>
+						<td th:text="${orderList.totalPrice}">Total Price</td>
+					</tr>
+					<tr>
+						<td colspan="4"><font color="green" size="4"><b>배송정보</b></font></td>
+					</tr>
+					<tr>
+						<td colspan="1">이름 :</td>
+						<td colspan="3"><th:text ="${ordersCommand.name}" /></td>
+					</tr>
+					<tr>
+						<td colspan="1">전화번호 :</td>
+						<td colspan="3"><th:text ="${ordersCommand.phone}" /></td>
+					</tr>
+					<tr>
+						<td colspan="1">주소 :</td>
+						<td colspan="3"><th:text ="${ordersCommand.shipaddr}" /></td>
+					</tr>
+					<tr>
+						<td colspan="4"><font color="green" size="4"><b>결제정보</b></font></td>
+					</tr>
+					<tr>
+						<td>은행 :</td>
+						<td><th:text="${ordersCommand.bankName}"></td>
+					</tr>
+					<tr>
+						<td>카드번호 :</td>
+						<td colspan="3"><th:text="${ordersCommand.cardNumber}"/></td>
+					</tr>
+					<tr>
+						<td>만료일 (MM/YYYY):</td>
+						<td colspan="3"><th:text="${ordersCommand.expiryDate}"/></td>
+					</tr>
+				</table> <th:if test="${cart.numberOfItems > 0}">
+					<br />
+				</th:if>
+			</td>
+		</tr>
+	</table>
+
+</body>
+</html>
