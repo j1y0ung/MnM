@@ -6,6 +6,7 @@ import java.io.Serializable;
 public class Bid implements Serializable {
 	private int bidPrice;
 	private String userId;
+	private String auctionId;
 	
 	public Bid() {
 	}
@@ -21,5 +22,10 @@ public class Bid implements Serializable {
 	public void setBidPrice(int bidPrice) {
 		this.bidPrice = bidPrice;
 	}
-	
+	public String getAuctionId() {
+		return auctionId;
+	}
+	public void setAuctionId(String auctionId) {
+		this.auctionId = auctionId;
+	}
 }

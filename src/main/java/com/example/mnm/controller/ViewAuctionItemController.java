@@ -1,22 +1,36 @@
 package com.example.mnm.controller;
 
+
+import java.util.List;
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+
 import com.example.mnm.domain.AuctionItem;
+import com.example.mnm.domain.Bid;
+import com.example.mnm.service.MnmStoreFacade;
 
 @Controller
 public class ViewAuctionItemController {
+	private MnmStoreFacade mnmStore;
 	@Autowired
-	private AuctionService auctionService;
+	public void setmnmStore(MnmStoreFacade mnmStore) {
+		this.mnmStore = mnmStore;
+	}
 	
 	@RequestMapping("/auction/{auctionId}")
 	public String handleRequest(@PathVariable String auctionId, Model model) {
-		AuctionItem auctionItem = auctionService.getAuctionItem(auctionId);
+		AuctionItem auctionItem = mnmStore.getAuctionItem(auctionId);
+		mnmStore.increaseItemViews(auctionItem.getItemId());
+		List<Bid> bids = mnmStore.getBids(auctionId);
+		auctionItem.setItem(mnmStore.getItem(auctionItem.getItemId()));
 		model.addAttribute("auctionItem", auctionItem);
-		return "AuctionItemView";
+		model.addAttribute("bids", bids);
+		return "thyme/AuctionItemView";
 	}
 
 }

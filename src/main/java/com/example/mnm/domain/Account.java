@@ -13,6 +13,9 @@ public class Account implements Serializable {
 	private String favouriteCategoryId;
 	private String accountNum;
 	
+	private String id;
+	private String pwd;
+	private String favCategory;
 	
 	
 	public String getPassword() {
@@ -27,18 +30,26 @@ public class Account implements Serializable {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	public String getPwd() {
+		return pwd;
+	}
+	public void setPwd(String pwd) {
+		this.pwd = pwd;
+	}
 	public String getName() {
 		return name;
 	}
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getAddress() {
-		return address;
-	}
-	public void setAddress(String address) {
-		this.address = address;
-	}
+
 	public String getPhone() {
 		return phone;
 	}
@@ -64,5 +75,17 @@ public class Account implements Serializable {
 		this.accountNum = accountNum;
 	}
 	
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
+	}
+	public String getFavCategory() {
+		return favCategory;
+	}
+	public void setFavCategory(String favCategory) {
+		this.favCategory = favCategory;
+	}
 	
 }

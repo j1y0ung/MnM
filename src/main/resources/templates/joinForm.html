@@ -13,9 +13,9 @@
     <script th:src="@{/js/page/home.js}"></script>
 </th:block>
 
-<h2>로그인</h2>
+<h2>회원가입</h2>
 <div layout:fragment="content">
-	<form th:action="@{/login}" th:object="${account}" method="post">
+	<form th:action="@{/join}" th:object="${account}" method="post">
 		<table border=1>
 			<tr>
 				<td>id</td>
@@ -29,8 +29,38 @@
 					<input type="text" id="pwd" th:field="*{pwd}" />
 				</td>
 			</tr>
+			<tr>
+				<td>name</td>
+				<td>
+					<input type="text" id="name" th:field="*{name}" />
+				</td>
+			</tr>
+			<tr>
+				<td>email</td>
+				<td>
+					<input type="text" id="email" th:field="*{email}" />
+				</td>
+			</tr>
+			<tr>
+				<td>phone</td>
+				<td>
+					<input type="text" id="phone" th:field="*{phone}" />
+				</td>
+			</tr>
+			<tr>
+				<td>address</td>
+				<td>
+					<input type="text" id="address" th:field="*{address}" >
+				</td>
+			</tr>
+			<tr>
+				<td>favorite category</td>
+				<td>
+					<input type="text" id="favCategory" th:field="*{favCategory}" >
+				</td>
+			</tr>
 		</table>
-		<button type="submit" >로그인</button>
+		<button type="submit" >가입하기</button>
 	</form>
 </div>
 </html>

@@ -16,8 +16,11 @@ public class Item implements Serializable {
 	private int shippingFee;
 	private Account account;
 	private String type;
-	
-	
+
+	private String productId;
+	private String userId;
+
+
 	public Item() {
 		super();
 	}
@@ -90,13 +93,21 @@ public class Item implements Serializable {
 	public void setItemId(int itemId) {
 		this.itemId = itemId;
 	}
+
+	public String getProductId() { return productId; }
+	public void setProductId(String productId) { this.productId = productId; }
+
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+	
 	@Override
 	public String toString() {
 		return "Item [product=" + product + ", itemId=" + itemId + ", title=" + title + ", description=" + description
 				+ ", img=" + img + ", quantity=" + quantity + ", regiDate=" + regiDate + ", views=" + views
 				+ ", shippingFee=" + shippingFee + ", account=" + account + ", type=" + type + "]";
 	}
-
-	
-	
 }
