@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0"
+	crossorigin="anonymous"
+>
+<title>펀딩 아이템 목록</title>
+</head>
+<body>
+	<br>
+	<h1 align="center">펀딩 아이템 목록</h1>
+	<br>
+	<a href="" th:href="@{/crowdFunding/add}" method="get" class="btn btn-primary">펀딩 등록하기</a>
+	<br>
+	<br> 
+	카테고리:
+	<select class="form-select form-select-sm" th:field="*{categories}">
+		<option th:each="category : ${categories}" th:value="${category}" th:text="${category.name}">카테고리</option>
+	</select> 
+	정렬:
+	<select class="form-select form-select-sm" th:field="*{sorts}">
+		<option th:each="sort : ${sorts}" th:value="${sort}" th:text="${sort}">정렬</option>
+	</select>
+	<hr>
+	<div th:unless="${#lists.isEmpty(crowdFundingItemList)}">
+		<ul th:each="crowdFundingItem : ${crowdFundingItemList.pageList}">
+			<li th:text="${crowdFundingItem.item.img}"/></li>
+			<li th:text="'D-' + ${#dates.day(crowdFundingItem.closingDate)-#dates.day(#dates.createNow())}"></li>
+			<li th:text="${crowdFundingItem.item.product.category.name}">카테고리</li>
+			<li th:text="'창작자 : ' + ${crowdFundingItem.item.account.userId}">창작자</li> 
+			<li th:text="'제목 : ' + ${crowdFundingItem.item.title}">제목</li>
+			<li th:text="((${crowdFundingItem.currentSponsoredAmount} / ${crowdFundingItem.targetAmount}) * 100) + '% 달성'">~% 달성</li>
+			<li><a href="" th:href="@{/crowdFunding/item(crowdFundingId=${crowdFundingItem.crowdFundingId})}" class="btn btn-primary">상세 정보 보기</a></li>
+			<br>
+			<br>
+		</ul>
+	</div>
+	<!-- <div>
+		<a th:if="${!crowdFundingItemList.firstPage}"
+       		th:href="?page=previous">Previous</a>
+       <span th:text="${crowdFundingItemList.page + 1}">1 / 4</span>
+      	<a th:if="${!crowdFundingItemList.lastPage}"
+            th:href="@{/crowdFunding/list?page=next}">Next</a>
+	</div> -->
+</body>
+</html>
