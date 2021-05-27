@@ -10,16 +10,6 @@ import com.example.mnm.domain.AuctionItemList;
 import com.example.mnm.domain.Bid;
 import com.example.mnm.domain.Item;
 public interface MnmStoreFacade {
-
-	// 로그인시 비밀번호 비교하는 용도
-	String getPwd(String id);
-		
-	// 로그인 성공시 Account 얻어오는 용도
-	Account getAccount(String id);
-
-	void insertAccount(Account account);
-
-//	void updateAccount(Account account);
 //
 //	List<String> getUsernameList();
 

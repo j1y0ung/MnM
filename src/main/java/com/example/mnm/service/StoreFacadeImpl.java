@@ -12,6 +12,7 @@ import com.example.mnm.dao.CrowdFundingDao;
 import com.example.mnm.dao.ProductDao;
 import com.example.mnm.domain.Category;
 import com.example.mnm.domain.CrowdFundingItem;
+import com.example.mnm.domain.FundingForm;
 import com.example.mnm.domain.Product;
 
 @Service
@@ -47,7 +48,17 @@ public class StoreFacadeImpl implements StoreFacade{
 	public CrowdFundingItem getFundingItemById(String crowdFundingId) {
 		return crowdFundingDao.getFundingItemById(crowdFundingId);
 	}
+	
+	@Override
+	public List<CrowdFundingItem> getMyFundingItemListById(String userId) {
+		return crowdFundingDao.getMyFundingItemListById(userId);
+	}
 
+	@Override
+	public List<CrowdFundingItem> getMyFundingItemsCheckoutById(String userId) {
+		return crowdFundingDao.getMyFundingItemsCheckoutById(userId);
+	}
+	
 	@Override
 	public void addFundingItem(CrowdFundingItem crowdFundingItem) {
 		crowdFundingDao.addItem(crowdFundingItem.getItem());
@@ -67,15 +78,13 @@ public class StoreFacadeImpl implements StoreFacade{
 	}
 
 	@Override
-	public void fund(int crowdFundingId) {
-		// TODO Auto-generated method stub
-		
+	public void fund(FundingForm fundingForm) {
+		crowdFundingDao.fund(fundingForm);
+		crowdFundingDao.fund2(fundingForm);
+		crowdFundingDao.fundUpdate(fundingForm);
 	}
-
-	@Override
-	public List<CrowdFundingItem> getMyFundingItemListByUserId(String userId) {
-		return crowdFundingDao.getMyFundingItemListByUserId(userId);
-	}
+	
+	
 
 	
 

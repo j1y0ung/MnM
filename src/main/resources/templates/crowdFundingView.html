@@ -21,7 +21,7 @@
       <p>마감일: <span th:text="${crowdFundingItem.closingDate}"></span></p>
       <p>후원자 인원: <span th:text="${crowdFundingItem.numberOfSponsor}"></span></p>
       <p>프로젝트 간단 요약 내용: <span th:text="${crowdFundingItem.shortInfo}"></span></p>
-      <form action="" th:action="@{/crowdFunding/fund(crowdFundingId=${crowdFundingItem.crowdFundingId})}" method="post">
+      <form action="" th:action="@{/crowdFunding/fund/{crowdFundingId}(crowdFundingId=${crowdFundingItem.crowdFundingId})}" method="get">
       	<input type="submit"  class="btn btn-primary btn-lg" value="펀딩하기" >
       </form>
       <br><br>

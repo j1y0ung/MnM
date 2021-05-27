@@ -31,7 +31,7 @@
 			<li th:text="${crowdFundingItem.item.img}"/></li>
 			<li th:text="'D-' + ${#dates.day(crowdFundingItem.closingDate)-#dates.day(#dates.createNow())}"></li>
 			<li th:text="${crowdFundingItem.item.product.category.name}">카테고리</li>
-			<li th:text="'창작자 : ' + ${crowdFundingItem.item.account.userId}">창작자</li> 
+			<li th:text="'창작자 : ' + ${crowdFundingItem.item.account.name}">창작자</li> 
 			<li th:text="'제목 : ' + ${crowdFundingItem.item.title}">제목</li>
 			<li th:text="((${crowdFundingItem.currentSponsoredAmount} / ${crowdFundingItem.targetAmount}) * 100) + '% 달성'">~% 달성</li>
 			<li><a href="" th:href="@{/crowdFunding/item(crowdFundingId=${crowdFundingItem.crowdFundingId})}" class="btn btn-primary">상세 정보 보기</a></li>
