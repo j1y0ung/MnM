@@ -10,12 +10,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 //import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import com.example.mnm.service.StoreFacade;
+
+import com.example.mnm.service.MnmStoreFacade;
 
 @Controller
 @RequestMapping("/crowdFunding/delete")
 public class RemoveCrowdFundingItemController {
-	@Autowired private StoreFacade storeFacade;
+	@Autowired private MnmStoreFacade storeFacade;
 	
 	@GetMapping("/{itemId}")
 	public String updateExecute(

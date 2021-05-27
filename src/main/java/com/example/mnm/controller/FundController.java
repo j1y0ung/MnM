@@ -12,12 +12,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.mnm.domain.CrowdFundingItem;
 import com.example.mnm.domain.FundingForm;
-import com.example.mnm.service.StoreFacade;
+import com.example.mnm.service.MnmStoreFacade;
 
 @Controller
 @RequestMapping("/crowdFunding/fund")
 public class FundController {
-	@Autowired private StoreFacade storeFacade;
+	@Autowired private MnmStoreFacade storeFacade;
 
 //	@ModelAttribute("fundForm")
 //	public FundForm createFundForm() {
