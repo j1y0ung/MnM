@@ -14,13 +14,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.mnm.domain.CrowdFundingItem;
-import com.example.mnm.service.StoreFacade;
+import com.example.mnm.service.MnmStoreFacade;
 
 @Controller
 @RequestMapping("/crowdFunding/myFundingCheckout")
 public class ViewMyCrowdFundingItemCheckout {
 
-	@Autowired private StoreFacade storeFacade;
+	@Autowired private MnmStoreFacade storeFacade;
 	
 	@GetMapping("")
 	public ModelAndView handleRequest(HttpServletRequest request
@@ -31,7 +31,7 @@ public class ViewMyCrowdFundingItemCheckout {
 		List<CrowdFundingItem> myLists = storeFacade.getMyFundingItemListById("1");
 		// 세션에서 사용자 id 가져와서 사용 
 //		List<CrowdFundingItem> myLists = storeFacade.getMyFundingItemListById();
-		return new ModelAndView("crowdFundingHistory", "myLists", myLists);
+		return new ModelAndView("thyme/crowdFundingHistory", "myLists", myLists);
 	}
 	
 	@PostMapping("/cancel")

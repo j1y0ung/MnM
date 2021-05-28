@@ -13,12 +13,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.mnm.domain.Account;
 import com.example.mnm.domain.CrowdFundingItem;
-import com.example.mnm.service.StoreFacade;
+import com.example.mnm.service.MnmStoreFacade;
 
 @Controller
 @RequestMapping("/crowdFunding/myList")
 public class ViewMyCrowdFundingItemListController {
-	@Autowired private StoreFacade storeFacade;
+	@Autowired private MnmStoreFacade storeFacade;
 	
 	@GetMapping("")
 	public String handleRequest(HttpServletRequest request
@@ -40,6 +40,6 @@ public class ViewMyCrowdFundingItemListController {
 		
 		model.put("myCrowdFundingItemList", list);
 		
-		return "crowdFundingRegiHistory";
+		return "thyme/crowdFundingRegiHistory";
 	}
 }

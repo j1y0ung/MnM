@@ -18,12 +18,12 @@ import com.example.mnm.domain.Account;
 import com.example.mnm.domain.Category;
 import com.example.mnm.domain.CrowdFundingItem;
 import com.example.mnm.domain.Product;
-import com.example.mnm.service.StoreFacade;
+import com.example.mnm.service.MnmStoreFacade;
 
 @Controller
 @RequestMapping("/crowdFunding/update")
 public class UpdateCrowdFundingItemController {
-	@Autowired private StoreFacade storeFacade;
+	@Autowired private MnmStoreFacade storeFacade;
 	
 	@GetMapping("/{crowdFundingId}")
 	public String updateForm(
@@ -52,7 +52,7 @@ public class UpdateCrowdFundingItemController {
 		List<Product> prolist = this.storeFacade.getProductList();
 		model.put("products", prolist);
 		
-		return "CrowdFundingUpdateForm";
+		return "thyme/CrowdFundingUpdateForm";
 	}
 	
 	@PostMapping("")

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.mnm.domain.Category;
 import com.example.mnm.domain.CrowdFundingItem;
-import com.example.mnm.service.StoreFacade;
+import com.example.mnm.service.MnmStoreFacade;
 
 import java.util.List;
 
@@ -17,7 +17,7 @@ import java.util.List;
 
 @Controller
 public class ViewCrowdFundingItemListController {
-	@Autowired private StoreFacade storeFacade;
+	@Autowired private MnmStoreFacade storeFacade;
 
 	@RequestMapping("/crowdFunding/list")
 	public String handleRequest(
@@ -48,6 +48,6 @@ public class ViewCrowdFundingItemListController {
 		// 정렬 순 
 		String[] sorts = {"인기순", "최신순", "최다후원순", "최다 금액순", "마감임박순"};
 		model.put("sorts", sorts);
-		return "crowdFundingListView";
+		return "thyme/crowdFundingListView";
 	}
 }

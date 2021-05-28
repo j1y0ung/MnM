@@ -20,13 +20,13 @@ import com.example.mnm.domain.Category;
 import com.example.mnm.domain.CrowdFundingItem;
 import com.example.mnm.domain.Item;
 import com.example.mnm.domain.Product;
-import com.example.mnm.service.StoreFacade;
+import com.example.mnm.service.MnmStoreFacade;
 
 @Controller
 @RequestMapping("/crowdFunding/add")
 public class AddCrowdFundingItemController {
 	
-	@Autowired private StoreFacade storeFacade;
+	@Autowired private MnmStoreFacade storeFacade;
 
 //	@ModelAttribute("addCrowdFundingItemForm")
 //	public CrowdFundingItemForm createCrowdFundingItemForm() {
@@ -50,7 +50,7 @@ public class AddCrowdFundingItemController {
 		
 		model.put("crowdFundingItem", new CrowdFundingItem(new Item(new Product(new Category()))));
 		
-		return "crowdFundingForm";
+		return "thyme/crowdFundingForm";
 	}
 
 	@PostMapping("")
@@ -60,7 +60,7 @@ public class AddCrowdFundingItemController {
 			) {
 		System.out.println(crowdFundingItem.toString());
 		this.storeFacade.addFundingItem(crowdFundingItem);
-		ModelAndView mav = new ModelAndView("crowdFundingRegistration");
+		ModelAndView mav = new ModelAndView("thyme/crowdFundingRegistration");
 //		mav.addObject("crowdFundingItem", crowdFundingItemForm.addItem());
 //		status.setComplete();
 		return mav;

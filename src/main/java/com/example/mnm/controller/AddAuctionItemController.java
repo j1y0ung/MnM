@@ -1,6 +1,5 @@
 package com.example.mnm.controller;
 
-
 import java.io.File;
 import java.io.IOException;
 
@@ -32,8 +31,8 @@ public class AddAuctionItemController implements ApplicationContextAware {
 	private WebApplicationContext context;
 	private String uploadDir;
 	
-	private MnmStoreFacade mnmStore;
 	@Autowired
+	private MnmStoreFacade mnmStore;
 	public void setmnmStore(MnmStoreFacade mnmStore) {
 		this.mnmStore = mnmStore;
 	}
@@ -55,7 +54,7 @@ public class AddAuctionItemController implements ApplicationContextAware {
 		auctionItem.getItem().setImg(file.getOriginalFilename());
 		uploadFile(file);
 		auctionItem.getItem().setType("auction");
-		auctionItem.getItem().setUserId(userSession.getAccount().getUsername());
+		auctionItem.getItem().setUserId(userSession.getAccount().getUserId());
 		mnmStore.insertItem(auctionItem.getItem());
 		mnmStore.insertAuctionItem(auctionItem);
 		auctionItem.getItem().setRegiDate(mnmStore.getRegiDate(auctionItem.getItem().getItemId()));

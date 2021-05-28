@@ -29,7 +29,7 @@ public class MvcConfig implements WebMvcConfigurer {
 
 	// 경매 스케쥴러
 	@Bean
-    public ThreadPoolTaskScheduler threadPoolTaskScheduler(){
+  public ThreadPoolTaskScheduler threadPoolTaskScheduler(){
         ThreadPoolTaskScheduler threadPoolTaskScheduler
           = new ThreadPoolTaskScheduler();
         threadPoolTaskScheduler.setPoolSize(5);

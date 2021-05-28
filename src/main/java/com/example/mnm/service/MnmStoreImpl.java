@@ -9,14 +9,21 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-//import com.example.mnm.dao.AuctionDao;
-//import com.example.mnm.dao.ItemDao;
+import com.example.mnm.dao.AuctionDao;
+import com.example.mnm.dao.CategoryDao;
+import com.example.mnm.dao.CrowdFundingDao;
+import com.example.mnm.dao.ItemDao;
+import com.example.mnm.dao.ProductDao;
 import com.example.mnm.dao.AccountDao;
 import com.example.mnm.domain.Account;
 import com.example.mnm.domain.AuctionItem;
 import com.example.mnm.domain.AuctionItemList;
 import com.example.mnm.domain.Bid;
+import com.example.mnm.domain.Category;
+import com.example.mnm.domain.CrowdFundingItem;
+import com.example.mnm.domain.FundingForm;
 import com.example.mnm.domain.Item;
+import com.example.mnm.domain.Product;
 
 @Service
 @Transactional
@@ -33,6 +40,10 @@ public class MnmStoreImpl implements MnmStoreFacade {
 	@Autowired
 	private ThreadPoolTaskScheduler scheduler;
 
+  public Item getItem(String itemId) {
+		return itemDao.getItem(itemId);
+	}
+  
 	// 회원관리
 	public void insertAccount(Account account) {
 		logger.info("[MnmStoreImpl INFO] insertAccount()");
@@ -58,7 +69,6 @@ public class MnmStoreImpl implements MnmStoreFacade {
 		logger.info("[MnmStoreImpl INFO] getAccount()");
 		return accountDao.getAccount(id);
 	}
-
 	
 	//Auction
 	public void insertAuctionItem(AuctionItem auctionItem) {
@@ -162,4 +172,69 @@ public class MnmStoreImpl implements MnmStoreFacade {
 		System.out.println("endAuctionItemRunner has been scheduled to execute at " + endTime);
 	}
 	
+	//CrowdFunding
+	@Autowired CrowdFundingDao crowdFundingDao;
+	@Autowired CategoryDao categoryDao;
+	@Autowired ProductDao productDao;
+	
+	@Override
+	public Category getCategory(String categoryId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Category> getCategoryList() {
+		return categoryDao.getCategoryList();
+	}
+	
+	@Override
+	public List<Product> getProductList() {
+		return productDao.getProductList();
+	}
+	
+	@Override
+	public List<CrowdFundingItem> getCrowdFundingItemList() {
+		return crowdFundingDao.getAllFundingItems();
+	}
+
+	@Override
+	public CrowdFundingItem getFundingItemById(String crowdFundingId) {
+		return crowdFundingDao.getFundingItemById(crowdFundingId);
+	}
+	
+	@Override
+	public List<CrowdFundingItem> getMyFundingItemListById(String userId) {
+		return crowdFundingDao.getMyFundingItemListById(userId);
+	}
+
+	@Override
+	public List<CrowdFundingItem> getMyFundingItemsCheckoutById(String userId) {
+		return crowdFundingDao.getMyFundingItemsCheckoutById(userId);
+	}
+	
+	@Override
+	public void addFundingItem(CrowdFundingItem crowdFundingItem) {
+		crowdFundingDao.addItem(crowdFundingItem.getItem());
+		crowdFundingDao.addFundingItem(crowdFundingItem);
+	}
+
+	@Override
+	public void removeFundingItemById(String itemId) {
+		crowdFundingDao.removeFundingItemById(itemId);
+		crowdFundingDao.removeItemById(itemId);
+	}
+
+	@Override
+	public void updateFundingItemById(String crowdFundingId, CrowdFundingItem crowdFundingItem) {
+		crowdFundingDao.updateFundingItemById(crowdFundingId, crowdFundingItem);
+		crowdFundingDao.updateItemById(crowdFundingItem.getItem().getItemId(), crowdFundingItem.getItem());
+	}
+
+	@Override
+	public void fund(FundingForm fundingForm) {
+		crowdFundingDao.fund(fundingForm);
+		crowdFundingDao.fund2(fundingForm);
+		crowdFundingDao.fundUpdate(fundingForm);
+	}
 }
