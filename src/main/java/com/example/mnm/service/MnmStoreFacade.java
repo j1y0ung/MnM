@@ -9,10 +9,17 @@ import com.example.mnm.domain.AuctionItem;
 import com.example.mnm.domain.AuctionItemList;
 import com.example.mnm.domain.Bid;
 import com.example.mnm.domain.Item;
-public interface MnmStoreFacade {
-//
-//	List<String> getUsernameList();
 
+public interface MnmStoreFacade {
+
+	// 회원 관리
+	void insertAccount(Account account);
+	void deleteAccount(String userid);
+	void updateAccount(Account account);
+	List<Account> getAccountList(); 
+	String getPwd(String userid);
+	Account getAccount(String userid);
+	
 	//Auction
 	void insertAuctionItem(AuctionItem auctionItem);
 	void insertItem(Item item);

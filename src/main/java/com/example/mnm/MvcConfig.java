@@ -8,28 +8,25 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import com.example.mnm.interceptor.AuthCheckInterceptor;
-
-//import com.example.mnm.interceptor.LoginInterceptor;
+import com.example.mnm.controller.LoginInterceptor;
 
 @Configuration
 public class MvcConfig implements WebMvcConfigurer {
 
 	@Autowired
-	private AuthCheckInterceptor authCheckInterceptor;
-
+	private LoginInterceptor interceptor;
+	
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry) {
-		registry.addViewController("/").setViewName("home");
-	}
-
-	@Override
-	public void addInterceptors(InterceptorRegistry registry) {
-		registry.addInterceptor(authCheckInterceptor)
-				.addPathPatterns("/shop/editAccount.do", "/shop/listOrders.do",
-					"/shop/viewOrder.do", "/shop/newOrder.do");		
+		registry.addViewController("/").setViewName("forward:/home");
 	}
 	
+	@Override
+	public void addInterceptors(InterceptorRegistry registry) {
+		registry.addInterceptor(interceptor)
+				.addPathPatterns("/**");		
+	}
+
 	// 경매 스케쥴러
 	@Bean
     public ThreadPoolTaskScheduler threadPoolTaskScheduler(){
