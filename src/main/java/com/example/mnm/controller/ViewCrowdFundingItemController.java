@@ -23,7 +23,7 @@ public class ViewCrowdFundingItemController {
 		CrowdFundingItem item = this.storeFacade.getFundingItemById(crowdFundingId);
 		model.put("crowdFundingItem", item);
 
-		return "crowdFundingView";
+		return "thyme/crowdFundingView";
 	}
 
 	

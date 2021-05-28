@@ -36,7 +36,7 @@ public class FundController {
 		System.out.println(this.storeFacade.getFundingItemById(crowdFundingId));
 		model.put("fundingForm", fundingForm);
 		
-		return "ViewOrderFunding";
+		return "thyme/ViewOrderFunding";
 	}
 	
 	@PostMapping("")
@@ -48,6 +48,6 @@ public class FundController {
 		System.out.println(fundingForm.getCrowdFundingItem().getCrowdFundingId());
 		this.storeFacade.fund(fundingForm);
 
-		return "orderCompleteView";
+		return "thyme/orderCompleteView";
 	}
 }

@@ -16,7 +16,7 @@ import com.example.mnm.domain.Product;
 public interface MnmStoreFacade {
 //
 //	List<String> getUsernameList();
-
+	Item getItem(String itemId);
 	//Auction
 	void insertAuctionItem(AuctionItem auctionItem);
 	void insertItem(Item item);
