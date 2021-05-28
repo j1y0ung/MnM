@@ -30,7 +30,7 @@ public class BiddingController {
 		Bid bid = new Bid();
 		bid.setAuctionId(auctionId);
 		bid.setBidPrice(bidPrice);
-		bid.setUserId(userSession.getAccount().getUserId());
+		bid.setUserId(userSession.getAccount().getUserid());
 		mnmStore.insertBidding(bid);
 		mnmStore.updateCurrentPrice(auctionId, bidPrice);
 		AuctionItem auctionItem = mnmStore.getAuctionItem(auctionId);
@@ -45,7 +45,7 @@ public class BiddingController {
 	
 	@RequestMapping("/auction/bidding/{auctionId}/immd")
 	public ModelAndView handleRequest2(@PathVariable String auctionId, @ModelAttribute("userSession") UserSession userSession, @RequestParam int immdPurchasePrice) {
-		mnmStore.updateImmediatePurchase(auctionId, immdPurchasePrice, userSession.getAccount().getUserId());
+		mnmStore.updateImmediatePurchase(auctionId, immdPurchasePrice, userSession.getAccount().getUserid());
 		AuctionItem auctionItem = mnmStore.getAuctionItem(auctionId);
 		auctionItem.setItem(mnmStore.getItem(auctionItem.getItemId()));
 		ModelAndView mav = new ModelAndView();

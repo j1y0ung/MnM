@@ -54,7 +54,7 @@ public class AddAuctionItemController implements ApplicationContextAware {
 		auctionItem.getItem().setImg(file.getOriginalFilename());
 		uploadFile(file);
 		auctionItem.getItem().setType("auction");
-		auctionItem.getItem().setUserId(userSession.getAccount().getUserId());
+		auctionItem.getItem().setUserId(userSession.getAccount().getUserid());
 		mnmStore.insertItem(auctionItem.getItem());
 		mnmStore.insertAuctionItem(auctionItem);
 		auctionItem.getItem().setRegiDate(mnmStore.getRegiDate(auctionItem.getItem().getItemId()));
