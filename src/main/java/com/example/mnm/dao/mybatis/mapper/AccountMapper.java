@@ -10,22 +10,16 @@ import com.example.mnm.domain.Account;
 @Mapper
 public interface AccountMapper {
 	
-	Account getAccount(String id);
-//
-//	Account getAccountByUsernameAndPassword(String username, String password);
-//
-//	List<String> getUsernameList();
-	  
 	void insertAccount(Account account);
-	  
-//	void insertProfile(Account account);
-//	  
-//	void updateAccount(Account account);
-//
-//	void updateProfile(Account account);
-//
-//	void updateSignon(Account account);
+	
+	void deleteAccount(String userid);
+	
+	void updateAccount(Account account);
+	
+	List<Account> getAccountList();
 	
 	String getPwd(String id);
+	
+	Account getAccount(String id);
 
 }

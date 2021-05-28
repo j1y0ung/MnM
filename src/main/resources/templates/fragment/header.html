@@ -3,19 +3,20 @@
       
 <!-- headerFragment 선언-->
 <div th:fragment="headerFragment">
-    <table>
+   <table>
 		<tr>
 			<td style="text-align:left">
-				<a href="" th:href="@{/home}"><img border="0" src="/images/mnm_logo.png" width="150" /></a>
+				<a href="" th:href="@{/}"><img border="0" src="/images/mnm_logo.png" width="150" /></a>
 			</td>
 			<td style="text-align:right">
-				<a th:if="${session.loginCheck == null}" th:href="@{/loginForm}">login</a>
-				<a th:if="${session.loginCheck == null}" th:href="@{/joinForm}">join</a>
-				<a th:if="${session.loginCheck != null}" th:href="@{/logout}">logout</a>
-				<a th:if="${session.loginCheck != null}" th:href="@{/cart}">cart</a>
-				<a th:if="${session.loginCheck != null}" th:href="@{/mypage}">mypage</a>
-				<!-- 세션 확인용 
-				<a th:if="${session.loginCheck != null}" th:href="@{/sessionCheck}">checkSession</a> -->
+				<a th:if="${session.account == null}" th:href="@{/loginForm.do}">login</a>
+				<a th:if="${session.account == null}" th:href="@{/joinForm.do}">join</a>
+				<a th:if="${session.account != null}" th:href="@{/logout.do}">logout</a>
+				<a th:if="${session.account != null}" th:href="@{/cart.do}">cart</a>
+				<a th:if="${session.account != null}" th:href="@{/mypage.do}">mypage</a>
+				
+				<!-- 세션 확인용 -->
+				<a th:if="${session != null}" th:href="@{/sessionCheck.do}">checkSession</a>
 			</td>
 		</tr>
 		<tr>
