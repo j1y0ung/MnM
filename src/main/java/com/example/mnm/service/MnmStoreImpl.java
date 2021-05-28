@@ -40,7 +40,7 @@ public class MnmStoreImpl implements MnmStoreFacade {
 	@Autowired
 	private ThreadPoolTaskScheduler scheduler;
 
-  public Item getItem(String itemId) {
+	public Item getItem(String itemId) {
 		return itemDao.getItem(itemId);
 	}
   
