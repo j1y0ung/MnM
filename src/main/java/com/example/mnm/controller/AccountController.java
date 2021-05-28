@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -113,5 +114,38 @@ public class AccountController {
 		
 		return new ModelAndView("home");
 	}
+	
+	// 마이페이지로 이동
+	@RequestMapping(value="/mypage.do")
+	public String goMyPage(@ModelAttribute("account") @Valid Account account, BindingResult bindingResult) {
+		logger.info("[AcountController INFO] goMyPage()");
+		
+		return "thyme/mypage";
+	}
+	
+	// 내 정보 페이지로 이동
+	@RequestMapping(value="/myAccountInfo.do")
+	public String goMyAccountInfo(@ModelAttribute("account") @Valid Account account, BindingResult bindingResult) {
+		logger.info("[AcountController INFO] goMyAccountInfo()");
+		
+		return "thyme/myAccountInfo";
+	}
+	
+	// 회원정보 수정
+	@RequestMapping(value="/updateAccount.do")
+    private ModelAndView updateAccount(Account account, BindingResult result,
+            RedirectAttributes redirect, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		logger.info("[AcountController INFO] updateAccount()");
+		logger.info("[AcountController INFO] updateAccountForm 입력값");
+		logger.info("[AcountController INFO] email:" + account.getEmail());
+		logger.info("[AcountController INFO] addr:" + account.getAddr());
+		logger.info("[AcountController INFO] phone:" + account.getPhone());
+		logger.info("[AcountController INFO] favcategory:" + account.getFavcategory());
+		logger.info("[AcountController INFO] pwd:" + account.getPwd());
+		
+        store.updateAccount(account);
+        
+        return new ModelAndView("thyme/home");
+    }
 	
 }
