@@ -40,6 +40,6 @@ public class ViewMyCrowdFundingItemListController {
 		
 		model.put("myCrowdFundingItemList", list);
 		
-		return "crowdFundingRegiHistory";
+		return "thyme/crowdFundingRegiHistory";
 	}
 }

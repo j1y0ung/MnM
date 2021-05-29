@@ -1,6 +1,9 @@
 package com.example.mnm.service;
 
-import java.util.Date; 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import java.util.Date;
+
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
@@ -28,39 +31,47 @@ import com.example.mnm.domain.PersonalDealItem;
 @Service
 @Transactional
 public class MnmStoreImpl implements MnmStoreFacade { 
+	
+	private Logger logger = LoggerFactory.getLogger(this.getClass());
+	
 	@Autowired	
 	private AccountDao accountDao;
 	@Autowired
 	private AuctionDao auctionDao;
 	@Autowired
 	private ItemDao itemDao;
-	
-	
 	@Autowired
 	private ThreadPoolTaskScheduler scheduler;
 
-	// 로그인시 비밀번호 비교하는 용도
-	public String getPwd(String id) {
-		return accountDao.getPwd(id);
+	public Item getItem(String itemId) {
+		return itemDao.getItem(itemId);
 	}
-	
-	// 로그인 성공시 Account 얻어오는 용도
-	public Account getAccount(String id) {
-		return accountDao.getAccount(id);
-	}
-
+  
+	// 회원관리
 	public void insertAccount(Account account) {
+		logger.info("[MnmStoreImpl INFO] insertAccount()");
 		accountDao.insertAccount(account);
 	}
-
-//	public void updateAccount(Account account) {
-//		accountDao.updateAccount(account);
-//	}
-//
-//	public List<String> getUsernameList() {
-//		return accountDao.getUsernameList();
-//	}
-
+	public void deleteAccount(String userid) {
+		logger.info("[MnmStoreImpl INFO] deleteAccount()");
+		accountDao.deleteAccount(userid);
+	}
+	public void updateAccount(Account account) {
+		logger.info("[MnmStoreImpl INFO] updateAccount()");
+		accountDao.updateAccount(account);
+	}
+	public List<Account> getAccountList() {
+		logger.info("[MnmStoreImpl INFO] getAccountList()");
+		return accountDao.getAccountList();
+	}
+	public String getPwd(String id) {
+		logger.info("[MnmStoreImpl INFO] getPwd()");
+		return accountDao.getPwd(id);
+	}
+	public Account getAccount(String id) {
+		logger.info("[MnmStoreImpl INFO] getAccount()");
+		return accountDao.getAccount(id);
+	}
 	
 	//Auction
 	public void insertAuctionItem(AuctionItem auctionItem) {
@@ -165,7 +176,6 @@ public class MnmStoreImpl implements MnmStoreFacade {
 	}
 	
 	//CrowdFunding
-
 	@Autowired CrowdFundingDao crowdFundingDao;
 	@Autowired CategoryDao categoryDao;
 	@Autowired ProductDao productDao;
@@ -221,7 +231,7 @@ public class MnmStoreImpl implements MnmStoreFacade {
 	@Override
 	public void updateFundingItemById(String crowdFundingId, CrowdFundingItem crowdFundingItem) {
 		crowdFundingDao.updateFundingItemById(crowdFundingId, crowdFundingItem);
-		crowdFundingDao.updateItemById(Integer.toString(crowdFundingItem.getItem().getItemId()), crowdFundingItem.getItem());
+		crowdFundingDao.updateItemById(crowdFundingItem.getItem().getItemId(), crowdFundingItem.getItem());
 	}
 
 	@Override
@@ -230,7 +240,7 @@ public class MnmStoreImpl implements MnmStoreFacade {
 		crowdFundingDao.fund2(fundingForm);
 		crowdFundingDao.fundUpdate(fundingForm);
 	}
-	
+
 	//PersonalDeal
 	@Autowired PersonalDealDao personalDealDao;
 	
@@ -264,5 +274,4 @@ public class MnmStoreImpl implements MnmStoreFacade {
 		personalDealDao.finishDealById(userId, personalDealItem);
 	}
 
-	
 }

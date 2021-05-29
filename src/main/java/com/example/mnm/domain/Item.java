@@ -6,7 +6,7 @@ import java.util.Date;
 @SuppressWarnings("serial")
 public class Item implements Serializable {
 	private Product product; 
-	private int itemId;
+	private String itemId;
 	private String title;
 	private String description;
 	private String img;
@@ -87,13 +87,14 @@ public class Item implements Serializable {
 	public void setAccount(Account account) {
 		this.account = account;
 	}
-	public int getItemId() {
+	
+
+	public String getItemId() {
 		return itemId;
 	}
-	public void setItemId(int itemId) {
+	public void setItemId(String itemId) {
 		this.itemId = itemId;
 	}
-
 	public String getProductId() { return productId; }
 	public void setProductId(String productId) { this.productId = productId; }
 

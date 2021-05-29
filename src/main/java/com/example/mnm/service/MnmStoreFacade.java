@@ -3,7 +3,6 @@ package com.example.mnm.service;
 import java.util.Date;
 import java.util.List;
 
-
 import com.example.mnm.domain.Account;
 import com.example.mnm.domain.AuctionItem;
 import com.example.mnm.domain.AuctionItemList;
@@ -14,10 +13,19 @@ import com.example.mnm.domain.FundingForm;
 import com.example.mnm.domain.Item;
 import com.example.mnm.domain.PersonalDealItem;
 import com.example.mnm.domain.Product;
-public interface MnmStoreFacade {
-//
-//	List<String> getUsernameList();
 
+public interface MnmStoreFacade {
+  
+	Item getItem(String itemId);
+
+	// 회원 관리
+	void insertAccount(Account account);
+	void deleteAccount(String userid);
+	void updateAccount(Account account);
+	List<Account> getAccountList(); 
+	String getPwd(String userid);
+	Account getAccount(String userid);
+  
 	//Auction
 	void insertAuctionItem(AuctionItem auctionItem);
 	void insertItem(Item item);

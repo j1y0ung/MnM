@@ -4,20 +4,31 @@
 <mapper namespace="com.example.mnm.dao.mybatis.mapper.AccountMapper">
 
 	<insert id="insertAccount" parameterType="Account">
-		INSERT INTO ACCOUNT
+		insert into account
 		(userid, email, name, addr, phone, favcategory, pwd)
-    	VALUES
-		(#{id}, #{email}, #{name}, #{address}, #{phone}, #{favCategory}, #{pwd})
+    	values
+		(#{userid}, #{email}, #{name}, #{addr}, #{phone}, #{favcategory}, #{pwd})
 	</insert>
 	
+	<delete id="deleteAccount" parameterType="String">
+		delete from account
+		where userid=#{userid}
+	</delete>
+	
+	<update id="updateAccount" parameterType="Account">
+		udpate account
+		set email=#{email}, addr=#{addr}, phone=#{phone}, favcategory=#{favcategory}, pwd=#{pwd}
+		where userid=#{userid}
+	</update>
+	
 	<select id="getPwd" parameterType="String" resultType="String">
-		SELECT pwd FROM ACCOUNT
-		WHERE userid=#{id}
+		select pwd from account
+		where userid=#{id}
 	</select>
 	
 	<select id="getAccount" parameterType="String" resultType="Account">
-		SELECT * FROM ACCOUNT
-		WHERE userid=#{id}
+		select * from account
+		where userid=#{id}
 	</select>
 
 </mapper>

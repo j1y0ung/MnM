@@ -1,5 +1,7 @@
 package com.example.mnm.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import javax.validation.Valid;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -7,6 +9,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +23,8 @@ import com.example.mnm.service.MnmStoreFacade;
 @Controller
 public class AccountController {
 	
+	private Logger logger = LoggerFactory.getLogger(this.getClass());
+	
 	@Autowired
 	private MnmStoreFacade store;
 	public void setStore(MnmStoreFacade store) {
@@ -27,75 +32,120 @@ public class AccountController {
 	}
 	
 	// 회원가입 폼으로 이동
-	@RequestMapping("/joinForm")
-	private ModelAndView goJoinForm(@ModelAttribute Account account,
-			HttpServletRequest request) throws Exception {
-		return new ModelAndView("joinForm");
+	@RequestMapping(value="/joinForm.do")
+	public String goJoinForm(@ModelAttribute("account") @Valid Account account, BindingResult bindingResult) {
+		logger.info("[AcountController INFO] goJoinForm()");
+		
+		return "thyme/joinForm";
 	}
 	
 	// 계정 추가 실행
-	@RequestMapping("/join")
-    private ModelAndView insertAccount(@Valid Account account, BindingResult result,
+	@RequestMapping("/join.do")
+    private ModelAndView insertAccount(Account account, BindingResult result,
             RedirectAttributes redirect, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		System.out.println("<joinForm 입력값>");
-        System.out.println("id: " + account.getId());
-        System.out.println("pwd: " + account.getPwd());
-        System.out.println("name: " + account.getName());
-        System.out.println("email: " + account.getEmail());
-        System.out.println("phone: " + account.getPhone());
-        System.out.println("address: " + account.getAddress());
-        System.out.println("favCategory: " + account.getFavCategory());
-        System.out.println("-------------------------------------");
+		logger.info("[AcountController INFO] insertAccount()");
+		logger.info("[AcountController INFO] joinForm 입력값");
+		logger.info("[AcountController INFO] userid:" + account.getUserid());
+		logger.info("[AcountController INFO] email:" + account.getEmail());
+		logger.info("[AcountController INFO] name:" + account.getName());
+		logger.info("[AcountController INFO] addr:" + account.getAddr());
+		logger.info("[AcountController INFO] phone:" + account.getPhone());
+		logger.info("[AcountController INFO] favcategory:" + account.getFavcategory());
+		logger.info("[AcountController INFO] pwd:" + account.getPwd());
+		
         store.insertAccount(account);
         
-        return new ModelAndView("home");
+        return new ModelAndView("thyme/home");
     }
 	
 	// 로그인 폼으로 이동
-	@RequestMapping("/loginForm")
-	private ModelAndView goLoginForm(@ModelAttribute Account account,
-			HttpServletRequest request) throws Exception {
-		return new ModelAndView("loginForm");
+	@RequestMapping(value="/loginForm.do")
+	public String goLoginForm(@ModelAttribute("account") @Valid Account account, BindingResult bindingResult) {
+		logger.info("[AcountController INFO] goLoginForm()");
+		
+		return "thyme/loginForm";
 	}
 	
 	// 로그인 실행
-	@RequestMapping(value="/login")
-    public String login(HttpSession session,
-                             @RequestParam(value="id") String id, 
-                             @RequestParam(value="pwd") String pwd) {
+	@RequestMapping(value="/login.do")
+    public String login(HttpSession session, 
+    					@RequestParam(value="userid") String userid, 
+                        @RequestParam(value="pwd") String pwd) {
+		logger.info("[AcountController INFO] login()");
+		
 		Account account = null;                            
-        if((store.getPwd(id)).equals(pwd)) {
-        	account = store.getAccount(id);
-            session.setAttribute("loginCheck", true);
-            session.setAttribute("id", id);
+        if((store.getPwd(userid)).equals(pwd)) {
+        	account = store.getAccount(userid);
+        	session.setAttribute("userid", userid);
             session.setAttribute("account", account);
-            System.out.println("로그인 성공");
-            return "home";
+            logger.info("[AcountController INFO] 로그인 성공");
+            return "thyme/home";
         } else{
-        	System.out.println("로그인 실패");
+        	logger.info("[AcountController INFO] 로그인 실패");
         	// 실패 오류 띄워주는거 추가하기
-        	return "home";
+        	return "thyme/home";
         }
     }
 
 	// 로그아웃 실행
-	@RequestMapping(value="/logout")
-	public String logout(HttpServletRequest request) throws Exception {
+	@RequestMapping(value="/logout.do")
+	public String logout(HttpSession session) throws Exception {
+		logger.info("[AcountController INFO] logout()");
+		
 		// 세션 비활성화
-		HttpSession session = request.getSession();
+		session.removeAttribute("userid");
+		session.removeAttribute("account");
 		session.invalidate();
 
-		return "redirect:/home";
+		return "thyme/home";
 	}
 	
 	// 세션 체크용
-//	@RequestMapping("/sessionCheck")
-//	private ModelAndView sessionCheck(@ModelAttribute Account account,
-//			HttpServletRequest request) throws Exception {
-//		HttpSession session = request.getSession();
-//		Account curSession = (Account) session.getAttribute("account");
-//		System.out.println(curSession.getName());
-//		return new ModelAndView("home");
-//	}
+	@RequestMapping("/sessionCheck.do")
+	private ModelAndView sessionCheck(@ModelAttribute Account account,
+			HttpServletRequest request) throws Exception {
+		logger.info("[AcountController INFO] sessionCheck()");
+		
+		HttpSession session = request.getSession();
+		Account curSession = (Account) session.getAttribute("account");
+		if (curSession != null) {
+			logger.info("[AcountController INFO] get session user name:" + curSession.getName());
+		}
+		
+		return new ModelAndView("home");
+	}
+	
+	// 마이페이지로 이동
+	@RequestMapping(value="/mypage.do")
+	public String goMyPage(@ModelAttribute("account") @Valid Account account, BindingResult bindingResult) {
+		logger.info("[AcountController INFO] goMyPage()");
+		
+		return "thyme/mypage";
+	}
+	
+	// 내 정보 페이지로 이동
+	@RequestMapping(value="/myAccountInfo.do")
+	public String goMyAccountInfo(@ModelAttribute("account") @Valid Account account, BindingResult bindingResult) {
+		logger.info("[AcountController INFO] goMyAccountInfo()");
+		
+		return "thyme/myAccountInfo";
+	}
+	
+	// 회원정보 수정
+	@RequestMapping(value="/updateAccount.do")
+    private ModelAndView updateAccount(Account account, BindingResult result,
+            RedirectAttributes redirect, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		logger.info("[AcountController INFO] updateAccount()");
+		logger.info("[AcountController INFO] updateAccountForm 입력값");
+		logger.info("[AcountController INFO] email:" + account.getEmail());
+		logger.info("[AcountController INFO] addr:" + account.getAddr());
+		logger.info("[AcountController INFO] phone:" + account.getPhone());
+		logger.info("[AcountController INFO] favcategory:" + account.getFavcategory());
+		logger.info("[AcountController INFO] pwd:" + account.getPwd());
+		
+        store.updateAccount(account);
+        
+        return new ModelAndView("thyme/home");
+    }
 	
 }

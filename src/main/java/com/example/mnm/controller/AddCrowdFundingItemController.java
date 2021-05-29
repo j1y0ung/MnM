@@ -50,7 +50,7 @@ public class AddCrowdFundingItemController {
 		
 		model.put("crowdFundingItem", new CrowdFundingItem(new Item(new Product(new Category()))));
 		
-		return "crowdFundingForm";
+		return "thyme/crowdFundingForm";
 	}
 
 	@PostMapping("")
@@ -60,7 +60,7 @@ public class AddCrowdFundingItemController {
 			) {
 		System.out.println(crowdFundingItem.toString());
 		this.storeFacade.addFundingItem(crowdFundingItem);
-		ModelAndView mav = new ModelAndView("crowdFundingRegistration");
+		ModelAndView mav = new ModelAndView("thyme/crowdFundingRegistration");
 //		mav.addObject("crowdFundingItem", crowdFundingItemForm.addItem());
 //		status.setComplete();
 		return mav;
