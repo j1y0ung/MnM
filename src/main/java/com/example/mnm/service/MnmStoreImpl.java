@@ -3,6 +3,7 @@ package com.example.mnm.service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.Date;
+
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
@@ -13,6 +14,7 @@ import com.example.mnm.dao.AuctionDao;
 import com.example.mnm.dao.CategoryDao;
 import com.example.mnm.dao.CrowdFundingDao;
 import com.example.mnm.dao.ItemDao;
+import com.example.mnm.dao.PersonalDealDao;
 import com.example.mnm.dao.ProductDao;
 import com.example.mnm.dao.AccountDao;
 import com.example.mnm.domain.Account;
@@ -24,6 +26,7 @@ import com.example.mnm.domain.CrowdFundingItem;
 import com.example.mnm.domain.FundingForm;
 import com.example.mnm.domain.Item;
 import com.example.mnm.domain.Product;
+import com.example.mnm.domain.PersonalDealItem;
 
 @Service
 @Transactional
@@ -237,4 +240,38 @@ public class MnmStoreImpl implements MnmStoreFacade {
 		crowdFundingDao.fund2(fundingForm);
 		crowdFundingDao.fundUpdate(fundingForm);
 	}
+
+	//PersonalDeal
+	@Autowired PersonalDealDao personalDealDao;
+	
+	public List<PersonalDealItem> getAllPersonalDealItems() {
+		return personalDealDao.getAllPersonalDealItems();
+	}
+	public List<PersonalDealItem> getPersonalDealItemList() {
+		return personalDealDao.getPersonalDealItemList();
+	}
+	
+	@Override
+	public PersonalDealItem getPersonalDealItemById(String personalDealId) {
+		return personalDealDao.getPersonalDealItemById(personalDealId);
+	}
+	
+	@Override
+	public void addPersonalDealItem(PersonalDealItem personalDealItem) {
+		personalDealDao.addPersonalDealItem(personalDealItem);
+		
+	}
+	@Override
+	public void removePersonalDealItemById(String itemId) {
+		personalDealDao.removePersonalDealItemById(itemId);
+		personalDealDao.removeItemById(itemId);		
+	}
+	
+	public void updatePersonalDealItemById(String personalDealId, PersonalDealItem personalDealItem) {
+		personalDealDao.updatePersonalDealItemById(personalDealId, personalDealItem);
+	}
+	public void finishDealById(int userId, PersonalDealItem personalDealItem) {
+		personalDealDao.finishDealById(userId, personalDealItem);
+	}
+
 }

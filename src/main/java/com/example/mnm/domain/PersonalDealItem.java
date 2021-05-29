@@ -3,14 +3,24 @@ package com.example.mnm.domain;
 import java.sql.Date;
 
 public class PersonalDealItem {
+	private String personalDealId;
 	private Item item;
 	private String title; //개인 간 거래  글 제목
 	private String shippingFee; //배송비 추가 여부
 	private String description; //판매자 추가 설명
 	private String location; //거래 지역 정보
+	private String productStatus; //상품상태
 	private Date date; //판매 글 작성일
 	private String dealStatus; //개인 간 거래 진행 상태
 	private int views; //조회수
+	private int price; //판매희망가
+	
+	public String getPersonalDealId() {
+		return personalDealId;
+	}
+	public void setPersonalDealId(String personalDealId) {
+		this.personalDealId = personalDealId;
+	}
 	
 	public Item getItem() {
 		return item;
@@ -66,8 +76,18 @@ public class PersonalDealItem {
 				+ description + ", location=" + location + ", date=" + date + ", dealStatus=" + dealStatus + ", views="
 				+ views + "]";
 	}
-
-	
+	public int getPrice() {
+		return price;
+	}
+	public void setPrice(int price) {
+		this.price = price;
+	}
+	public String getProductStatus() {
+		return productStatus;
+	}
+	public void setProductStatus(String productStatus) {
+		this.productStatus = productStatus;
+	}	
 	
 }
 

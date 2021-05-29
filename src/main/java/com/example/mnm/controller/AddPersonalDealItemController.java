@@ -1,41 +1,46 @@
 package com.example.mnm.controller;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+//import org.springframework.web.bind.annotation.RequestParam;
+//import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.example.mnm.service.StoreFacade;
+import com.example.mnm.domain.PersonalDealItem;
+import com.example.mnm.service.MnmStoreFacade;
 
 @Controller
-public class AddPersonalDealItemController {
-
+@RequestMapping("/sellerPage/addItem")
+public class AddPersonalDealItemController{
+	
+	private MnmStoreFacade mnmStore;
 	@Autowired
-	private StoreFacade store;
+	public void setmnmStore(MnmStoreFacade mnmStore) {
+		this.mnmStore = mnmStore;
+	}
 	
-	@ModelAttribute("personalDealForm")
-	public PersonalDealForm createPersonalDealForm() {
-		return new PersonalDealForm();
+	@ModelAttribute("personalDealItem")
+	public PersonalDealItem formBacking() {
+		return new PersonalDealItem();
+	}
+
+	@GetMapping
+	public String form() {
+		return "thyme/RegistPersonalDealItemForm";
+	}
 	
-	//	판매 물품 등록 완료
-	@RequestMapping("/sellerPage/addItem/complete")
-	public ModelAndView handleRequest(HttpServletRequest request, 
-			@ModelAttribute("personalDeal") PersonalDeal personalDeal,
-			Model model) throws Exception {
-		
-		UserSession userSession = new UserSession(
-				mnmStore.getAccount(accountForm.getAccount().getUsername()));
-		
-		store.addPersonalDealItemById(username, personalDeal);
-		
-		ModelAndView mav = new ModelAndView("myAccountView");
-		mav.addObject("personalDeal", personalDeal.addItem());
-		
+	@PostMapping("")
+	protected ModelAndView addPersonalDealItem(
+			@ModelAttribute("personalDealItem") PersonalDealItem personalDealItem 
+			) {
+		System.out.println(personalDealItem.toString());
+		this.mnmStore.addPersonalDealItem(personalDealItem);
+		ModelAndView mav = new ModelAndView("RegistPersonalDealItemForm");
 		return mav;
 	}
 

@@ -11,6 +11,7 @@ import com.example.mnm.domain.Category;
 import com.example.mnm.domain.CrowdFundingItem;
 import com.example.mnm.domain.FundingForm;
 import com.example.mnm.domain.Item;
+import com.example.mnm.domain.PersonalDealItem;
 import com.example.mnm.domain.Product;
 
 public interface MnmStoreFacade {
@@ -63,4 +64,15 @@ public interface MnmStoreFacade {
 	void removeFundingItemById(String itemId);
 	void updateFundingItemById(String crowdFundingId, CrowdFundingItem crowdFundingItem); 
 	void fund(FundingForm fundingForm);
+	
+	//PersonalDeal
+	List<PersonalDealItem> getAllPersonalDealItems();
+	List<PersonalDealItem> getPersonalDealItemList();
+	PersonalDealItem getPersonalDealItemById(String personalDealId);
+	void addPersonalDealItem(PersonalDealItem personalDealItem);
+	void removePersonalDealItemById(String itemId);
+	void updatePersonalDealItemById(String personalDealId, PersonalDealItem personalDealItem);
+	void finishDealById(int userId, PersonalDealItem personalDealItem);
+	
+	
 }
