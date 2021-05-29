@@ -2,11 +2,14 @@ package com.example.mnm.dao.mybatis.mapper;
 
 import java.util.List;
 
-import org.springframework.dao.DataAccessException;
+import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Repository;
 
 import com.example.mnm.domain.PersonalDealItem;
 import com.example.mnm.domain.Item;
 
+@Repository
+@Mapper
 public interface PersonalDealMapper {
 	
 	List<PersonalDealItem> getAllPersonalDealItems(); //모든 거래 물품 반환	
