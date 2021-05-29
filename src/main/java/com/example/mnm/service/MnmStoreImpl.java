@@ -15,7 +15,6 @@ import com.example.mnm.dao.CategoryDao;
 import com.example.mnm.dao.CrowdFundingDao;
 import com.example.mnm.dao.ItemDao;
 import com.example.mnm.dao.PersonalDealDao;
-import com.example.mnm.dao.ProductDao;
 import com.example.mnm.dao.AccountDao;
 import com.example.mnm.domain.Account;
 import com.example.mnm.domain.AuctionItem;
@@ -25,8 +24,6 @@ import com.example.mnm.domain.Category;
 import com.example.mnm.domain.CrowdFundingItem;
 import com.example.mnm.domain.FundingForm;
 import com.example.mnm.domain.Item;
-import com.example.mnm.domain.PersonalDealItem;
-import com.example.mnm.domain.Product;
 import com.example.mnm.domain.PersonalDealItem;
 
 @Service
@@ -41,12 +38,47 @@ public class MnmStoreImpl implements MnmStoreFacade {
 	private AuctionDao auctionDao;
 	@Autowired
 	private ItemDao itemDao;
+	@Autowired 
+	private CrowdFundingDao crowdFundingDao;
+	@Autowired 
+	private CategoryDao categoryDao;
 	@Autowired
 	private ThreadPoolTaskScheduler scheduler;
 
+	// item
 	public Item getItem(String itemId) {
 		return itemDao.getItem(itemId);
 	}
+	public void insertItem(Item item) {
+		itemDao.insertItem(item);
+	}
+	public void updateItem(Item item) {
+		itemDao.updateItem(item);
+	}
+	public void deleteItem(String itemId) {
+		itemDao.deleteItem(itemId);
+	}
+	public void increaseItemViews(String itemId) {
+		itemDao.increaseItemViews(itemId);
+	}
+	public int getViews(String itemId) {
+		return itemDao.getViews(itemId);
+	}
+	public Date getRegiDate(String itemId) {
+		return itemDao.getRegiDate(itemId);
+	}
+	
+	// category
+	public List<Category> getCategoryList() {
+		return categoryDao.getCategoryList();
+	}
+	public String getCategoryName(String categoryId) {
+		return categoryDao.getCategoryName(categoryId);
+	}
+	public Category getCategory(String categoryId) {
+		return categoryDao.getCategory(categoryId);
+	}
+
 	
 	// 회원관리
 	public void insertAccount(Account account) {
@@ -74,12 +106,9 @@ public class MnmStoreImpl implements MnmStoreFacade {
 		return accountDao.getAccount(id);
 	}
 	
-	//Auction
+	// Auction
 	public void insertAuctionItem(AuctionItem auctionItem) {
 		auctionDao.insertAuctionItem(auctionItem);
-	}
-	public void insertItem(Item item) {
-		ItemDao.insertItem(item);
 	}
 	public List<AuctionItemList> getRecentAuctionItemList() {
 		return auctionDao.getRecentAuctionItemList();
@@ -102,23 +131,8 @@ public class MnmStoreImpl implements MnmStoreFacade {
 	public void updateAuctionItem(AuctionItem auctionItem) {
 		auctionDao.updateAuctionItem(auctionItem);
 	}
-	public void updateItem(Item item) {
-		itemDao.updateItem(item);
-	}
-	public void increaseItemViews(String itemId) {
-		itemDao.increaseItemViews(itemId);
-	}
-	public int getViews(String itemId) {
-		return itemDao.getViews(itemId);
-	}
-	public Date getRegiDate(String itemId) {
-		return itemDao.getRegiDate(itemId);
-	}
 	public void deleteAuctionItem(String auctionId) {
 		auctionDao.deleteAuctionItem(auctionId);
-	}
-	public void deleteItem(String itemId) {
-		itemDao.deleteItem(itemId);
 	}
 	public void insertBidding(Bid bid) {
 		auctionDao.insertBidding(bid);
@@ -140,10 +154,12 @@ public class MnmStoreImpl implements MnmStoreFacade {
 		Runnable startAuctionItemRunner = new Runnable() {	
 			// anonymous class 정의
 			@Override
-			public void run() {   // 스케쥴러에 의해 미래의 특정 시점에 실행될 작업을 정의				
-				Date curTime = new Date();
-				auctionDao.startAuctionItemStatus(curTime, auctionId);
-				System.out.println("startAuctionItemRunner is executed at " + curTime);
+			public void run() {   // 스케쥴러에 의해 미래의 특정 시점에 실행될 작업을 정의		
+				if (auctionDao.getStatus(auctionId).equals("경매대기중")) {
+					Date curTime = new Date();
+					auctionDao.startAuctionItemStatus(curTime, auctionId);
+					System.out.println("startAuctionItemRunner is executed at " + curTime);
+				}
 			}
 		};
 
@@ -159,7 +175,7 @@ public class MnmStoreImpl implements MnmStoreFacade {
 			@Override
 			public void run() {   // 스케쥴러에 의해 미래의 특정 시점에 실행될 작업을 정의				
 				Date curTime = new Date();
-				if (auctionDao.getStatus(auctionId).equals("경매마감")) {
+				if (auctionDao.getStatus(auctionId).equals("경매진행중") && !auctionDao.getStatus(auctionId).equals("즉시구매완료")) {
 					auctionDao.endAuctionItemStatus(curTime, auctionId);
 					Bid bid = auctionDao.findWinnerBid(auctionId);
 					if (bid != null) {
@@ -177,26 +193,6 @@ public class MnmStoreImpl implements MnmStoreFacade {
 	}
 	
 	//CrowdFunding
-	@Autowired CrowdFundingDao crowdFundingDao;
-	@Autowired CategoryDao categoryDao;
-	@Autowired ProductDao productDao;
-	
-	@Override
-	public Category getCategory(String categoryId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Category> getCategoryList() {
-		return categoryDao.getCategoryList();
-	}
-	
-	@Override
-	public List<Product> getProductList() {
-		return productDao.getProductList();
-	}
-	
 	@Override
 	public List<CrowdFundingItem> getCrowdFundingItemList() {
 		return crowdFundingDao.getAllFundingItems();

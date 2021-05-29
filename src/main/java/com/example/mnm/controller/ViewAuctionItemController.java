@@ -1,8 +1,6 @@
 package com.example.mnm.controller;
 
-
 import java.util.List;
-
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,6 +28,8 @@ public class ViewAuctionItemController {
 		auctionItem.setItem(mnmStore.getItem(auctionItem.getItemId()));
 		model.addAttribute("auctionItem", auctionItem);
 		model.addAttribute("bids", bids);
+		model.addAttribute("parentCatId", mnmStore.getCategoryName(Integer.toString(auctionItem.getItem().getParentCatId())));
+		model.addAttribute("childCatId", mnmStore.getCategoryName(Integer.toString(auctionItem.getItem().getChildCatId())));
 		return "thyme/AuctionItemView";
 	}
 

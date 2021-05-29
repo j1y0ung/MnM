@@ -12,7 +12,10 @@ import com.example.mnm.domain.Category;
 @Mapper
 public interface CategoryMapper {
 	
-	List<Category> getCategoryList() throws DataAccessException;
-
-	Category getCategory(String categoryId) throws DataAccessException;
+	List<Category> getCategoryList();
+	
+	String getCategoryName(String categoryId);
+	
+	Category getCategory(String categoryId);
+	
 }

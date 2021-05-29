@@ -1,8 +1,8 @@
 package com.example.mnm.controller;
 
-
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,17 +12,22 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.example.mnm.domain.AuctionItem;
+import com.example.mnm.domain.Category;
 import com.example.mnm.service.MnmStoreFacade;
 
+import net.sf.json.JSONArray;
+
 @Controller
+@RequestMapping("/auction/update")
 public class UpdateAuctionItemController implements ApplicationContextAware {
 	private WebApplicationContext context;
 	private String uploadDir;
@@ -34,19 +39,30 @@ public class UpdateAuctionItemController implements ApplicationContextAware {
 		this.mnmStore = mnmStore;
 	}
 	
-	@GetMapping("/auction/update/{auctionId}")
-	public String handleRequest(@PathVariable String auctionId, Model model) {
+	@GetMapping
+	public String handleRequest(@RequestParam String auctionId, Model model) {
 		AuctionItem auctionItem = mnmStore.getAuctionItem(auctionId);
 		auctionItem.setItem(mnmStore.getItem(auctionItem.getItemId()));
+		
 		preImage = auctionItem.getItem().getImg();
 		itemId = auctionItem.getItemId();
+		
+		List<Category> categoryList = mnmStore.getCategoryList();
+		
 		model.addAttribute("auctionItem", auctionItem);
-		return "thyme/UpdateAuctionItemForm";
+		model.addAttribute("categoryList", JSONArray.fromObject(categoryList));
+		
+		return "UpdateAuctionItemForm";
 	}
 	
-	@PostMapping("/auction/update/{auctionId}")
-	public String handleRequest2(@PathVariable String auctionId, AuctionItem auctionItem, MultipartHttpServletRequest request, Model model) throws Exception {
+	@PostMapping
+	public ModelAndView handleRequest2(@RequestParam String auctionId, AuctionItem auctionItem, MultipartHttpServletRequest request, Model model) throws Exception {
 		auctionItem.getItem().setItemId(itemId);
+		System.out.println(request.getParameter("category1"));
+		System.out.println(request.getParameter("category2"));
+		auctionItem.getItem().setParentCatId(Integer.parseInt(request.getParameter("category1")));
+		auctionItem.getItem().setChildCatId(Integer.parseInt(request.getParameter("category2")));
+		
 		MultipartFile file = request.getFile("file");
 		if (file.isEmpty()) {
 			System.out.println("기존 파일로 등록");
@@ -58,9 +74,20 @@ public class UpdateAuctionItemController implements ApplicationContextAware {
 		}
 		mnmStore.updateAuctionItem(auctionItem);
 		mnmStore.updateItem(auctionItem.getItem());
-		System.out.println(auctionItem.getItem().getViews());
-		model.addAttribute("auctionItem", auctionItem);
-		return "thyme/AuctionItemView";
+		
+		// 경매 스케쥴러
+		mnmStore.startAuctionScheduler(auctionItem.getStartDate(), auctionItem.getAuctionId());
+		mnmStore.endAuctionScheduler(auctionItem.getEndDate(), auctionItem.getAuctionId());
+		
+		auctionItem = mnmStore.getAuctionItem(auctionId);
+		auctionItem.setItem(mnmStore.getItem(itemId));
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("thyme/AuctionItemView");
+		mav.addObject("auctionItem", auctionItem);
+		mav.addObject("parentCatId", mnmStore.getCategoryName(Integer.toString(auctionItem.getItem().getParentCatId())));
+		mav.addObject("childCatId", mnmStore.getCategoryName(Integer.toString(auctionItem.getItem().getChildCatId())));
+		return mav;
 	}
 	
 	@Override					// life-cycle callback method

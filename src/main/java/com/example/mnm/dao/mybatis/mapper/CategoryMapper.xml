@@ -5,9 +5,25 @@
 	namespace="com.example.mnm.dao.mybatis.mapper.CategoryMapper">
 	<cache />
 
-	<!-- 펀딩 아이템 가져오기 -->
-	<select id="getCategoryList" parameterType="string" resultType="Category">
-		SELECT catid AS "catid", name AS "name" FROM category
-	</select>
+  <select id="getCategoryName" resultType="string">
+    SELECT
+      CATNAME
+    FROM CATEGORY
+    WHERE CATID = #{catId}
+  </select>
+
+  <select id="getCategoryList" resultType="Category">
+    select
+      catId,
+      catName,
+      catIdRef,
+      level
+    FROM CATEGORY
+      START WITH catIdRef IS NULL CONNECT BY PRIOR catId = catIdRef
+  </select>
+  
+  <select id="getCategory" resultType="Category">
+    SELECT * FROM CATEGORY WHERE CATID = #{catId}
+  </select>
 </mapper>
 

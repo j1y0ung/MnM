@@ -25,5 +25,8 @@ public class MybatisCategoryDao implements CategoryDao{
 		return categoryMapper.getCategory(categoryId);
 	}
 
-
+	@Override
+	public String getCategoryName(String categoryId) throws DataAccessException {
+		return categoryMapper.getCategoryName(categoryId);
+	}
 }
