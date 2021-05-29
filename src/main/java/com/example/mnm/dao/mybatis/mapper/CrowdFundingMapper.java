@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
+import com.example.mnm.domain.AuctionItemList;
 import com.example.mnm.domain.CrowdFundingItem;
 import com.example.mnm.domain.FundingForm;
 import com.example.mnm.domain.Item;
@@ -26,5 +27,7 @@ public interface CrowdFundingMapper {
 	// 펀딩하기 
 	void fund(FundingForm fundingForm); // orders에 삽입 
 	void fund2(FundingForm fundingForm); // LineItem에 삽입 
-	void fundUpdate(FundingForm fundingForm); // crowdFunding 업데이트 
+	void fundUpdate(FundingForm fundingForm); // crowdFunding 업데이트
+	
+	List<CrowdFundingItem> getFourCrowdFundingItemList(); // 홈에 노출될 아이템 4개 반환
 }

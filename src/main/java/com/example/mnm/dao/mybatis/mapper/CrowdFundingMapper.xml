@@ -231,5 +231,13 @@
 		ca.catid AND i.userid = a.userid 
 		AND i.userid=#{userId}
 	</select>
+	
+	<select id="getFourCrowdFundingItemList" resultType="CrowdFundingItem">
+	<![CDATA[
+		select * from crowdfundingitem c, item i
+		where c.itemid=i.itemid and type='crowdFunding' and status='등록' and rownum <= 4
+		order by views DESC
+	]]>    
+  </select>
 </mapper>
 

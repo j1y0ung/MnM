@@ -23,6 +23,6 @@ public interface CrowdFundingDao {
 	public void fund(FundingForm fundingForm) throws DataAccessException;// 후원하기
 	public void fund2(FundingForm fundingForm) throws DataAccessException;
 	public void fundUpdate(FundingForm fundingForm) throws DataAccessException;
-	
+	List<CrowdFundingItem> getFourCrowdFundingItemList() throws DataAccessException;
 
 }

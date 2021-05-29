@@ -27,4 +27,5 @@ public interface AuctionDao {
   Bid findWinnerBid(String auctionId) throws DataAccessException;
   String getStatus(String auctionId) throws DataAccessException;
   void updateImmediatePurchase(String auctionId, int immdPurchasePrice, String winnerId) throws DataAccessException;
+  List<AuctionItemList> getFourAuctionItemList() throws DataAccessException;
 }

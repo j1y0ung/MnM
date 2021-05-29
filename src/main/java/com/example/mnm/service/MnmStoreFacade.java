@@ -18,6 +18,10 @@ public interface MnmStoreFacade {
   
 	Item getItem(String itemId);
 
+	// 홈에 노출되는 아이템
+	List<AuctionItemList> getFourAuctionItemList();
+	List<CrowdFundingItem> getFourCrowdFundingItemList();
+	
 	// 회원 관리
 	void insertAccount(Account account);
 	void deleteAccount(String userid);

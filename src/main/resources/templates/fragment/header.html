@@ -2,7 +2,7 @@
       xmlns:th="http://www.thymeleaf.org">
       
 <!-- headerFragment 선언-->
-<div th:fragment="headerFragment">
+<div align="center" th:fragment="headerFragment">
    <table>
 		<tr>
 			<td style="text-align:left">
@@ -23,7 +23,7 @@
 			<td>
 				<a href="" th:href="@{/personalDeal/list}">PersonalDeal</a>
 				&nbsp&nbsp<img border="0" src="/images/separator.gif" />&nbsp&nbsp
-				<a href="" th:href="@{/auction/list}">Auction</a>
+				<a href="" th:href="@{/auction/recently}">Auction</a>
 				&nbsp&nbsp<img border="0" src="/images/separator.gif"/>&nbsp&nbsp
 				<a href="" th:href="@{/crowdFunding/list}">CrowdFunding</a>
 			</td>

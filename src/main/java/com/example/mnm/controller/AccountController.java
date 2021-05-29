@@ -73,18 +73,26 @@ public class AccountController {
                         @RequestParam(value="pwd") String pwd) {
 		logger.info("[AcountController INFO] login()");
 		
-		Account account = null;                            
-        if((store.getPwd(userid)).equals(pwd)) {
-        	account = store.getAccount(userid);
-        	session.setAttribute("userid", userid);
-            session.setAttribute("account", account);
-            logger.info("[AcountController INFO] 로그인 성공");
-            return "thyme/home";
-        } else{
-        	logger.info("[AcountController INFO] 로그인 실패");
-        	// 실패 오류 띄워주는거 추가하기
-        	return "thyme/home";
+		String returnURL = "";
+		// 기존에 로그인 세션 존재하면 기존 세션 제거
+        if ( session.getAttribute("userid") != null ){
+            session.removeAttribute("account");
         }
+        else {
+        	Account account = store.getAccount(userid);
+        	
+        	if((store.getPwd(userid)).equals(pwd)) {
+            	logger.info("[AcountController INFO] 로그인 성공");
+            	account = store.getAccount(userid);
+                session.setAttribute("account", account);
+                returnURL = "redirect:/";
+            } else{
+            	logger.info("[AcountController INFO] 로그인 실패");
+            	// 실패 오류 띄워주는거 추가하기
+            	return "redirect:/loginForm.do";
+            }
+        }
+		return returnURL;
     }
 
 	// 로그아웃 실행
@@ -93,11 +101,10 @@ public class AccountController {
 		logger.info("[AcountController INFO] logout()");
 		
 		// 세션 비활성화
-		session.removeAttribute("userid");
 		session.removeAttribute("account");
 		session.invalidate();
 
-		return "thyme/home";
+		return "redirect:/loginForm.do";
 	}
 	
 	// 세션 체크용
