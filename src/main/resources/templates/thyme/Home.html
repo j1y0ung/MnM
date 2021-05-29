@@ -15,7 +15,43 @@
 
 <div layout:fragment="content">
 	<h3>PersonalDeal</h3>
+	
 	<h3>Auction</h3>
+	<div align="center" th:unless="${#lists.isEmpty(auctionItems)}">
+		<div th:each="auctionItem : ${auctionItems}">
+			<table>
+				<tr>
+					<td rowspan="4"><img th:src="@{'/upload/' + ${auctionItem.img}}" width="130" height="100"/></td>
+					<td th:text="${auctionItem.title}"></td>
+				</tr>
+				<tr>
+					<td th:text="'현재 입찰가: '+${auctionItem.currentPrice}+'원'"></td>
+				</tr>
+				<tr>
+					<td th:text="'마감일: '+${auctionItem.endDate}"></td>
+				</tr>
+				<tr>
+					<td th:text="'조회수: '+${auctionItem.views}"></td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	
 	<h3>CrowdFunding</h3>
+	<div align="center" th:unless="${#lists.isEmpty(crowdFundingItemList)}">
+		<div th:each="crowdFundingItem : ${crowdFundingItemList.pageList}">
+			<table>
+				<tr>
+					<td rowspan="3" th:text="${crowdFundingItem.item.img}"></td>
+				</tr>
+				<tr>
+					<td th:text="'제목 : ' + ${crowdFundingItem.item.title}"></td>
+				</tr>
+				<tr>
+					<td th:text="((${crowdFundingItem.currentSponsoredAmount} / ${crowdFundingItem.targetAmount}) * 100) + '% 달성'">~% 달성</td>
+				</tr>
+			</table>
+		</div>
+	</div>
 </div>
 </html>

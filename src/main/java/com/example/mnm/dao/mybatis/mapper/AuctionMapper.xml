@@ -108,5 +108,13 @@
   	SET WINNERID=#{param3}, IMMDPURCHASEPRICE=#{param2}, STATUS='즉시구매완료'
   	WHERE AUCTIONID = #{param1}
   </update>
+  
+  <select id="getFourAuctionItemList" resultType="AuctionItemList">
+  <![CDATA[
+  	SELECT * FROM AUCTIONITEM A, ITEM I 
+    WHERE A.ITEMID=I.ITEMID AND type='auction' AND status='경매진행중' AND rownum <= 4
+    ORDER BY views DESC
+   ]]>    
+  </select>
 
 </mapper>

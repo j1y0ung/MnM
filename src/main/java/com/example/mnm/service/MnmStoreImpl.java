@@ -13,6 +13,7 @@ import com.example.mnm.dao.AuctionDao;
 import com.example.mnm.dao.CategoryDao;
 import com.example.mnm.dao.CrowdFundingDao;
 import com.example.mnm.dao.ItemDao;
+import com.example.mnm.dao.PersonalDealDao;
 import com.example.mnm.dao.ProductDao;
 import com.example.mnm.dao.AccountDao;
 import com.example.mnm.domain.Account;
@@ -23,6 +24,7 @@ import com.example.mnm.domain.Category;
 import com.example.mnm.domain.CrowdFundingItem;
 import com.example.mnm.domain.FundingForm;
 import com.example.mnm.domain.Item;
+import com.example.mnm.domain.PersonalDealItem;
 import com.example.mnm.domain.Product;
 
 @Service
@@ -43,7 +45,7 @@ public class MnmStoreImpl implements MnmStoreFacade {
 	public Item getItem(String itemId) {
 		return itemDao.getItem(itemId);
 	}
-  
+	
 	// 회원관리
 	public void insertAccount(Account account) {
 		logger.info("[MnmStoreImpl INFO] insertAccount()");
@@ -236,5 +238,19 @@ public class MnmStoreImpl implements MnmStoreFacade {
 		crowdFundingDao.fund(fundingForm);
 		crowdFundingDao.fund2(fundingForm);
 		crowdFundingDao.fundUpdate(fundingForm);
+	}
+	
+	// 홈에 노출되는 아이템들 가져오기
+//	public List<PersonalDealItem> getFourPersonalDealItemList() {
+//		logger.info("[MnmStoreImpl INFO] getFourPersonalDealItemList()");
+//		return PersonalDealDao.getFourPersonalDealItemList();
+//	}
+	public List<AuctionItemList> getFourAuctionItemList() {
+		logger.info("[MnmStoreImpl INFO] getFourAuctionItemList()");
+		return auctionDao.getFourAuctionItemList();
+	}
+	public List<CrowdFundingItem> getFourCrowdFundingItemList() {
+		logger.info("[MnmStoreImpl INFO] getFourCrowdFundingItemList()");
+		return crowdFundingDao.getFourCrowdFundingItemList();
 	}
 }
