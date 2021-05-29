@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper
+	namespace="com.example.mnm.dao.mybatis.mapper.PersonalDealMapper">
+	<cache />
+	
+	<select id="getAllPersonalDealItems" parameterType="PersonalDealItem"
+		resultType="PersonalDealItem">
+		SELECT
+		i.title AS "item.title",
+		i.description AS "item.description",
+		i.status as "status",
+		i.img AS "item.img",
+		i.quantity AS "item.quantity",
+		i.regiDate AS "item.regiDate", 
+		i.views AS "item.views",
+		i.shippingFee AS "item.shippingFee", 
+		i.userid AS "item.account.userid", 
+		i.productid AS "item.product.productid",
+		p.location AS "location",
+		p.dealStatus AS "dealStatus",
+		p.price AS "price"
+		FROM personalDealItem p, item i
+		WHERE p.itemid = i.itemid
+		AND personalDealItemId=#{personalDealItemId}
+		</select>
+		
+	<select id="getPersonalDealItemList" parameterType="PersonalDealItem"
+		resultType="PersonalDealItem">
+		SELECT
+		i.title AS "item.title",
+		i.description AS "item.description",
+		i.status as "status",
+		i.img AS "item.img",
+		i.quantity AS "item.quantity",
+		i.regiDate AS "item.regiDate", 
+		i.views AS "item.views",
+		i.shippingFee AS "item.shippingFee", 
+		i.userid AS "item.account.userid", 
+		i.productid AS "item.product.productid",
+		p.location AS "location",
+		p.dealStatus AS "dealStatus",
+		p.price AS "price",
+		FROM personalDealItem p, item i
+		WHERE p.itemid = i.itemid
+		AND p.personalDealItemId=#{personalDealItemId}
+		</select>
+		
+	<insert id="addPersonalDealItem" parameterType="PersonalDealItem">
+		INSERT INTO 
+		personalDealItem(location, dealStatus, price, itemid)
+		VALUES (#{location}, #{dealStatus}, #{price}, #{itemid})
+	</insert>
+		
+	<insert id="addItem" parameterType="Item">
+		<selectKey keyProperty="itemId" resultType="integer" order="BEFORE">
+			select ITEMID_SEQ.nextval FROM DUAL
+		</selectKey>
+		INSERT INTO
+		item (itemId, title, description, img, quantity, regiDate,
+		views,  userId, productId, type)
+		VALUES (#{itemId}, #{title}, #{description}, #{img}, #{quantity}, to_char(sysdate,'yy/mm/dd'),
+		0, #{account.userId}, #{product.productId}, 'crowdFunding')
+	</insert>
+		
+	<update id="removePersonalDealItemById" parameterType="String">
+		DELETE FROM personalDealItem
+		WHERE personalDealItemId=#{personalDealItemId}
+	</update>
+		
+	<delete id="removeItemById" parameterType="string">
+		DELETE FROM
+		item
+		WHERE itemid=#{itemId}
+	</delete>
+		
+	<update id="updatePersonalDealItemById" parameterType="PersonalDealItem">
+		UPDATE personalDealItem
+		SET
+		location=#{personalDealItem.location},
+		dealStatus=#{personalDealItem.dealStatus},
+		price=#{personalDealItem.price}
+		WHERE
+		personalDealItemId=#{personalDealItemId}
+	</update>
+		
+	<update id="updateItemById"
+		parameterType="Item">
+		UPDATE item SET 
+		productId=#{item.product.productId}, 
+		title=#{item.title}, 
+		description=#{item.description}, 
+		img=#{item.img} 
+		WHERE itemId=#{item.itemId}
+	</update>
+	
+	<update id="finishDealById" parameterType="PersonalDealItem">
+		UPDATE personalDealItem
+		SET
+		dealStatus=#{personalDealItem.dealStatus}
+		WHERE
+		itemid=#{itemid}
+		AND
+		personalDealItemId=#{personalDealItemId}
+	</update>
+	
+</mapper>

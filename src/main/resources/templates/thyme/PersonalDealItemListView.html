@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0"
+	crossorigin="anonymous"
+>
+<title>중고 물품 목록</title>
+</head>
+<body>
+	<br>
+	<h1 align="center">중고 물품 목록</h1>
+	<br>
+	<hr> 
+	<br>
+	<form name="form" method="POST" th:action="@{/personalDeal/search/}"> 
+		<input type="text" name="word" class="form-control">
+		<input type="submit" value="검색" class="form-control btn btn-success">
+	</form>
+	<br>
+	상세 검색:
+	<select class="form-select form-select-sm" th:field="*{categories}">
+		<option th:each="category : ${categories}" th:value="${category}" th:text="${category.name}">카테고리</option>
+	</select> 
+	정렬 순서:
+	<select class="form-select form-select-sm" th:field="*{sorts}">
+		<option th:each="sort : ${sorts}" th:value="${sort}" th:text="${sort}">정렬</option>
+	</select>
+	<hr>
+	<div th:unless="${#lists.isEmpty(personalDealItems)}">
+		<ul th:each="personalDealItem : ${personalDealItems.pageList}">
+			<li th:text="${personalDealItem.item.img}"/></li>
+			<li th:text="${personalDealItem.title}"></li>
+			<li th:text="'카테고리: ' + ${personalDealItem.item.product.category.name}"></li>
+			<li th:text="'판매희망가: ' + ${personalDealItem.price}"></li>
+			<li th:text="'거래지역: ' + ${personalDealItem.location}"></li>
+			<li th:text="'조회수: ' + ${personalDealItem.views}"></li>
+			<br>
+		</ul>
+	</div>
+	<br>
+	<a href="#" th:href="@{/sellerPage/addItem}" method="get" class="btn btn-primary">중고물품 등록하기</a>
+	<br>
+</body>
+</html>
