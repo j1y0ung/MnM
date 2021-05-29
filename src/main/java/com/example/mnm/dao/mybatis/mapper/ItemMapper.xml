@@ -44,15 +44,15 @@
   
   <update id="updateItem" parameterType="Item">
     UPDATE ITEM
-    SET TITLE = #{title}, DESCRIPTION = #{description}, IMG = #{img}, QUANTITY = #{quantity}, SHIPPINGFEE = #{shippingFee}
+    SET TITLE = #{title}, DESCRIPTION = #{description}, IMG = #{img}, QUANTITY = #{quantity}, SHIPPINGFEE = #{shippingFee}, PARENTCATID = #{parentCatId}, CHILDCATID = #{childCatId}
     WHERE ITEMID = #{itemId}
   </update>
   
   <insert id="insertItem" parameterType="Item" useGeneratedKeys="true" keyProperty="itemId" keyColumn="itemId">
     INSERT INTO ITEM
-      (ITEMID, TITLE, DESCRIPTION, IMG, QUANTITY, REGIDATE, VIEWS, SHIPPINGFEE, USERID, TYPE)
+      (ITEMID, TITLE, DESCRIPTION, IMG, QUANTITY, REGIDATE, VIEWS, SHIPPINGFEE, USERID, TYPE, PARENTCATID, CHILDCATID)
     VALUES
-      (itemid_seq.nextval, #{title}, #{description}, #{img}, #{quantity}, SYSDATE, 0, #{shippingFee}, #{userId}, #{type})
+      (itemid_seq.nextval, #{title}, #{description}, #{img}, #{quantity}, SYSDATE, 0, #{shippingFee}, #{userId}, #{type}, #{parentCatId}, #{childCatId})
   </insert>
   
   <update id="increaseItemViews">
@@ -71,5 +71,5 @@
   
   <delete id="deleteItem">
     DELETE FROM ITEM WHERE ITEMID=#{ITEMID}
-  </delete>   
+  </delete>     
 </mapper>

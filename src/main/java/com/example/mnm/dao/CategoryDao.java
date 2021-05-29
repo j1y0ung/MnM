@@ -9,8 +9,10 @@ import com.example.mnm.domain.Category;
 
 public interface CategoryDao {
 
-	public List<Category> getCategoryList() throws DataAccessException;
+	List<Category> getCategoryList() throws DataAccessException;
 
-	public Category getCategory(String categoryId) throws DataAccessException;
+	Category getCategory(String categoryId) throws DataAccessException;
+	
+	String getCategoryName(String categoryId) throws DataAccessException;
 
 }

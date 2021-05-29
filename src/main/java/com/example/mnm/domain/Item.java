@@ -5,7 +5,6 @@ import java.util.Date;
 
 @SuppressWarnings("serial")
 public class Item implements Serializable {
-	private Product product; 
 	private String itemId;
 	private String title;
 	private String description;
@@ -16,16 +15,14 @@ public class Item implements Serializable {
 	private int shippingFee;
 	private Account account;
 	private String type;
-
+	private Category category;
+	private int parentCatId; // 카테고리 id
+	private int childCatId; // 카테고리 id
 	private String productId;
 	private String userId;
 
-
 	public Item() {
 		super();
-	}
-	public Item(Product product) {
-		this.product = product;
 	}
 	public String getTitle() {
 		return title;
@@ -75,20 +72,30 @@ public class Item implements Serializable {
 	public void setType(String type) {
 		this.type = type;
 	}
-	public Product getProduct() {
-		return product;
-	}
-	public void setProduct(Product product) {
-		this.product = product;
-	}
 	public Account getAccount() {
 		return account;
 	}
 	public void setAccount(Account account) {
 		this.account = account;
 	}
-	
-
+	public Category getCategory() {
+		return category;
+	}
+	public void setCategory(Category category) {
+		this.category = category;
+	}
+	public int getParentCatId() {
+		return parentCatId;
+	}
+	public void setParentCatId(int parentCatId) {
+		this.parentCatId = parentCatId;
+	}
+	public int getChildCatId() {
+		return childCatId;
+	}
+	public void setChildCatId(int childCatId) {
+		this.childCatId = childCatId;
+	}
 	public String getItemId() {
 		return itemId;
 	}
@@ -104,11 +111,11 @@ public class Item implements Serializable {
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
-	
 	@Override
 	public String toString() {
-		return "Item [product=" + product + ", itemId=" + itemId + ", title=" + title + ", description=" + description
-				+ ", img=" + img + ", quantity=" + quantity + ", regiDate=" + regiDate + ", views=" + views
-				+ ", shippingFee=" + shippingFee + ", account=" + account + ", type=" + type + "]";
+		return "Item [itemId=" + itemId + ", title=" + title + ", description=" + description + ", img=" + img
+				+ ", quantity=" + quantity + ", regiDate=" + regiDate + ", views=" + views + ", shippingFee="
+				+ shippingFee + ", account=" + account + ", type=" + type + ", category=" + category + ", parentCatId="
+				+ parentCatId + ", childCatId=" + childCatId + ", productId=" + productId + ", userId=" + userId + "]";
 	}
 }

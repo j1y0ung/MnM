@@ -16,26 +16,26 @@ import com.example.mnm.domain.Item;
 @Mapper
 public interface ItemMapper {
 
-  void insertItem(Item item);
-  
-  void updateInventoryQuantity(Map<String, Object> param);
+	void insertItem(Item item);
+	  
+	void updateInventoryQuantity(Map<String, Object> param);
 
-  int getInventoryQuantity(String itemId);
+	int getInventoryQuantity(String itemId);
 
-  List<Item> getItemListByProduct(String productId);
+	List<Item> getItemListByProduct(String productId);
 
-  Item getItem(String itemId);
-  
-  boolean isItemInStock(String itemId);
-  
-  void updateItem(Item item);
-  
-  void increaseItemViews(String itemId);
-  
-  int getViews(String itemId);
-  
-  Date getRegiDate(String itemId);
-  
-  void deleteItem(String itemId);
+	Item getItem(String itemId);
+	  
+	boolean isItemInStock(String itemId);
+	  
+	void updateItem(Item item);
+	  
+	void increaseItemViews(String itemId);
+	  
+	int getViews(String itemId);
+	  
+	Date getRegiDate(String itemId);
+	  
+	void deleteItem(String itemId);
 
 }

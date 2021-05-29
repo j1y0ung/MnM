@@ -18,8 +18,6 @@ public class AuctionItem implements Serializable {
 	private int bidUnit;
 	private int bidNum;
 	private int immdPurchasePrice;
-	private HashMap<String, Integer> bidInfo;
-	private HashMap<String, Integer> finalBidInfo;
 	private Item item;
 	private String itemId;
 	private String status;
@@ -73,18 +71,6 @@ public class AuctionItem implements Serializable {
 	}
 	public void setImmdPurchasePrice(int immdPurchasePrice) {
 		this.immdPurchasePrice = immdPurchasePrice;
-	}
-	public HashMap<String, Integer> getBidInfo() {
-		return bidInfo;
-	}
-	public void setBidInfo(HashMap<String, Integer> bidInfo) {
-		this.bidInfo = bidInfo;
-	}
-	public HashMap<String, Integer> getFinalBidInfo() {
-		return finalBidInfo;
-	}
-	public void setFinalBidInfo(HashMap<String, Integer> finalBidInfo) {
-		this.finalBidInfo = finalBidInfo;
 	}
 	public Item getItem() {
 		return item;

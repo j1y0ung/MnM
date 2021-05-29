@@ -12,12 +12,22 @@ import com.example.mnm.domain.CrowdFundingItem;
 import com.example.mnm.domain.FundingForm;
 import com.example.mnm.domain.Item;
 import com.example.mnm.domain.PersonalDealItem;
-import com.example.mnm.domain.Product;
 
 public interface MnmStoreFacade {
-  
+	// item
 	Item getItem(String itemId);
-
+	void insertItem(Item item);
+	void updateItem(Item item);
+	void deleteItem(String itemId);
+	int getViews(String itemId);
+	Date getRegiDate(String itemId);
+	void increaseItemViews(String itemId);
+	
+	// category
+	Category getCategory(String categoryId);
+	List<Category> getCategoryList();
+	String getCategoryName(String categoryId);
+	
 	// 홈에 노출되는 아이템
 	List<AuctionItemList> getFourAuctionItemList();
 	List<CrowdFundingItem> getFourCrowdFundingItemList();
@@ -32,7 +42,6 @@ public interface MnmStoreFacade {
   
 	//Auction
 	void insertAuctionItem(AuctionItem auctionItem);
-	void insertItem(Item item);
 	List<AuctionItemList> getRecentAuctionItemList();
 	List<AuctionItemList> getPopularAuctionItemList();
 	List<AuctionItemList> getMostBiddingAuctionItemList();
@@ -40,12 +49,7 @@ public interface MnmStoreFacade {
 	List<AuctionItemList> searchAuctionItemList(String word);
 	AuctionItem getAuctionItem(String auctionId);
 	void updateAuctionItem(AuctionItem auctionItem);
-	void updateItem(Item item);
-	void increaseItemViews(String itemId);
-	int getViews(String itemId);
-	Date getRegiDate(String itemId);
 	void deleteAuctionItem(String auctionId);
-	void deleteItem(String itemId);
 	void insertBidding(Bid bid);
 	void updateCurrentPrice(String auctionId, int bidPrice);
 	List<Bid> getBids(String auctionId);
@@ -54,12 +58,7 @@ public interface MnmStoreFacade {
 	String getStatus(String auctionId);
 	void updateImmediatePurchase(String auctionId, int immdPurchasePrice, String winnerId);
 	
-	// CrowdFunding
-	List<Category> getCategoryList();
-	Category getCategory(String categoryId);
-
-	List<Product> getProductList();
-	
+	// CrowdFunding	
 	List<CrowdFundingItem> getCrowdFundingItemList();
 	CrowdFundingItem getFundingItemById(String crowdFundingId);
 	List<CrowdFundingItem> getMyFundingItemListById(String userId);
