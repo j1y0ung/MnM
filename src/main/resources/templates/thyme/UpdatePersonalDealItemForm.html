@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
+<title>중고물품 수정 화면</title>
+</head>
+<body>
+<br><h1 align="center">중고물품 수정</h1><br><hr>
+	<div class="container">
+		<h3 align="center"><b>물품 정보를 입력해주세요</b></h3><br>
+		<form action="#" th:action="@{/sellerPage/updateItem/{personalDealId}(personalDealId=${personalDealItem.personalDealId})}" th:object="${personalDealItem}" method="post" enctype="multipart/form-data">
+			<p>
+				<label for="title" th:text="#{title}">제목</label>:<br>
+			    <textarea id="title" rows="1" cols="100" th:field="${personalDealItem.item.title}"></textarea>
+	    	</p>	    
+		    
+		    <p>
+				<label for="price" th:text="#{price}">판매희망가</label>:<br>
+				<input type="text" id="price" th:field="${personalDealItem.price}" />
+		    </p>		    
+		    
+		    <p>
+				<label for="productStatus" th:text="#{productStatus}">상품 상태</label>:<br>
+				<input type="text" id="" th:field="${personalDealItem.productStatus}" />
+		    </p> 
+		    
+		    <p>
+				<label for="shippingFee" th:text="#{shippingFee}">배송비</label>:<br>
+				<input type="text" id="shippingFee" th:field="${personalDealItem.item.shippingFee}" />
+		    </p>
+		    
+		    <p>
+				<label for="location" th:text="#{location}">거래지역</label>:<br>
+				<input type="text" id="location" th:field="${personalDealItem.location}" />
+		    </p> 
+		    
+		    <p>
+				<label for="description" th:text="#{description}">판매자 추가 설명</label>:<br>
+				<textarea id="description" rows="20" cols="170" th:field="${personalDealItem.item.description}"></textarea>
+		    </p>
+		    
+		    <!-- <div class="row-lg-10">
+            <div class="form-group">
+				카테고리: <select class="form-select form-select-sm" th:field="*{category}">
+  							<option th:each="category : ${categories}"
+  								th:value="${category}"
+  								th:text="">카테고리</option>
+							</select>
+            </div>
+		  </div> -->
+		  
+		    <p>
+				<label for="date" th:text="#{date}">등록날짜</label>:<br>
+				<input type="datetime-local" id="date" th:field="${personalDealItem.date}" />
+		    </p>
+		    <br><br>
+		    
+		    <h3 align="center"><b>중고물품 사진을 입력해주세요</b></h3><br>
+		    <p>기존에 입력된 사진 :</p>
+		    <p rowspan="7"><img th:src="${personalDealItem.item.img}"/></p>
+		    <p>
+				<label for="img" th:text="#{img}">변경한 이미지</label>:<br>
+				<input type="file" id="file" name="file" placeholder="파일 선택">
+				<!-- <span th:if="${personalDealItem.item.img}">
+					<a href="#" th:text="${personalDealItem.item.img}">첨부된 이미지</a>
+				</span> -->
+		    </p>
+		    
+		  <hr>
+		  <input type="submit" class="btn btn-primary btn-lg" value="등록하기" th:value="#{register.btn}">
+		</form>					
+	</div>
+</body>
+</html>
