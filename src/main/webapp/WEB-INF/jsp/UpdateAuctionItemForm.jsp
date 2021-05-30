@@ -3,6 +3,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <html>
 <head>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 <title>경매 아이템 수정 화면</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <script src="//code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -135,5 +136,6 @@ $(document).on("change", "select.category1", function(){
 	 
 	});
 </script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
 </body>
 </html>

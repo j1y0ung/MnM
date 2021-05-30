@@ -109,6 +109,22 @@
   	WHERE AUCTIONID = #{param1}
   </update>
   
+  <select id="getSellingAuctionItemList" resultType="AuctionItemList">
+    SELECT AUCTIONID, TITLE, IMG, STATUS, BIDNUM, STARTDATE, ENDDATE, A.ITEMID FROM AUCTIONITEM A, ITEM I
+    WHERE A.ITEMID=I.ITEMID AND type='auction' AND USERID = #{userId} ORDER BY ENDDATE DESC
+  </select>
+  
+  <select id="getBiddingAuctionItemList" resultType="AuctionItemList">
+    SELECT A.AUCTIONID, TITLE, IMG, STATUS, BIDNUM, STARTDATE, ENDDATE, A.ITEMID 
+	FROM (SELECT AUCTIONID FROM BID WHERE USERID = #{userId}) B, AUCTIONITEM A, ITEM I
+	WHERE A.AUCTIONID=B.AUCTIONID AND A.ITEMID=I.ITEMID ORDER BY ENDDATE DESC
+  </select>
+  
+  <select id="getAuctionedItemList" resultType="AuctionItemList">
+	SELECT AUCTIONID, TITLE, IMG, STATUS, BIDNUM, STARTDATE, ENDDATE, A.ITEMID FROM AUCTIONITEM A, ITEM I
+	WHERE A.ITEMID=I.ITEMID AND type='auction' AND WINNERID = #{userId} ORDER BY ENDDATE DESC
+  </select> 
+  
   <select id="getFourAuctionItemList" resultType="AuctionItemList">
   <![CDATA[
   	SELECT * FROM AUCTIONITEM A, ITEM I 
