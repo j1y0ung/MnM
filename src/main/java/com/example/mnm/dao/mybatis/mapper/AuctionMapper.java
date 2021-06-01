@@ -48,6 +48,12 @@ public interface AuctionMapper {
 	  String getStatus(String auctionId);
 	  
 	  void updateImmediatePurchase(String auctionId, int immdPurchasePrice, String winnerId);
+	  
+	  List<AuctionItemList> getSellingAuctionItemList(String userId);
+	  
+	  List<AuctionItemList> getBiddingAuctionItemList(String userId);
+	  
+	  List<AuctionItemList> getAuctionedItemList(String userId);
   
-  List<AuctionItemList> getFourAuctionItemList(); // 홈에 노출될 아이템 4개 반환
+      List<AuctionItemList> getFourAuctionItemList(); // 홈에 노출될 아이템 4개 반환
 }

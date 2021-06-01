@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+<title>경매 내역</title>
+</head>
+<body align="center">
+<br><h1 align="center">경매 내역</h1><br>
+<br>
+<h2>내가 판매한 물품</h2><br>
+<div class="card-group" th:unless="${#lists.isEmpty(sellingAuctionItemList)}">
+	<div class="card" th:each="sellingAuctionItem: ${sellingAuctionItemList}">
+		<img class="card-img-top" th:src="@{'/upload/' + ${sellingAuctionItem.img}}" width="300" height="200"/>
+		<div class="card-body">
+			<h5>제목: <span th:text="${sellingAuctionItem.title}"></span></h5>
+			<h6>상태: <span th:text="${sellingAuctionItem.status}"></span></h6>
+			<p>입찰수: <span th:text="${sellingAuctionItem.bidNum}"></span></p>
+			<p>시작일: <span th:text="${sellingAuctionItem.startDate}"></span></p>
+			<p>마감일: <span th:text="${sellingAuctionItem.endDate}"></span></p>
+			<a href="#" th:href="@{/auction/{auctionId}(auctionId=${sellingAuctionItem.auctionId})}" class="btn btn-primary">상세 정보 보기</a><br><br>
+		</div>
+	</div>
+</div>
+<hr>
+<h2>내가 입찰한 물품</h2><br>
+<div class="card-group" th:unless="${#lists.isEmpty(biddingAuctionItemList)}">
+	<div class="card" th:each="biddingAuctionItem: ${biddingAuctionItemList}">
+		<img class="card-img-top" th:src="@{'/upload/' + ${biddingAuctionItem.img}}" width="300" height="200"/>
+		<div class="card-body">
+			<h5>제목: <span th:text="${biddingAuctionItem.title}"></span></h5>
+			<h6>상태: <span th:text="${biddingAuctionItem.status}"></span></h6>
+			<p>입찰수: <span th:text="${biddingAuctionItem.bidNum}"></span></p>
+			<p>시작일: <span th:text="${biddingAuctionItem.startDate}"></span></p>
+			<p>마감일: <span th:text="${biddingAuctionItem.endDate}"></span></p>
+			<a href="#" th:href="@{/auction/{auctionId}(auctionId=${biddingAuctionItem.auctionId})}" class="btn btn-primary">상세 정보 보기</a><br><br>
+		</div>
+	</div>
+</div>
+<hr>
+<h2>내가 낙찰받은 물품</h2><br>
+<div class="card-group" th:unless="${#lists.isEmpty(auctionedItemList)}">
+	<div class="card" th:each="auctionedItem: ${auctionedItemList}">
+		<img class="card-img-top" th:src="@{'/upload/' + ${auctionedItem.img}}" width="300" height="200"/>
+		<div class="card-body">
+			<h5>제목: <span th:text="${auctionedItem.title}"></span></h5>
+			<h6>상태: <span th:text="${auctionedItem.status}"></span></h6>
+			<p>입찰수: <span th:text="${auctionedItem.bidNum}"></span></p>
+			<p>시작일: <span th:text="${auctionedItem.startDate}"></span></p>
+			<p>마감일: <span th:text="${auctionedItem.endDate}"></span></p>
+			<a href="#" th:href="@{/auction/{auctionId}(auctionId=${auctionedItem.auctionId})}" class="btn btn-primary">상세 정보 보기</a><br><br>
+		</div>
+	</div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+</body>
+</html>

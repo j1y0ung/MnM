@@ -57,6 +57,9 @@ public interface MnmStoreFacade {
 	void endAuctionScheduler(Date endTime, String auctionId);
 	String getStatus(String auctionId);
 	void updateImmediatePurchase(String auctionId, int immdPurchasePrice, String winnerId);
+	List<AuctionItemList> getSellingAuctionItemList(String userId);
+	List<AuctionItemList> getBiddingAuctionItemList(String userId);
+	List<AuctionItemList> getAuctionedItemList(String userId);
 	
 	// CrowdFunding	
 	List<CrowdFundingItem> getCrowdFundingItemList();

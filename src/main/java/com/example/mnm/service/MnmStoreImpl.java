@@ -149,6 +149,15 @@ public class MnmStoreImpl implements MnmStoreFacade {
 	public void updateImmediatePurchase(String auctionId, int immdPurchasePrice, String winnerId) {
 		auctionDao.updateImmediatePurchase(auctionId, immdPurchasePrice, winnerId);
 	}
+	public List<AuctionItemList> getSellingAuctionItemList(String userId) {
+		return auctionDao.getSellingAuctionItemList(userId);
+	}
+	public List<AuctionItemList> getBiddingAuctionItemList(String userId) {
+		return auctionDao.getBiddingAuctionItemList(userId);
+	}
+	public List<AuctionItemList> getAuctionedItemList(String userId) {
+		return auctionDao.getAuctionedItemList(userId);
+	}
 	public void startAuctionScheduler(Date startTime, String auctionId) {
 		
 		Runnable startAuctionItemRunner = new Runnable() {	

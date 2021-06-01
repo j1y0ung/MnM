@@ -90,7 +90,17 @@ public class MybatisAuctionDao implements AuctionDao {
 	public void updateImmediatePurchase(String auctionId, int immdPurchasePrice, String winnerId) throws DataAccessException {
 		auctionMapper.updateImmediatePurchase(auctionId, immdPurchasePrice, winnerId);
 	}
+	public List<AuctionItemList> getSellingAuctionItemList(String userId) throws DataAccessException {
+		return auctionMapper.getSellingAuctionItemList(userId);
+	}
 	
+	public List<AuctionItemList> getBiddingAuctionItemList(String userId) throws DataAccessException {
+		return auctionMapper.getBiddingAuctionItemList(userId);
+	}
+	
+	public List<AuctionItemList> getAuctionedItemList(String userId) throws DataAccessException {
+		return auctionMapper.getAuctionedItemList(userId);
+	}
 	@Override
 	public List<AuctionItemList> getFourAuctionItemList() throws DataAccessException {
 		return auctionMapper.getFourAuctionItemList();

@@ -31,26 +31,35 @@ public class BiddingController {
 		bid.setAuctionId(auctionId);
 		bid.setBidPrice(bidPrice);
 		bid.setUserId(userSession.getAccount().getUserid());
+		
 		mnmStore.insertBidding(bid);
 		mnmStore.updateCurrentPrice(auctionId, bidPrice);
 		AuctionItem auctionItem = mnmStore.getAuctionItem(auctionId);
 		auctionItem.setItem(mnmStore.getItem(auctionItem.getItemId()));
+		
 		List<Bid> bids = mnmStore.getBids(auctionId);
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("thyme/AuctionItemView");
 		mav.addObject("auctionItem", auctionItem);
 		mav.addObject("bids", bids);
+		mav.addObject("parentCatId", mnmStore.getCategoryName(Integer.toString(auctionItem.getItem().getParentCatId())));
+		mav.addObject("childCatId", mnmStore.getCategoryName(Integer.toString(auctionItem.getItem().getChildCatId())));
 		return mav;
 	}
 	
 	@RequestMapping("/auction/bidding/{auctionId}/immd")
 	public ModelAndView handleRequest2(@PathVariable String auctionId, @ModelAttribute("userSession") UserSession userSession, @RequestParam int immdPurchasePrice) {
+		
 		mnmStore.updateImmediatePurchase(auctionId, immdPurchasePrice, userSession.getAccount().getUserid());
+		
 		AuctionItem auctionItem = mnmStore.getAuctionItem(auctionId);
 		auctionItem.setItem(mnmStore.getItem(auctionItem.getItemId()));
+		
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("thyme/AuctionItemView");
 		mav.addObject("auctionItem", auctionItem);
+		mav.addObject("parentCatId", mnmStore.getCategoryName(Integer.toString(auctionItem.getItem().getParentCatId())));
+		mav.addObject("childCatId", mnmStore.getCategoryName(Integer.toString(auctionItem.getItem().getChildCatId())));
 		return mav;
 	}
 
