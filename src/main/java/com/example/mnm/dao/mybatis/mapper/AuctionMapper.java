@@ -21,7 +21,7 @@ public interface AuctionMapper {
 	  
 	  void startAuctionItemStatus(Date startDate, String auctionId);
 	  
-	  void endAuctionItemStatus(Date startDate, String auctionId);
+	  void updateFailedAuctionStatus(Date startDate, String auctionId);
 	  
 	  List<AuctionItemList> getPopularAuctionItemList();
 	  
@@ -49,6 +49,10 @@ public interface AuctionMapper {
 	  
 	  void updateImmediatePurchase(String auctionId, int immdPurchasePrice, String winnerId);
 	  
+	  void updateGiveUpWinning(String auctionId);
+	  
+	  Bid findSecondBid(String auctionId, String preWinnerId);
+
 	  List<AuctionItemList> getSellingAuctionItemList(String userId);
 	  
 	  List<AuctionItemList> getBiddingAuctionItemList(String userId);

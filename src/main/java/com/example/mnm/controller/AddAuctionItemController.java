@@ -54,7 +54,7 @@ public class AddAuctionItemController implements ApplicationContextAware {
 	}
 	
 	@PostMapping
-	public ModelAndView submit(@ModelAttribute("auctionItem") AuctionItem auctionItem, MultipartHttpServletRequest request, 
+	public String submit(@ModelAttribute("auctionItem") AuctionItem auctionItem, MultipartHttpServletRequest request, 
 			@ModelAttribute("userSession") UserSession userSession) throws Exception {
 		
 		MultipartFile file = request.getFile("file");
@@ -63,25 +63,18 @@ public class AddAuctionItemController implements ApplicationContextAware {
 		
 		auctionItem.getItem().setType("auction");
 		auctionItem.getItem().setUserId(userSession.getAccount().getUserid());
-		//카테고리
+		// 카테고리
 		auctionItem.getItem().setParentCatId(Integer.parseInt(request.getParameter("category1")));
 		auctionItem.getItem().setChildCatId(Integer.parseInt(request.getParameter("category2")));
 		
 		mnmStore.insertItem(auctionItem.getItem());
 		mnmStore.insertAuctionItem(auctionItem);
 		
-		auctionItem.getItem().setRegiDate(mnmStore.getRegiDate(auctionItem.getItem().getItemId()));
-		auctionItem.setStatus(mnmStore.getStatus(auctionItem.getAuctionId()));
-		
+		// 경매 스케쥴러
 		mnmStore.startAuctionScheduler(auctionItem.getStartDate(), auctionItem.getAuctionId());
 		mnmStore.endAuctionScheduler(auctionItem.getEndDate(), auctionItem.getAuctionId());
 		
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("thyme/AuctionItemView");
-		mav.addObject("auctionItem", auctionItem);
-		mav.addObject("parentCatId", mnmStore.getCategoryName(Integer.toString(auctionItem.getItem().getParentCatId())));
-		mav.addObject("childCatId", mnmStore.getCategoryName(Integer.toString(auctionItem.getItem().getChildCatId())));
-		return mav;
+		return "redirect:/auction/" + auctionItem.getAuctionId();
 	}
 
 	@Override					// life-cycle callback method

@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.example.mnm.domain.AuctionItem;
 import com.example.mnm.domain.Category;
@@ -39,7 +38,7 @@ public class UpdateAuctionItemController implements ApplicationContextAware {
 	}
 	
 	@GetMapping
-	public String handleRequest(@RequestParam String auctionId, Model model) {
+	public String form(@RequestParam String auctionId, Model model) {
 		AuctionItem auctionItem = mnmStore.getAuctionItem(auctionId);
 		auctionItem.setItem(mnmStore.getItem(auctionItem.getItemId()));
 		
@@ -55,10 +54,8 @@ public class UpdateAuctionItemController implements ApplicationContextAware {
 	}
 	
 	@PostMapping
-	public ModelAndView handleRequest2(@RequestParam String auctionId, AuctionItem auctionItem, MultipartHttpServletRequest request, Model model) throws Exception {
+	public String update(@RequestParam String auctionId, AuctionItem auctionItem, MultipartHttpServletRequest request, Model model) throws Exception {
 		auctionItem.getItem().setItemId(itemId);
-		System.out.println(request.getParameter("category1"));
-		System.out.println(request.getParameter("category2"));
 		auctionItem.getItem().setParentCatId(Integer.parseInt(request.getParameter("category1")));
 		auctionItem.getItem().setChildCatId(Integer.parseInt(request.getParameter("category2")));
 		
@@ -78,15 +75,7 @@ public class UpdateAuctionItemController implements ApplicationContextAware {
 		mnmStore.startAuctionScheduler(auctionItem.getStartDate(), auctionItem.getAuctionId());
 		mnmStore.endAuctionScheduler(auctionItem.getEndDate(), auctionItem.getAuctionId());
 		
-		auctionItem = mnmStore.getAuctionItem(auctionId);
-		auctionItem.setItem(mnmStore.getItem(itemId));
-		
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("thyme/AuctionItemView");
-		mav.addObject("auctionItem", auctionItem);
-		mav.addObject("parentCatId", mnmStore.getCategoryName(Integer.toString(auctionItem.getItem().getParentCatId())));
-		mav.addObject("childCatId", mnmStore.getCategoryName(Integer.toString(auctionItem.getItem().getChildCatId())));
-		return mav;
+		return "redirect:/auction/" + auctionId;
 	}
 	
 	@Override					// life-cycle callback method

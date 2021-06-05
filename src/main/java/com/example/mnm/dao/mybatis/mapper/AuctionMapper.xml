@@ -55,10 +55,10 @@
    ]]>
   </update>
   
-  <update id="endAuctionItemStatus">
+  <update id="updateFailedAuctionStatus">
    <![CDATA[
   	UPDATE AUCTIONITEM
-  	SET STATUS='경매마감'
+  	SET STATUS='유찰'
   	WHERE ENDDATE <= #{param1} AND AUCTIONID=#{param2}
    ]]>
   </update>
@@ -93,7 +93,7 @@
   
   <update id="updateWinner">
   	UPDATE AUCTIONITEM
-  	SET WINNERID=#{winnerId}, WINNINGBIDPRICE=#{bidPrice}
+  	SET WINNERID=#{winnerId}, WINNINGBIDPRICE=#{bidPrice}, STATUS='낙찰'
   	WHERE AUCTIONID = #{auctionId}
   </update>
   
@@ -109,20 +109,32 @@
   	WHERE AUCTIONID = #{param1}
   </update>
   
+  <update id="updateGiveUpWinning">
+  	UPDATE AUCTIONITEM
+  	SET WINNINGBIDPRICE=NULL, STATUS='낙찰포기'
+  	WHERE AUCTIONID = #{auctionId}
+  </update>
+  
+  <select id="findSecondBid" resultType="Bid">
+   	SELECT *
+	FROM (SELECT * FROM BID WHERE AUCTIONID = #{auctionId} ORDER BY BIDPRICE DESC)
+	WHERE ROWNUM=1 AND USERID != #{preWinnerId}
+  </select>
+  
   <select id="getSellingAuctionItemList" resultType="AuctionItemList">
     SELECT AUCTIONID, TITLE, IMG, STATUS, BIDNUM, STARTDATE, ENDDATE, A.ITEMID FROM AUCTIONITEM A, ITEM I
     WHERE A.ITEMID=I.ITEMID AND type='auction' AND USERID = #{userId} ORDER BY ENDDATE DESC
   </select>
   
   <select id="getBiddingAuctionItemList" resultType="AuctionItemList">
-    SELECT A.AUCTIONID, TITLE, IMG, STATUS, BIDNUM, STARTDATE, ENDDATE, A.ITEMID 
+    SELECT DISTINCT A.AUCTIONID, TITLE, IMG, STATUS, BIDNUM, STARTDATE, ENDDATE, A.ITEMID 
 	FROM (SELECT AUCTIONID FROM BID WHERE USERID = #{userId}) B, AUCTIONITEM A, ITEM I
 	WHERE A.AUCTIONID=B.AUCTIONID AND A.ITEMID=I.ITEMID ORDER BY ENDDATE DESC
   </select>
   
   <select id="getAuctionedItemList" resultType="AuctionItemList">
 	SELECT AUCTIONID, TITLE, IMG, STATUS, BIDNUM, STARTDATE, ENDDATE, A.ITEMID FROM AUCTIONITEM A, ITEM I
-	WHERE A.ITEMID=I.ITEMID AND type='auction' AND WINNERID = #{userId} ORDER BY ENDDATE DESC
+	WHERE A.ITEMID=I.ITEMID AND type='auction' AND WINNERID = #{userId} AND STATUS != '낙찰포기' ORDER BY ENDDATE DESC
   </select> 
   
   <select id="getFourAuctionItemList" resultType="AuctionItemList">

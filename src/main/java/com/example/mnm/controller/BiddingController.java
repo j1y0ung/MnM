@@ -1,6 +1,5 @@
 package com.example.mnm.controller;
 
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -9,9 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.servlet.ModelAndView;
 
-import com.example.mnm.domain.AuctionItem;
 import com.example.mnm.domain.Bid;
 import com.example.mnm.service.MnmStoreFacade;
 
@@ -23,9 +20,9 @@ public class BiddingController {
 	public void setmnmStore(MnmStoreFacade mnmStore) {
 		this.mnmStore = mnmStore;
 	}
-	
+	// 입찰
 	@PostMapping("/auction/bidding/{auctionId}")
-	public ModelAndView handleRequest(@PathVariable String auctionId, @ModelAttribute("userSession") UserSession userSession, 
+	public String bid(@PathVariable String auctionId, @ModelAttribute("userSession") UserSession userSession, 
 			@RequestParam int bidPrice) {
 		Bid bid = new Bid();
 		bid.setAuctionId(auctionId);
@@ -34,33 +31,35 @@ public class BiddingController {
 		
 		mnmStore.insertBidding(bid);
 		mnmStore.updateCurrentPrice(auctionId, bidPrice);
-		AuctionItem auctionItem = mnmStore.getAuctionItem(auctionId);
-		auctionItem.setItem(mnmStore.getItem(auctionItem.getItemId()));
-		
-		List<Bid> bids = mnmStore.getBids(auctionId);
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("thyme/AuctionItemView");
-		mav.addObject("auctionItem", auctionItem);
-		mav.addObject("bids", bids);
-		mav.addObject("parentCatId", mnmStore.getCategoryName(Integer.toString(auctionItem.getItem().getParentCatId())));
-		mav.addObject("childCatId", mnmStore.getCategoryName(Integer.toString(auctionItem.getItem().getChildCatId())));
-		return mav;
+
+		return "redirect:/auction/" + auctionId;
 	}
-	
+	// 즉시구매
 	@RequestMapping("/auction/bidding/{auctionId}/immd")
-	public ModelAndView handleRequest2(@PathVariable String auctionId, @ModelAttribute("userSession") UserSession userSession, @RequestParam int immdPurchasePrice) {
+	public String immdPurchase(@PathVariable String auctionId, @ModelAttribute("userSession") UserSession userSession, @RequestParam int immdPurchasePrice) {
 		
 		mnmStore.updateImmediatePurchase(auctionId, immdPurchasePrice, userSession.getAccount().getUserid());
 		
-		AuctionItem auctionItem = mnmStore.getAuctionItem(auctionId);
-		auctionItem.setItem(mnmStore.getItem(auctionItem.getItemId()));
+		return "redirect:/auction/" + auctionId;
+	}
+	// 낙찰포기
+	@RequestMapping("/auction/bidding/{auctionId}/giveup")
+	public String giveUpWinning(@PathVariable String auctionId) {
 		
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("thyme/AuctionItemView");
-		mav.addObject("auctionItem", auctionItem);
-		mav.addObject("parentCatId", mnmStore.getCategoryName(Integer.toString(auctionItem.getItem().getParentCatId())));
-		mav.addObject("childCatId", mnmStore.getCategoryName(Integer.toString(auctionItem.getItem().getChildCatId())));
-		return mav;
+		mnmStore.updateGiveUpWinning(auctionId);
+		
+		return "redirect:/auction/history";
+	}
+	// 후순위자 낙찰 
+	@RequestMapping("/auction/bidding/{auctionId}/second")
+	public String secondWinning(@PathVariable String auctionId, @ModelAttribute("userSession") UserSession userSession) {
+		
+		Bid firstBid = mnmStore.findWinnerBid(auctionId);
+		Bid secondBid = mnmStore.findSecondBid(auctionId, firstBid.getUserId());
+		
+		mnmStore.updateWinner(secondBid.getUserId(), secondBid.getBidPrice(), secondBid.getAuctionId());
+		
+		return "redirect:/auction/history";
 	}
 
 }
