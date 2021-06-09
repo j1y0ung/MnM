@@ -51,12 +51,20 @@ public class MybatisAuctionDao implements AuctionDao {
 		auctionMapper.startAuctionItemStatus(startDate, auctionId);
 	}
 	
-	public void endAuctionItemStatus(Date endDate, String auctionId) throws DataAccessException {
-		auctionMapper.endAuctionItemStatus(endDate, auctionId);
+	public void updateFailedAuctionStatus(Date endDate, String auctionId) throws DataAccessException {
+		auctionMapper.updateFailedAuctionStatus(endDate, auctionId);
 	}
 	
 	public void updateAuctionItem(AuctionItem auctionItem) throws DataAccessException {
 		auctionMapper.updateAuctionItem(auctionItem);
+	}
+	
+	public void updateGiveUpWinning(String auctionId) throws DataAccessException {
+		auctionMapper.updateGiveUpWinning(auctionId);
+	}
+	
+	public Bid findSecondBid(String auctionId, String preWinnerId) throws DataAccessException {
+		return auctionMapper.findSecondBid(auctionId, preWinnerId);
 	}
 	
 	public void deleteAuctionItem(String auctionId) throws DataAccessException {
@@ -90,6 +98,7 @@ public class MybatisAuctionDao implements AuctionDao {
 	public void updateImmediatePurchase(String auctionId, int immdPurchasePrice, String winnerId) throws DataAccessException {
 		auctionMapper.updateImmediatePurchase(auctionId, immdPurchasePrice, winnerId);
 	}
+	
 	public List<AuctionItemList> getSellingAuctionItemList(String userId) throws DataAccessException {
 		return auctionMapper.getSellingAuctionItemList(userId);
 	}
@@ -100,7 +109,8 @@ public class MybatisAuctionDao implements AuctionDao {
 	
 	public List<AuctionItemList> getAuctionedItemList(String userId) throws DataAccessException {
 		return auctionMapper.getAuctionedItemList(userId);
-	}
+	}	
+	
 	@Override
 	public List<AuctionItemList> getFourAuctionItemList() throws DataAccessException {
 		return auctionMapper.getFourAuctionItemList();

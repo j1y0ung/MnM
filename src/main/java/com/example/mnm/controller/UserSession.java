@@ -17,4 +17,5 @@ public class UserSession implements Serializable {
 	public Account getAccount() {
 		return account;
 	}
+
 }

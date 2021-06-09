@@ -7,23 +7,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.example.mnm.domain.Cart;
+import com.example.mnm.domain.AuctionCart;
 
-/**
- * @author Juergen Hoeller
- * @since 30.11.2003
- * @modified-by Changsup Park
- */
 @Controller
 @SessionAttributes("sessionCart")
-public class RemoveItemFromCartController { 
+public class RemoveAuctionItemFromCartController { 
 
-	@RequestMapping("/shop/removeItemFromCart.do")
+	@RequestMapping("/auction/removeItemFromCart.do")
 	public ModelAndView handleRequest(
-			@RequestParam("workingItemId") String workingItemId,
-			@ModelAttribute("sessionCart") Cart cart
+			@RequestParam("auctionId") String workingItemId,
+			@ModelAttribute("sessionCart") AuctionCart cart
 		) throws Exception {
 		cart.removeItemById(workingItemId);
-		return new ModelAndView("Cart", "cart", cart);
+		return new ModelAndView("thyme/AuctionCart", "cart", cart);
 	}
 }

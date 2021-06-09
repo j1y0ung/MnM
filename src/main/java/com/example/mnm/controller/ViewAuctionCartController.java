@@ -11,58 +11,45 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.util.WebUtils;
 
-import com.example.mnm.domain.Cart;
+import com.example.mnm.domain.AuctionCart;
 
-/**
- * @author Juergen Hoeller
- * @since 30.11.2003
- * @modified-by Changsup Park
- */
 @Controller
 @SessionAttributes("sessionCart")
-public class ViewCartController { 
+public class ViewAuctionCartController { 
 	
 	@ModelAttribute("sessionCart")
-	public Cart createCart(HttpSession session) {
-		Cart cart = (Cart)session.getAttribute("sessionCart");
-		if (cart == null) cart = new Cart();
+	public AuctionCart createCart(HttpSession session) {
+		AuctionCart cart = (AuctionCart)session.getAttribute("sessionCart");
+		if (cart == null) cart = new AuctionCart();
 		return cart;
 	}
 	
-	@RequestMapping("/shop/viewCart.do")
+	@RequestMapping("/auction/viewCart.do")
 	public ModelAndView viewCart(
 			HttpServletRequest request,
 			@RequestParam(value="page", required=false) String page,
-			@ModelAttribute("sessionCart") Cart cart) 
+			@ModelAttribute("sessionCart") AuctionCart cart) 
 			throws Exception {
 		UserSession userSession = 
 			(UserSession) WebUtils.getSessionAttribute(request, "userSession");
 		handleRequest(page, cart, userSession);
-		return new ModelAndView("Cart", "cart", cart);
+		return new ModelAndView("thyme/AuctionCart", "cart", cart);
 	}
 
-	@RequestMapping("/shop/checkout.do")
+	@RequestMapping("/auction/checkout.do")
 	public ModelAndView checkout(
 			HttpServletRequest request,
 			@RequestParam(value="page", required=false) String page,
-			@ModelAttribute("sessionCart") Cart cart) 
+			@ModelAttribute("sessionCart") AuctionCart cart) 
 			throws Exception {
 		UserSession userSession = 
 			(UserSession) WebUtils.getSessionAttribute(request, "userSession");
 		handleRequest(page, cart, userSession);
-		return new ModelAndView("Checkout", "cart", cart);
+		return new ModelAndView("thyme/AuctionCheckout", "cart", cart);
 	}
 	
-	private void handleRequest(String page, Cart cart, UserSession userSession)
+	private void handleRequest(String page, AuctionCart cart, UserSession userSession)
 			throws Exception {
-		if (userSession != null) {
-			if ("next".equals(page)) {
-				userSession.getMyList().nextPage();
-			}
-			else if ("previous".equals(page)) {
-				userSession.getMyList().previousPage();
-			}
-		}
 		if ("nextCart".equals(page)) {
 			cart.getCartItemList().nextPage();
 		}

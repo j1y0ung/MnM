@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+<title>경매 내역</title>
+<script>
+function giveup() {
+	return confirm("정말 포기하시겠습니까?");		
+}
+function secondWin() {
+	return confirm("후순위자를 낙찰하시겠습니까?");		
+}
+</script>
+</head>
+<body align="center">
+<br><h1 align="center">장바구니</h1><br>
+<br>
+<table th:unless="${#lists.isEmpty(cart.cartItemList.pageList)}" class="table table-bordered">
+	<thead>
+        <tr>
+            <th scope="col">물품번호</th>
+            <th scope="col">이미지</th>
+            <th scope="col">제목</th>
+            <th scope="col">상태</th>
+            <th scope="col">현재 입찰가</th>
+            <th scope="col">경매 마감일</th>
+            <th scope="col">상세 정보</th>
+        </tr>
+	</thead>
+	<tbody style="text-align:center">
+        <tr th:each="cartItem : ${cart.cartItemList.pageList}">
+            <td th:text="${cartItem.auctionId}">id</td>
+            <td><img th:src="@{'/upload/' + ${cartItem.item.img}}" width="300" height="200"/></td>
+            <td th:text="${cartItem.item.title}">title</td>
+            <td th:text="${cartItem.status}">status</td>
+            <td th:text="${cartItem.currentPrice}">currentPrice</td>
+            <td th:text="${cartItem.endDate}">endDate</td>
+            <td><a href="#" 
+                   th:href="@{/auction/{auctionId}(auctionId=${cartItem.auctionId})}" class="btn btn-primary">상세 정보 보기</a>
+                <br><br>
+                <a href="#" 
+                   th:href="@{/auction/removeItemFromCart.do(auctionId=${cartItem.auctionId})}" class="btn btn-warning">삭제</a>   
+            </td>
+        </tr>
+	</tbody>
+</table>
+<div style="text-align:center">
+	<th:if test="${!cart.cartItemList.firstPage}">
+		<a th:href="@{/auction/viewCart.do(page=previousCart)}">
+		<font color="green"><B>&lt;&lt; Prev</B></font></a>
+	</th:if>
+	<th:if test="${!cart.cartItemList.lastPage}">
+		<a th:href="@{/auction/viewCart.do(page=nextCart)}">
+		<font color="green"><B>Next &gt;&gt;</B></font></a>
+	</th:if>
+</div>
+<th:if test="${cart.numberOfItems > 0}">
+	<br>
+	<div style="text-align:center">
+		<a th:href="@{/auction/checkout.do}">check out</a>
+	</div>
+</th:if>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+</body>
+</html>

@@ -149,6 +149,9 @@ public class MnmStoreImpl implements MnmStoreFacade {
 	public void updateImmediatePurchase(String auctionId, int immdPurchasePrice, String winnerId) {
 		auctionDao.updateImmediatePurchase(auctionId, immdPurchasePrice, winnerId);
 	}
+	public void updateGiveUpWinning(String auctionId) {
+		auctionDao.updateGiveUpWinning(auctionId);
+	}
 	public List<AuctionItemList> getSellingAuctionItemList(String userId) {
 		return auctionDao.getSellingAuctionItemList(userId);
 	}
@@ -157,6 +160,15 @@ public class MnmStoreImpl implements MnmStoreFacade {
 	}
 	public List<AuctionItemList> getAuctionedItemList(String userId) {
 		return auctionDao.getAuctionedItemList(userId);
+	}
+	public Bid findSecondBid(String auctionId, String preWinnerId) {
+		return auctionDao.findSecondBid(auctionId, preWinnerId);
+	}
+	public Bid findWinnerBid(String auctionId) {
+		return auctionDao.findWinnerBid(auctionId);
+	}
+	public void updateWinner(String winnerId, int bidPrice, String auctionId) {
+		auctionDao.updateWinner(winnerId, bidPrice, auctionId);
 	}
 	public void startAuctionScheduler(Date startTime, String auctionId) {
 		
@@ -184,11 +196,14 @@ public class MnmStoreImpl implements MnmStoreFacade {
 			@Override
 			public void run() {   // 스케쥴러에 의해 미래의 특정 시점에 실행될 작업을 정의				
 				Date curTime = new Date();
-				if (auctionDao.getStatus(auctionId).equals("경매진행중") && !auctionDao.getStatus(auctionId).equals("즉시구매완료")) {
-					auctionDao.endAuctionItemStatus(curTime, auctionId);
+				if (auctionDao.getStatus(auctionId).equals("경매진행중")) {
 					Bid bid = auctionDao.findWinnerBid(auctionId);
+					String status = "";
 					if (bid != null) {
 						auctionDao.updateWinner(bid.getUserId(), bid.getBidPrice(), auctionId);
+					}
+					else {
+						auctionDao.updateFailedAuctionStatus(curTime, auctionId);
 					}
 				}
 				System.out.println("endAuctionItemRunner is executed at " + curTime);

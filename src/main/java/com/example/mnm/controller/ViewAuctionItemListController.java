@@ -17,33 +17,37 @@ public class ViewAuctionItemListController {
 	public void setmnmStore(MnmStoreFacade mnmStore) {
 		this.mnmStore = mnmStore;
 	}
-	
+	// 신규 경매순
 	@RequestMapping("/auction/recently")
-	public String handleRequest(Model model) {
+	public String sortByLatest(Model model) {
 		List<AuctionItemList> auctionItems = mnmStore.getRecentAuctionItemList();
 		model.addAttribute("auctionItems", auctionItems);
 		return "thyme/AuctionItemListView";
 	}
+	// 조회순
 	@RequestMapping("/auction/mostViews")
-	public String handleRequest2(Model model) {
+	public String sortByViews(Model model) {
 		List<AuctionItemList> auctionItems = mnmStore.getPopularAuctionItemList();
 		model.addAttribute("auctionItems", auctionItems);
 		return "thyme/AuctionItemListView";
 	}
+	// 입찰순
 	@RequestMapping("/auction/mostBids")
-	public String handleRequest3(Model model) {
+	public String sortByBids(Model model) {
 		List<AuctionItemList> auctionItems = mnmStore.getMostBiddingAuctionItemList();
 		model.addAttribute("auctionItems", auctionItems);
 		return "thyme/AuctionItemListView";
 	}
+	// 마감 임박순
 	@RequestMapping("/auction/deadline")
-	public String handleRequest4(Model model) {
+	public String sortByDeadline(Model model) {
 		List<AuctionItemList> auctionItems = mnmStore.getClosingAuctionItemList();
 		model.addAttribute("auctionItems", auctionItems);
 		return "thyme/AuctionItemListView";
 	}	
+	// 검색
 	@RequestMapping("/auction/search")
-	public String handleRequest5(@RequestParam String word, Model model) {
+	public String search(@RequestParam String word, Model model) {
 		List<AuctionItemList> auctionItems = mnmStore.searchAuctionItemList(word);
 		model.addAttribute("auctionItems", auctionItems);
 		return "thyme/AuctionItemListView";

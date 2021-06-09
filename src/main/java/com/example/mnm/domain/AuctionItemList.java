@@ -20,10 +20,11 @@ public class AuctionItemList implements Serializable {
 	@DateTimeFormat(pattern="yyyy-MM-dd\'T\'HH:mm")
 	private Date endDate;
 	private String itemId;
+	private String status;
 	
 	public AuctionItemList() {
 	}
-
+	
 	public String getAuctionId() {
 		return auctionId;
 	}
@@ -105,11 +106,19 @@ public class AuctionItemList implements Serializable {
 		this.itemId = itemId;
 	}
 
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
 	@Override
 	public String toString() {
 		return "AuctionItemList [auctionId=" + auctionId + ", title=" + title + ", img=" + img + ", currentPrice="
 				+ currentPrice + ", bidNum=" + bidNum + ", views=" + views + ", userid=" + userid + ", startDate="
-				+ startDate + ", endDate=" + endDate + "]";
+				+ startDate + ", endDate=" + endDate + ", itemId=" + itemId + ", status=" + status + "]";
 	}
 	
 }
