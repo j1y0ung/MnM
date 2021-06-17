@@ -11,6 +11,8 @@ import com.example.mnm.domain.Category;
 import com.example.mnm.domain.CrowdFundingItem;
 import com.example.mnm.service.MnmStoreFacade;
 
+import net.sf.json.JSONArray;
+
 import java.util.List;
 
 //import javax.servlet.http.HttpServletRequest;
@@ -42,12 +44,12 @@ public class ViewCrowdFundingItemListController {
 		model.put("crowdFundingItemList", pagedList);
 		
 		// 카테고리
-		List<Category> catlist = this.storeFacade.getCategoryList();
-		model.put("categories", catlist);
+		List<Category> categoryList = storeFacade.getCategoryList();
+		model.put("categories", JSONArray.fromObject(categoryList));
 		
 		// 정렬 순 
 		String[] sorts = {"인기순", "최신순", "최다후원순", "최다 금액순", "마감임박순"};
 		model.put("sorts", sorts);
-		return "thyme/crowdFundingListView";
+		return "crowdFundingListView";
 	}
 }

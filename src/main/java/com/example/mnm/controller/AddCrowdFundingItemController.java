@@ -19,7 +19,6 @@ import com.example.mnm.domain.Account;
 import com.example.mnm.domain.Category;
 import com.example.mnm.domain.CrowdFundingItem;
 import com.example.mnm.domain.Item;
-import com.example.mnm.domain.Product;
 import com.example.mnm.service.MnmStoreFacade;
 
 @Controller
@@ -42,14 +41,14 @@ public class AddCrowdFundingItemController {
 			model.put("session", account);
 		}
 		
-		List<Category> catlist = this.storeFacade.getCategoryList();
-		model.put("categories", catlist);
-		
-		List<Product> prolist = this.storeFacade.getProductList();
-		model.put("products", prolist);
-		
-		model.put("crowdFundingItem", new CrowdFundingItem(new Item(new Product(new Category()))));
-		
+//		List<Category> catlist = this.storeFacade.getCategoryList();
+//		model.put("categories", catlist);
+//		
+//		List<Product> prolist = this.storeFacade.getProductList();
+//		model.put("products", prolist);
+//		
+//		model.put("crowdFundingItem", new CrowdFundingItem(new Item(new Product(new Category()))));
+//		
 		return "thyme/crowdFundingForm";
 	}
 

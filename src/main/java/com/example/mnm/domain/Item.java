@@ -18,7 +18,6 @@ public class Item implements Serializable {
 	private Category category;
 	private int parentCatId; // 카테고리 id
 	private int childCatId; // 카테고리 id
-	private String productId;
 	private String userId;
 
 	public Item() {
@@ -102,8 +101,6 @@ public class Item implements Serializable {
 	public void setItemId(String itemId) {
 		this.itemId = itemId;
 	}
-	public String getProductId() { return productId; }
-	public void setProductId(String productId) { this.productId = productId; }
 
 	public String getUserId() {
 		return userId;
@@ -116,6 +113,6 @@ public class Item implements Serializable {
 		return "Item [itemId=" + itemId + ", title=" + title + ", description=" + description + ", img=" + img
 				+ ", quantity=" + quantity + ", regiDate=" + regiDate + ", views=" + views + ", shippingFee="
 				+ shippingFee + ", account=" + account + ", type=" + type + ", category=" + category + ", parentCatId="
-				+ parentCatId + ", childCatId=" + childCatId + ", productId=" + productId + ", userId=" + userId + "]";
+				+ parentCatId + ", childCatId=" + childCatId + ", userId=" + userId + "]";
 	}
 }

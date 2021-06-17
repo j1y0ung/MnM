@@ -21,17 +21,9 @@
 			select ITEMID_SEQ.nextval FROM DUAL
 		</selectKey>
 		INSERT INTO
-		item (itemId, title, description, img, quantity, regiDate,
-		views,  userId, productId, type)
-		VALUES (#{itemId}, #{title}, #{description}, #{img}, #{quantity}, to_char(sysdate,'yy/mm/dd'),
-		0, #{account.userId}, #{product.productId}, 'crowdFunding')
+		ITEM (ITEMID, TITLE, DESCRIPTION, IMG, QUANTITY, REGIDATE, VIEWS, SHIPPINGFEE, USERID, TYPE, PARENTCATID, CHILDCATID)
+		VALUES (#{itemId}, #{title}, #{description}, #{img}, #{quantity}, to_char(sysdate,'yy/mm/dd'), 0, 2500, #{account.userId}, 'crowdFunding', #{parentCatId}, #{childCatId})
 	</insert>
-		<!-- INSERT INTO
-		item (itemId, title, description, img, quantity, regiDate,
-		views, shipppingFee, userId, productId, type)
-		VALUES (#{itemId}, #{title}, #{description}, #{img}, #{quantity}, #{regiDate},
-		0, #{shipppingFee}, #{userId}, #{productId}, 'crowdFunding') -->
-		
 		
 	<!-- 수정 -->
 	<update id="updateFundingItemById"
@@ -46,8 +38,7 @@
 	</update>
 	<update id="updateItemById"
 		parameterType="Item">
-		UPDATE item SET 
-		productId=#{item.product.productId}, 
+		UPDATE item SET  
 		title=#{item.title}, 
 		description=#{item.description}, 
 		img=#{item.img} 
@@ -93,38 +84,19 @@
 	
 	<!-- 펀딩 목록 가져오기 -->
 	<select id="getAllFundingItems" resultType="CrowdFundingItem">
-		SELECT
-		i.title AS "item.title", 
-		i.description AS "item.description", 
-		c.status as "status", 
+		SELECT 
 		i.img AS "item.img",
-		i.quantity AS "item.quantity",
-		i.regiDate AS "item.regiDate", 
-		i.views AS "item.views",
-		i.shippingFee AS "item.shippingFee", 
-		i.userid AS "item.account.userid", 
-		i.productid AS "item.product.productid", 
-		c.crowdfundingid AS "crowdfundingid",
-		c.shortInfo AS "shortInfo", 
-		c.targetAmount AS "targetAmount", 
-		c.startDate AS "startDate", 
 		c.closingDate AS "closingDate",
-		c.productComposition AS "productComposition",
-		c.currentSponsoredAmount AS "currentSponsoredAmount", 
-		c.numberOfSponsor AS "numberOfSponsor",
-		c.status AS "status", 
-		c.itemid AS "item.itemid",
-		p.productid AS "item.product.productid", 
-		p.name AS "item.product.name",
-		ca.catid AS "item.product.category.catid", 
-		ca.name AS "item.product.category.name", 
-		a.name AS "item.account.name" 
-		FROM crowdFundingItem c, item i, product p, category ca, account a
-		WHERE c.itemid = i.itemid 
-		AND i.productid = p.productid 
-		AND p.catid = ca.catid 
+		ca.catName AS "item.category.catName", 
+		a.name AS "item.account.name", 
+		i.title AS "item.title", 
+		c.targetAmount AS "targetAmount",
+		c.currentSponsoredAmount AS "currentSponsoredAmount"  
+		FROM crowdFundingItem c, item i, category ca, account a 
+		WHERE c.itemId = i.itemId 
+		AND i.childCatId = ca.catId 
 		AND i.userid = a.userid 
-		order by regiDate DESC
+		order by regiDate DESC 
 	</select>
 
 	<!-- 펀딩 아이템 가져오기 -->
