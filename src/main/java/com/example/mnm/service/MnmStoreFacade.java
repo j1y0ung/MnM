@@ -67,6 +67,13 @@ public interface MnmStoreFacade {
 	
 	// CrowdFunding	
 	List<CrowdFundingItem> getCrowdFundingItemList();
+	List<CrowdFundingItem> getCrowdFundingItemListRecently();
+	List<CrowdFundingItem> getCrowdFundingItemListMostViews();
+	List<CrowdFundingItem> getCrowdFundingItemListMostSponsors();
+	List<CrowdFundingItem> getCrowdFundingItemListMostAmount();
+	List<CrowdFundingItem> getCrowdFundingItemListDeadLine();
+	List<CrowdFundingItem> getCrowdFundingItemListCategory(Category category);
+	
 	CrowdFundingItem getFundingItemById(String crowdFundingId);
 	List<CrowdFundingItem> getMyFundingItemListById(String userId);
 	List<CrowdFundingItem> getMyFundingItemsCheckoutById(String userId);
@@ -83,6 +90,7 @@ public interface MnmStoreFacade {
 	void removePersonalDealItemById(String itemId);
 	void updatePersonalDealItemById(String personalDealId, PersonalDealItem personalDealItem);
 	void finishDealById(int userId, PersonalDealItem personalDealItem);
+	
 	
 	
 }

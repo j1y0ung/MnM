@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.example.mnm.dao.CrowdFundingDao;
 import com.example.mnm.dao.mybatis.mapper.CrowdFundingMapper;
+import com.example.mnm.domain.Category;
 import com.example.mnm.domain.CrowdFundingItem;
 import com.example.mnm.domain.FundingForm;
 import com.example.mnm.domain.Item;
@@ -18,10 +19,41 @@ public class MybatisCrowdFundingDao implements CrowdFundingDao{
 	@Autowired CrowdFundingMapper crowdFundingMapper;
 
 	@Override
-	public List<CrowdFundingItem> getAllFundingItems() throws DataAccessException {
-		return crowdFundingMapper.getAllFundingItems();
+	public List<CrowdFundingItem> getCrowdFundingItemList() throws DataAccessException {
+		return crowdFundingMapper.getCrowdFundingItemList();
 	}
 
+	@Override
+	public List<CrowdFundingItem> getCrowdFundingItemListRecently() throws DataAccessException {
+		return crowdFundingMapper.getCrowdFundingItemListRecently();
+	}
+
+	@Override
+	public List<CrowdFundingItem> getCrowdFundingItemMostViews() throws DataAccessException {
+		return crowdFundingMapper.getCrowdFundingItemListMostViews();
+	}
+
+	@Override
+	public List<CrowdFundingItem> getCrowdFundingItemListMostSponsors() throws DataAccessException {
+		return crowdFundingMapper.getCrowdFundingItemListMostSponsors();
+	}
+
+	@Override
+	public List<CrowdFundingItem> getCrowdFundingItemListMostAmount() throws DataAccessException {
+		return crowdFundingMapper.getCrowdFundingItemListMostAmount();
+	}
+
+	@Override
+	public List<CrowdFundingItem> getCrowdFundingItemListDeadLine() throws DataAccessException {
+		return crowdFundingMapper.getCrowdFundingItemListDeadLine();
+	}
+	
+	@Override
+	public List<CrowdFundingItem> getCrowdFundingItemListCategory(Category category)
+			throws DataAccessException {
+		return crowdFundingMapper.getCrowdFundingItemListCategory(category);
+	}
+	
 	@Override
 	public CrowdFundingItem getFundingItemById(String crowdFundingId) throws DataAccessException {
 		return crowdFundingMapper.getFundingItemById(crowdFundingId);
@@ -83,6 +115,10 @@ public class MybatisCrowdFundingDao implements CrowdFundingDao{
 	public List<CrowdFundingItem> getFourCrowdFundingItemList() throws DataAccessException {
 		return crowdFundingMapper.getFourCrowdFundingItemList();
 	}
+
+	
+
+	
 
 
 }

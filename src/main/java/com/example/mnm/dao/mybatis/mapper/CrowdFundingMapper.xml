@@ -92,41 +92,142 @@
 	</update>
 	
 	<!-- 펀딩 목록 가져오기 -->
-	<select id="getAllFundingItems" resultType="CrowdFundingItem">
+	<select id="getCrowdFundingItemList" resultType="CrowdFundingItem">
 		SELECT
 		i.title AS "item.title", 
-		i.description AS "item.description", 
-		c.status as "status", 
 		i.img AS "item.img",
-		i.quantity AS "item.quantity",
-		i.regiDate AS "item.regiDate", 
-		i.views AS "item.views",
-		i.shippingFee AS "item.shippingFee", 
-		i.userid AS "item.account.userid", 
-		i.productid AS "item.product.productid", 
-		c.crowdfundingid AS "crowdfundingid",
-		c.shortInfo AS "shortInfo", 
+		i.userid AS "item.account.userid",
 		c.targetAmount AS "targetAmount", 
 		c.startDate AS "startDate", 
 		c.closingDate AS "closingDate",
-		c.productComposition AS "productComposition",
 		c.currentSponsoredAmount AS "currentSponsoredAmount", 
 		c.numberOfSponsor AS "numberOfSponsor",
-		c.status AS "status", 
-		c.itemid AS "item.itemid",
-		p.productid AS "item.product.productid", 
-		p.name AS "item.product.name",
-		ca.catid AS "item.product.category.catid", 
-		ca.name AS "item.product.category.name", 
+		c.status AS "status",  
+		ca.catName AS "item.category.catname", 
 		a.name AS "item.account.name" 
-		FROM crowdFundingItem c, item i, product p, category ca, account a
+		FROM crowdFundingItem c, item i, category ca, account a
 		WHERE c.itemid = i.itemid 
-		AND i.productid = p.productid 
-		AND p.catid = ca.catid 
 		AND i.userid = a.userid 
+		AND i.childCatId = ca.catId
 		order by regiDate DESC
 	</select>
-
+	<select id="getCrowdFundingItemListRecently" resultType="CrowdFundingItem">
+		SELECT
+		i.title AS "item.title", 
+		i.img AS "item.img",
+		i.userid AS "item.account.userid",
+		c.targetAmount AS "targetAmount", 
+		c.startDate AS "startDate", 
+		c.closingDate AS "closingDate",
+		c.currentSponsoredAmount AS "currentSponsoredAmount", 
+		c.numberOfSponsor AS "numberOfSponsor",
+		c.status AS "status",  
+		ca.catName AS "item.category.catname", 
+		a.name AS "item.account.name" 
+		FROM crowdFundingItem c, item i, category ca, account a
+		WHERE c.itemid = i.itemid 
+		AND i.userid = a.userid 
+		AND i.childCatId = ca.catId
+		order by regiDate DESC
+	</select>
+	<select id="getCrowdFundingItemListMostViews" resultType="CrowdFundingItem">
+		SELECT
+		i.title AS "item.title", 
+		i.img AS "item.img",
+		i.userid AS "item.account.userid",
+		c.targetAmount AS "targetAmount", 
+		c.startDate AS "startDate", 
+		c.closingDate AS "closingDate",
+		c.currentSponsoredAmount AS "currentSponsoredAmount", 
+		c.numberOfSponsor AS "numberOfSponsor",
+		c.status AS "status",  
+		ca.catName AS "item.category.catname", 
+		a.name AS "item.account.name" 
+		FROM crowdFundingItem c, item i, category ca, account a
+		WHERE c.itemid = i.itemid 
+		AND i.userid = a.userid 
+		AND i.childCatId = ca.catId
+		order by i.views DESC
+	</select>
+	<select id="getCrowdFundingItemListMostSponsors" resultType="CrowdFundingItem">
+		SELECT
+		i.title AS "item.title", 
+		i.img AS "item.img",
+		i.userid AS "item.account.userid",
+		c.targetAmount AS "targetAmount", 
+		c.startDate AS "startDate", 
+		c.closingDate AS "closingDate",
+		c.currentSponsoredAmount AS "currentSponsoredAmount", 
+		c.numberOfSponsor AS "numberOfSponsor",
+		c.status AS "status",  
+		ca.catName AS "item.category.catname", 
+		a.name AS "item.account.name" 
+		FROM crowdFundingItem c, item i, category ca, account a
+		WHERE c.itemid = i.itemid 
+		AND i.userid = a.userid 
+		AND i.childCatId = ca.catId
+		order by numberOfSponsor DESC
+	</select>
+	<select id="getCrowdFundingItemListMostAmount" resultType="CrowdFundingItem">
+		SELECT
+		i.title AS "item.title", 
+		i.img AS "item.img",
+		i.userid AS "item.account.userid",
+		c.targetAmount AS "targetAmount", 
+		c.startDate AS "startDate", 
+		c.closingDate AS "closingDate",
+		c.currentSponsoredAmount AS "currentSponsoredAmount", 
+		c.numberOfSponsor AS "numberOfSponsor",
+		c.status AS "status",  
+		ca.catName AS "item.category.catname", 
+		a.name AS "item.account.name" 
+		FROM crowdFundingItem c, item i, category ca, account a
+		WHERE c.itemid = i.itemid 
+		AND i.userid = a.userid 
+		AND i.childCatId = ca.catId
+		order by currentSponsoredAmount DESC
+	</select>
+	<select id="getCrowdFundingItemListDeadLine" resultType="CrowdFundingItem">
+		SELECT
+		i.title AS "item.title", 
+		i.img AS "item.img",
+		i.userid AS "item.account.userid",
+		c.targetAmount AS "targetAmount", 
+		c.startDate AS "startDate", 
+		c.closingDate AS "closingDate",
+		c.currentSponsoredAmount AS "currentSponsoredAmount", 
+		c.numberOfSponsor AS "numberOfSponsor",
+		c.status AS "status",  
+		ca.catName AS "item.category.catname", 
+		a.name AS "item.account.name" 
+		FROM crowdFundingItem c, item i, category ca, account a
+		WHERE c.itemid = i.itemid 
+		AND i.userid = a.userid 
+		AND i.childCatId = ca.catId
+		order by closingDate ASC
+	</select>
+	<select id="getCrowdFundingItemListCategory" resultType="Category">
+		SELECT
+		i.title AS "item.title", 
+		i.img AS "item.img",
+		i.userid AS "item.account.userid",
+		c.targetAmount AS "targetAmount", 
+		c.startDate AS "startDate", 
+		c.closingDate AS "closingDate",
+		c.currentSponsoredAmount AS "currentSponsoredAmount", 
+		c.numberOfSponsor AS "numberOfSponsor",
+		c.status AS "status",  
+		ca.catName AS "item.category.catname", 
+		a.name AS "item.account.name" 
+		FROM crowdFundingItem c, item i, category ca, account a
+		WHERE c.itemid = i.itemid 
+		AND i.userid = a.userid 
+		AND i.childCatId = ca.catId
+		AND ca.catId = #{catId}
+		AND ca.catIdRef = #{catIdRef}
+		order by closingDate ASC
+	</select>
+	
 	<!-- 펀딩 아이템 가져오기 -->
 	<select id="getFundingItemById" parameterType="string"
 		resultType="CrowdFundingItem">

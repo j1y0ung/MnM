@@ -215,11 +215,35 @@ public class MnmStoreImpl implements MnmStoreFacade {
 		
 		System.out.println("endAuctionItemRunner has been scheduled to execute at " + endTime);
 	}
-	
+
 	//CrowdFunding
 	@Override
 	public List<CrowdFundingItem> getCrowdFundingItemList() {
-		return crowdFundingDao.getAllFundingItems();
+		return crowdFundingDao.getCrowdFundingItemList();
+	}
+	@Override
+	public List<CrowdFundingItem> getCrowdFundingItemListRecently() {
+		return crowdFundingDao.getCrowdFundingItemListRecently();
+	}
+	@Override
+	public List<CrowdFundingItem> getCrowdFundingItemListMostViews() {
+		return crowdFundingDao.getCrowdFundingItemMostViews();
+	}
+	@Override
+	public List<CrowdFundingItem> getCrowdFundingItemListMostSponsors() {
+		return crowdFundingDao.getCrowdFundingItemListMostSponsors();
+	}
+	@Override
+	public List<CrowdFundingItem> getCrowdFundingItemListMostAmount() {
+		return crowdFundingDao.getCrowdFundingItemListMostAmount();
+	}
+	@Override
+	public List<CrowdFundingItem> getCrowdFundingItemListDeadLine() {
+		return crowdFundingDao.getCrowdFundingItemListDeadLine();
+	}
+	@Override
+	public List<CrowdFundingItem> getCrowdFundingItemListCategory(Category category) {
+		return crowdFundingDao.getCrowdFundingItemListCategory(category);
 	}
 
 	@Override
@@ -308,4 +332,6 @@ public class MnmStoreImpl implements MnmStoreFacade {
 	public void finishDealById(int userId, PersonalDealItem personalDealItem) {
 		personalDealDao.finishDealById(userId, personalDealItem);
 	}
+	
+	
 }

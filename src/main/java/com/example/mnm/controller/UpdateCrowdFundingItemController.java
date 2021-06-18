@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.example.mnm.domain.Account;
 import com.example.mnm.domain.Category;
 import com.example.mnm.domain.CrowdFundingItem;
-import com.example.mnm.domain.Product;
 import com.example.mnm.service.MnmStoreFacade;
 
 @Controller
@@ -49,8 +48,6 @@ public class UpdateCrowdFundingItemController {
 		List<Category> catlist = this.storeFacade.getCategoryList();
 		model.put("categories", catlist);
 		
-		List<Product> prolist = this.storeFacade.getProductList();
-		model.put("products", prolist);
 		
 		return "thyme/CrowdFundingUpdateForm";
 	}

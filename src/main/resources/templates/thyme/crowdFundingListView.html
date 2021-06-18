@@ -16,14 +16,15 @@
 	<br>
 	<a href="" th:href="@{/crowdFunding/add}" method="get" class="btn btn-primary">펀딩 등록하기</a>
 	<br>
+	<a href="#" th:href="@{/crowdFunding/recently}">최신순</a>&nbsp;
+	<a href="#" th:href="@{/crowdFunding/mostViews}">인기순</a>&nbsp;
+	<a href="#" th:href="@{/crowdFunding/mostSponsors}">최다 후원순</a>&nbsp;
+	<a href="#" th:href="@{/crowdFunding/mostAmount}">최다 금액순</a>&nbsp;
+	<a href="#" th:href="@{/crowdFunding/deadline}">마감 임박순</a>
 	<br> 
 	카테고리:
 	<select class="form-select form-select-sm" th:field="*{categories}">
 		<option th:each="category : ${categories}" th:value="${category}" th:text="${category.name}">카테고리</option>
-	</select> 
-	정렬:
-	<select class="form-select form-select-sm" th:field="*{sorts}">
-		<option th:each="sort : ${sorts}" th:value="${sort}" th:text="${sort}">정렬</option>
 	</select>
 	<hr>
 	<div th:unless="${#lists.isEmpty(crowdFundingItemList)}">

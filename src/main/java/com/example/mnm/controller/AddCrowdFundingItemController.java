@@ -11,15 +11,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-//import org.springframework.web.bind.annotation.RequestParam;
-//import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.mnm.domain.Account;
 import com.example.mnm.domain.Category;
 import com.example.mnm.domain.CrowdFundingItem;
 import com.example.mnm.domain.Item;
-import com.example.mnm.domain.Product;
 import com.example.mnm.service.MnmStoreFacade;
 
 @Controller
@@ -45,10 +42,7 @@ public class AddCrowdFundingItemController {
 		List<Category> catlist = this.storeFacade.getCategoryList();
 		model.put("categories", catlist);
 		
-		List<Product> prolist = this.storeFacade.getProductList();
-		model.put("products", prolist);
-		
-		model.put("crowdFundingItem", new CrowdFundingItem(new Item(new Product(new Category()))));
+		model.put("crowdFundingItem", new CrowdFundingItem(new Item()));
 		
 		return "thyme/crowdFundingForm";
 	}

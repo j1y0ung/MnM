@@ -4,13 +4,21 @@ import java.util.List;
 
 import org.springframework.dao.DataAccessException;
 
+import com.example.mnm.domain.Category;
 import com.example.mnm.domain.CrowdFundingItem;
 import com.example.mnm.domain.FundingForm;
 import com.example.mnm.domain.Item;
 
 public interface CrowdFundingDao {
 
-	public List<CrowdFundingItem> getAllFundingItems() throws DataAccessException; // 모든 펀딩 반환
+	public List<CrowdFundingItem> getCrowdFundingItemList() throws DataAccessException; // 모든 펀딩 반환
+	public List<CrowdFundingItem> getCrowdFundingItemListRecently() throws DataAccessException;
+	public List<CrowdFundingItem> getCrowdFundingItemMostViews() throws DataAccessException;
+	public List<CrowdFundingItem> getCrowdFundingItemListMostSponsors() throws DataAccessException;
+	public List<CrowdFundingItem> getCrowdFundingItemListMostAmount() throws DataAccessException;
+	public List<CrowdFundingItem> getCrowdFundingItemListDeadLine() throws DataAccessException;
+	public List<CrowdFundingItem> getCrowdFundingItemListCategory(Category category) throws DataAccessException;
+	
 	public CrowdFundingItem getFundingItemById(String crowdFundingId) throws DataAccessException; // 펀딩 반환
 	public List<CrowdFundingItem> getMyFundingItemListById(String userId); // 내가 등록한 펀딩 반환 
 	public List<CrowdFundingItem> getMyFundingItemsCheckoutById(String userId) throws DataAccessException; // 내 펀딩 내역 반환 
@@ -24,5 +32,7 @@ public interface CrowdFundingDao {
 	public void fund2(FundingForm fundingForm) throws DataAccessException;
 	public void fundUpdate(FundingForm fundingForm) throws DataAccessException;
 	List<CrowdFundingItem> getFourCrowdFundingItemList() throws DataAccessException;
+	
+	
 
 }
