@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>JPetStore</title>
+</head>
+<body>
+	<header th:include="fragment/header :: headerFragment"></header>
+	
+	<div class="container" align="center">
+		<h2>결제가 완료되었습니다</h2>
+		<a th:href="@{/crowdFunding/list(crowdFundingId=${fundingForm.crowdFundingItem.crowdFundingId})}">목록으로 돌아가기</a>
+	</div>
+	
+	<footer th:include="fragment/footer :: footerFragment"></footer>
+	
+</body>
+</html>

@@ -87,7 +87,8 @@
 	</insert>
 	<update id="fundUpdate" parameterType="FundingForm">
 		UPDATE crowdfundingitem 
-		SET currentsponsoredamount=currentsponsoredamount+#{orders.totalPrice}
+		SET currentsponsoredamount=currentsponsoredamount+#{orders.totalPrice}, 
+		numberOfSponsor=numberOfSponsor+1 
 		WHERE crowdfundingId=#{crowdFundingItem.crowdFundingId}
 	</update>
 	
@@ -97,6 +98,7 @@
 		i.title AS "item.title", 
 		i.img AS "item.img",
 		i.userid AS "item.account.userid",
+		c.crowdFundingId AS "crowdFundingId",
 		c.targetAmount AS "targetAmount", 
 		c.startDate AS "startDate", 
 		c.closingDate AS "closingDate",
@@ -116,6 +118,7 @@
 		i.title AS "item.title", 
 		i.img AS "item.img",
 		i.userid AS "item.account.userid",
+		c.crowdFundingId AS "crowdFundingId",
 		c.targetAmount AS "targetAmount", 
 		c.startDate AS "startDate", 
 		c.closingDate AS "closingDate",
@@ -135,6 +138,7 @@
 		i.title AS "item.title", 
 		i.img AS "item.img",
 		i.userid AS "item.account.userid",
+		c.crowdFundingId AS "crowdFundingId",
 		c.targetAmount AS "targetAmount", 
 		c.startDate AS "startDate", 
 		c.closingDate AS "closingDate",
@@ -154,6 +158,7 @@
 		i.title AS "item.title", 
 		i.img AS "item.img",
 		i.userid AS "item.account.userid",
+		c.crowdFundingId AS "crowdFundingId",
 		c.targetAmount AS "targetAmount", 
 		c.startDate AS "startDate", 
 		c.closingDate AS "closingDate",
@@ -173,6 +178,7 @@
 		i.title AS "item.title", 
 		i.img AS "item.img",
 		i.userid AS "item.account.userid",
+		c.crowdFundingId AS "crowdFundingId",
 		c.targetAmount AS "targetAmount", 
 		c.startDate AS "startDate", 
 		c.closingDate AS "closingDate",
@@ -192,6 +198,7 @@
 		i.title AS "item.title", 
 		i.img AS "item.img",
 		i.userid AS "item.account.userid",
+		c.crowdFundingId AS "crowdFundingId",
 		c.targetAmount AS "targetAmount", 
 		c.startDate AS "startDate", 
 		c.closingDate AS "closingDate",
@@ -211,6 +218,7 @@
 		i.title AS "item.title", 
 		i.img AS "item.img",
 		i.userid AS "item.account.userid",
+		c.crowdFundingId AS "crowdFundingId",  
 		c.targetAmount AS "targetAmount", 
 		c.startDate AS "startDate", 
 		c.closingDate AS "closingDate",
@@ -229,19 +237,15 @@
 	</select>
 	
 	<!-- 펀딩 아이템 가져오기 -->
-	<select id="getFundingItemById" parameterType="string"
-		resultType="CrowdFundingItem">
+	<select id="getFundingItemById" parameterType="string" resultType="CrowdFundingItem">
 		SELECT
 		i.title AS "item.title", 
 		i.description AS "item.description",
 		c.status as "status", 
 		i.img AS "item.img",
-		i.quantity AS "item.quantity", 
 		i.regiDate AS "item.regiDate", 
-		i.views AS "item.views",
-		i.shippingFee AS "item.shippingFee", 
+		i.views AS "item.views", 
 		i.userid AS "item.account.userid", 
-		i.productid AS "item.product.productid",
 		c.crowdfundingid AS "crowdFundingId", 
 		c.shortInfo AS "shortInfo",
 		c.targetAmount AS "targetAmount",
@@ -249,19 +253,13 @@
 		c.closingDate AS "closingDate", 
 		c.productComposition AS "productComposition",
 		c.currentSponsoredAmount AS "currentSponsoredAmount", 
-		c.numberOfSponsor AS "numberOfSponsor",
-		c.status AS "status", 
-		c.itemid AS "item.itemid",
-		p.productid AS "item.product.productid", 
-		p.name AS "item.product.name",
-		ca.catid AS "item.product.category.catid", 
-		ca.name AS "item.product.category.name", 
-		a.name AS "item.account.name", 
-		a.email AS "item.account.email", 
-		a.accountNum AS "item.account.accountNum"
-		FROM crowdFundingItem c, item i, product p, category ca, account a
-		WHERE c.itemid = i.itemid AND i.productid = p.productid AND p.catid =
-		ca.catid AND i.userid = a.userid
+		c.numberOfSponsor AS "numberOfSponsor", 
+		c.itemId AS "item.itemId",
+		ca.catId AS "item.category.catId", 
+		ca.catName AS "item.category.catName", 
+		a.name AS "item.account.name"
+		FROM crowdFundingItem c, item i, category ca, account a
+		WHERE c.itemid = i.itemid AND i.childCatId = ca.catid AND i.userid = a.userid
 		AND c.crowdFundingId=#{crowdFundingId}
 	</select>
 	

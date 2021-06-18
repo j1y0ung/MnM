@@ -29,6 +29,7 @@ public class ViewCrowdFundingItemListController {
 		// 크라우드펀딩 목록 
 		List<CrowdFundingItem> crowdlist = this.storeFacade.getCrowdFundingItemList();
 		mav.addObject("crowdFundingItemList", crowdlist);
+		System.out.println(crowdlist.toString());
 
 		// 페이지 설정(미완) 
 		//		PagedListHolder<CrowdFundingItem> pagedList = new PagedListHolder<CrowdFundingItem>(crowdlist);

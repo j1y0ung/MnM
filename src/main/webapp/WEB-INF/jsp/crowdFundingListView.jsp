@@ -76,7 +76,7 @@
 			<li>창작자 : <c:out value="${crowdFundingItem.item.account.userid}" /></li>
 			<li>제목 : <c:out value="${crowdFundingItem.item.title}" /></li>
 			<li>달성 금액 : <c:out value="${crowdFundingItem.currentSponsoredAmount}" /></li>
-			<li><a href="${path}/crowdFunding/item/" class="btn btn-primary">상세 정보 보기</a></li>
+			<li><a href="${path}/crowdFunding/item/${crowdFundingItem.crowdFundingId}" class="btn btn-primary">상세 정보 보기</a></li>
 		</ul>
 		</c:forEach>
 	</c:otherwise> 
