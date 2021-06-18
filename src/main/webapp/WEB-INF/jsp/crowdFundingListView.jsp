@@ -14,8 +14,8 @@
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css"
 	rel="stylesheet"
 	integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0"
-	crossorigin="anonymous"
->
+	crossorigin="anonymous">
+
 </head>
 <body>
 
@@ -26,7 +26,7 @@
 <div align="center"><a href="${path}/crowdFunding/add" class="btn btn-primary">펀딩 등록하기</a></div>
 	
 <hr>
-<div align="right">
+<div class="container">
 <table>
 <tr>
 <td>
@@ -59,10 +59,8 @@
 </form:form>
 </td>
 </tr>
-</table>
-</div>	
+</table>	
 <hr>
-<div>
 <c:choose>
     <c:when test="${fn:length(crowdFundingItemList) == 0}">
         조회결과가 없습니다.

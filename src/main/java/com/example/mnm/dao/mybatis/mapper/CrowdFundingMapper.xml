@@ -17,14 +17,14 @@
 	</insert>
 	<!-- 새로운 아이템 등록 -->
 	<insert id="addItem" parameterType="Item">
-		<selectKey keyProperty="itemId" resultType="integer" order="BEFORE">
+		<selectKey keyProperty="itemId" resultType="string" order="BEFORE">
 			select ITEMID_SEQ.nextval FROM DUAL
 		</selectKey>
 		INSERT INTO
 		item (itemId, title, description, img, quantity, regiDate,
-		views,  userId, productId, type)
+		views,  userId, type, parentCatId, childCatId)
 		VALUES (#{itemId}, #{title}, #{description}, #{img}, #{quantity}, to_char(sysdate,'yy/mm/dd'),
-		0, #{account.userId}, #{product.productId}, 'crowdFunding')
+		0, #{account.userid}, 'crowdFunding', #{parentCatId}, #{childCatId})
 	</insert>
 		<!-- INSERT INTO
 		item (itemId, title, description, img, quantity, regiDate,
