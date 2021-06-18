@@ -24,6 +24,8 @@ import com.example.mnm.domain.Category;
 import com.example.mnm.domain.CrowdFundingItem;
 import com.example.mnm.domain.FundingForm;
 import com.example.mnm.domain.Item;
+import com.example.mnm.domain.LineItem;
+import com.example.mnm.domain.Orders;
 import com.example.mnm.domain.PersonalDealItem;
 
 @Service
@@ -170,13 +172,31 @@ public class MnmStoreImpl implements MnmStoreFacade {
 	public void updateWinner(String winnerId, int bidPrice, String auctionId) {
 		auctionDao.updateWinner(winnerId, bidPrice, auctionId);
 	}
+	public void insertOrders(Orders orders) {
+		auctionDao.insertOrders(orders);
+	}
+	public void insertLineItem(List<LineItem> lineItems) {
+		auctionDao.insertLineItem(lineItems);
+	}
+	public void updateStatus(String status, String auctionId) {
+		auctionDao.updateStatus(status, auctionId);
+	}
+	public Orders getAuctionOrder(int orderId) {
+		return auctionDao.getAuctionOrder(orderId);
+	}
+	public int getOrderId(int itemId) {
+		return auctionDao.getOrderId(itemId);
+	}
+	public void updateRebidding(String auctionId) {
+		auctionDao.updateRebidding(auctionId);
+	}
 	public void startAuctionScheduler(Date startTime, String auctionId) {
 		
 		Runnable startAuctionItemRunner = new Runnable() {	
 			// anonymous class 정의
 			@Override
 			public void run() {   // 스케쥴러에 의해 미래의 특정 시점에 실행될 작업을 정의		
-				if (auctionDao.getStatus(auctionId).equals("경매대기중")) {
+				if (auctionDao.getStatus(auctionId).equals("경매대기중") || auctionDao.getStatus(auctionId).equals("낙찰") || auctionDao.getStatus(auctionId).equals("유찰")) {
 					Date curTime = new Date();
 					auctionDao.startAuctionItemStatus(curTime, auctionId);
 					System.out.println("startAuctionItemRunner is executed at " + curTime);

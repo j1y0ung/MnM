@@ -13,6 +13,7 @@
 				<a th:if="${session.account == null}" th:href="@{/joinForm.do}">join</a>
 				<a th:if="${session.account != null}" th:href="@{/logout.do}">logout</a>
 				<a th:if="${session.account != null}" th:href="@{/cart.do}">cart</a>
+				<a th:if="${session.account != null}" th:href="@{/auction/viewCart.do}">auction cart</a>
 				<a th:if="${session.account != null}" th:href="@{/mypage.do}">mypage</a>
 				
 				<!-- 세션 확인용 -->

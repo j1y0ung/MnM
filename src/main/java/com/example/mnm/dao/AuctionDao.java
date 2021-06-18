@@ -6,6 +6,8 @@ import org.springframework.dao.DataAccessException;
 import com.example.mnm.domain.AuctionItem;
 import com.example.mnm.domain.AuctionItemList;
 import com.example.mnm.domain.Bid;
+import com.example.mnm.domain.Orders;
+import com.example.mnm.domain.LineItem;
 
 public interface AuctionDao {
 
@@ -29,6 +31,12 @@ public interface AuctionDao {
 	  String getStatus(String auctionId) throws DataAccessException;
 	  void updateImmediatePurchase(String auctionId, int immdPurchasePrice, String winnerId) throws DataAccessException;
 	  Bid findSecondBid(String auctionId, String preWinnerId) throws DataAccessException;
+	  void insertOrders(Orders orders) throws DataAccessException;
+	  void insertLineItem(List<LineItem> lineItems) throws DataAccessException;
+	  void updateStatus(String status, String auctionId) throws DataAccessException;
+	  Orders getAuctionOrder(int orderId) throws DataAccessException;
+	  int getOrderId(int itemId) throws DataAccessException;
+	  void updateRebidding(String auctionId) throws DataAccessException;
 	  List<AuctionItemList> getSellingAuctionItemList(String userId) throws DataAccessException;
 	  List<AuctionItemList> getBiddingAuctionItemList(String userId) throws DataAccessException;
 	  List<AuctionItemList> getAuctionedItemList(String userId) throws DataAccessException;

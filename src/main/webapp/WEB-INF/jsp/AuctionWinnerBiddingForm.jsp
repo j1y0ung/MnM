@@ -4,17 +4,17 @@
 <html>
 <head>
 <meta charset="EUC-KR">
-<title>³«Âû</title>
+<title>ë‚™ì°°</title>
 </head>
 <body>
-<br><h1 align="center">³«Âû ¿Ï·á</h1><br>
+<br><h1 align="center">ë‚™ì°° ì™„ë£Œ</h1><br>
 <div class="container">
   <div class="row">
     <div class="col">
-      <p>³«ÂûµÇ¾ú½À´Ï´Ù.</p>
+      <p>ë‚™ì°°ë˜ì—ˆìŠµë‹ˆë‹¤.</p>
     </div>
     <div class="col">
-      <button type="button" class="btn btn-primary" onClick="">¸¶ÀÌÆäÀÌÁö·Î °¡±â</button><br><br>
+      <button type="button" class="btn btn-primary" onClick="">ë§ˆì´íŽ˜ì´ì§€ë¡œ ê°€ê¸°</button><br><br>
     </div>
     <hr>
   </div>

@@ -1,66 +1,107 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta charset="utf-8">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/default_layout">
+<meta charset="UTF-8">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 <title>경매 물품 정보</title>
-<script>
-function remove() {
-	return confirm("정말 삭제하시겠습니까?");		
-}
-function bid() {
-	return confirm("정말 입찰하시겠습니까?");		
-}
-function immd() {
-	return confirm("정말 즉시 구매하시겠습니까?");		
-}
-function cart() {
-	return confirm("장바구니에 넣으시겠습니까?");		
-}
-</script>
-<script th:if="${alreadyAdded}">
-    alert('이미 추가된 물품입니다');
-</script>
-</head>
-<body align="center">
-	<p>작성일: <span th:text="${auctionItem.item.regiDate}"></span></p>
-	<p>조회수: <span th:text="${auctionItem.item.views}"></span></p>
-	<p>경매 물품 번호: <span th:text="${auctionItem.auctionId}"></span></p>
-	<p>판매자 ID: <span th:text="${auctionItem.item.userId}"></span></p>
-	<p>카테고리: <span th:text="${parentCatId} + '>' + ${childCatId}"></span></p>
-	<p>상태: <span th:text="${auctionItem.status}"></span></p>
-	<p>제목: <span th:text="${auctionItem.item.title}"></span></p>
-	<p rowspan="7"><img th:src="@{'/upload/' + ${auctionItem.item.img}}"/></p>
-	<p>물품 설명: <span th:text="${auctionItem.item.description}"></span></p>
-	<p>수량: <span th:text="${auctionItem.item.quantity}+'개'"></span></p>
-	<p>배송료: <span th:text="${auctionItem.item.shippingFee}+'원'"></span></p>
-	<p>시작가: <span th:text="${auctionItem.startPrice}+'원'"></span></p>
-	<p>현재 입찰가: <span th:text="${auctionItem.currentPrice}+'원'"></span></p>
-	<p>경매 시작일: <span th:text="${auctionItem.startDate}"></span></p>
-	<p>경매 마감일: <span th:text="${auctionItem.endDate}"></span></p>
-	<p>입찰단위: <span th:text="${auctionItem.bidUnit}+'원'"></span></p>
-	<p><div th:if="${auctionItem.immdPurchasePrice} != 0"><span th:text="'즉시구매가: '+${auctionItem.immdPurchasePrice}+'원'"></span>
-			<a th:if="${auctionItem.status.toString().equals('경매진행중')}" class="btn btn-primary btn-md" th:href="@{/auction/bidding/{auctionId}/immd(auctionId=${auctionItem.auctionId}, immdPurchasePrice=${auctionItem.immdPurchasePrice})}" onclick="return immd();">즉시 구매하기</a>
-		</div>
-		<span th:unless="${auctionItem.immdPurchasePrice} != 0">즉시 구매 불가능</span></p>
-
-	<p>입찰 수: <span th:text="${auctionItem.bidNum}"></span></p>
-
-	<div th:if="${auctionItem.status.toString().equals('경매진행중')}">
-		<form action="#" th:action="@{/auction/bidding/{auctionId}(auctionId=${auctionItem.auctionId})}" method="post">
-			<label for="bidPrice">입찰가</label> :
-			<input type="text" id="bidPrice" name="bidPrice" />
-		    <input type="submit" class="btn btn-primary btn-md" value="입찰하기" onclick="return bid();">
-		</form>
-	</div>	
-	<a href="#" th:href="@{/auction/recently}">경매 아이템 목록</a>&nbsp;
-	<a href="#" th:href="@{/auction/addItemToCart.do(auctionId=${auctionItem.auctionId}, itemId=${auctionItem.itemId}, img=${auctionItem.item.img})}" onclick="return cart();">장바구니 넣기</a>&nbsp;	
-	<a th:if="${auctionItem.status} == '경매대기중'" href="#" th:href="@{/auction/update/(auctionId=${auctionItem.auctionId})}">수정하기</a>&nbsp;
-	<a href="#" th:href="@{/auction/remove/{auctionId}(auctionId=${auctionItem.auctionId}, itemId=${auctionItem.itemId}, img=${auctionItem.item.img})}" onclick="return remove();">삭제하기</a>&nbsp;	
+<!-- index.html 고유 CSS 추가 -->
+<th:block layout:fragment="css">
+	<link rel="stylesheet" th:href="@{/css/page/home.css}" >
+</th:block>
+    
+<!-- index.html 고유 스크립트 추가 -->
+<th:block layout:fragment="script">
+	<script th:src="@{/js/page/home.js}"></script>
+	<script>
+		function remove() {
+			return confirm("정말 삭제하시겠습니까?");		
+		}
+		function rebidding() {
+			return confirm("정말 재경매하시겠습니까?");		
+		}
+		function bid() {
+			return confirm("정말 입찰하시겠습니까?");		
+		}
+		function immd() {
+			return confirm("정말 즉시 구매하시겠습니까?");		
+		}
+		function cart() {
+			return confirm("장바구니에 넣으시겠습니까?");		
+		}
+		function add() {
+		 	var bidUnit=document.getElementById('bidUnit').textContent;
+		 	var bidPrice=document.getElementById('bidPrice').value;
+			document.getElementById('bidPrice').value=parseInt(bidUnit)+parseInt(bidPrice);
+		}
+		function minus() {
+		 	var bidUnit=document.getElementById('bidUnit').textContent;
+		 	var bidPrice=document.getElementById('bidPrice').value;
+			document.getElementById('bidPrice').value=parseInt(bidPrice)-parseInt(bidUnit);
+		}
+	</script>
+	<script th:if="${alreadyAdded}">
+	    alert('이미 추가된 물품입니다');
+	</script>
+	<script th:if="${lowBidPrice}">
+		alert('입찰가는 현재가보다 높아야 합니다');
+	</script>
+</th:block>
+<div layout:fragment="content">
+	<br><h1>경매 물품 정보</h1>
+	<table align="center" class="table table-bordered">
+		<tr>
+			<td><p>작성일: <span th:text="${#dates.format(auctionItem.item.regiDate, 'yyyy/MM/dd HH:mm')}"></span></p></td>
+			<td><p>조회수: <span th:text="${auctionItem.item.views}"></span></p></td>
+		</tr>
+		<tr>
+			<td colspan="2"><p>카테고리: <span th:text="${parentCatId} + '>' + ${childCatId}"></span></p></td>
+		</tr>		
+		<tr>
+			<td colspan="2"><h3><strong>제목: <span th:text="${auctionItem.item.title}"></span></strong></h3></td>
+		</tr>
+		<tr>
+			<td><img th:src="@{'/upload/' + ${auctionItem.item.img}}" width="600" height="400"/></td>
+			<td>
+				<h4><strong>현재가: <span id="currentPrice" th:text="${auctionItem.currentPrice}"></span>원</strong></h4>
+				<p>경매 물품 번호: <span th:text="${auctionItem.auctionId}"></span></p>
+				<p>상태: <span th:text="${auctionItem.status}"></span></p>
+				<p>수량: <span th:text="${auctionItem.item.quantity}+'개'"></span></p>
+				<p>경매 시작일: <span th:text="${#dates.format(auctionItem.startDate, 'yyyy/MM/dd HH:mm')}"></span></p>
+				<p>경매 마감일: <span th:text="${#dates.format(auctionItem.endDate, 'yyyy/MM/dd HH:mm')}"></span></p>
+				<p>시작가: <span th:text="${auctionItem.startPrice}+'원'"></span></p>
+				<p>입찰단위: <span id="bidUnit" th:text="${auctionItem.bidUnit}"></span>원</p>
+				<p>입찰 수: <span th:text="${auctionItem.bidNum}"></span></p>
+				<p><div th:if="${auctionItem.immdPurchasePrice} != 0"><span th:text="'즉시구매가: '+${auctionItem.immdPurchasePrice}+'원'"></span>
+				<a th:if="${auctionItem.status.toString().equals('경매진행중')}" class="btn btn-primary btn-md" th:href="@{/auction/bidding/{auctionId}/immd(auctionId=${auctionItem.auctionId}, immdPurchasePrice=${auctionItem.immdPurchasePrice})}" onclick="return immd();">즉시 구매하기</a>
+				</div><span th:unless="${auctionItem.immdPurchasePrice} != 0">즉시 구매 불가능</span></p>
+				<p>배송료: <span th:text="${auctionItem.item.shippingFee}+'원'"></span></p>
+				<p>판매자 ID: <span th:text="${auctionItem.item.userId}"></span></p>
+				<div th:if="${auctionItem.status.toString().equals('경매진행중')}">
+					<form action="#" th:action="@{/auction/bidding/{auctionId}(auctionId=${auctionItem.auctionId})}" method="post">
+						<label for="bidPrice">입찰가</label> :
+						<input type="text" id="bidPrice" name="bidPrice" th:value="${auctionItem.currentPrice}" />
+						<input type="button" class="btn btn-outline-primary" onclick="return add();" th:value="'+'+${auctionItem.bidUnit}" />
+						<input type="button" class="btn btn-outline-primary" onclick="return minus();" th:value="'-'+${auctionItem.bidUnit}" />
+					    <input type="submit" class="btn btn-primary btn-md" value="입찰하기" onclick="return bid();">
+					</form>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<p>물품 설명: <span th:text="${auctionItem.item.description}"></span></p>
+			</td>
+		</tr>		
+	</table>
+	<a th:href="@{/auction/recently}">경매 아이템 목록</a>&nbsp;
+	<a th:href="@{/auction/addItemToCart.do(auctionId=${auctionItem.auctionId}, itemId=${auctionItem.itemId}, img=${auctionItem.item.img})}" onclick="return cart();">장바구니 넣기</a>&nbsp;	
+	<a th:if="${auctionItem.status} == '경매대기중' and ${auctionItem.item.userId} == ${username}" th:href="@{/auction/update/(auctionId=${auctionItem.auctionId})}">수정하기</a>&nbsp;
+	<a th:if="${auctionItem.status} == '경매대기중' and ${auctionItem.item.userId} == ${username}" th:href="@{/auction/remove/{auctionId}(auctionId=${auctionItem.auctionId}, itemId=${auctionItem.itemId}, img=${auctionItem.item.img})}" onclick="return remove();">삭제하기</a>&nbsp;	
 	<div class="accordion" id="accordionPanelsStayOpenExample">
 	  <div class="accordion-item">
 	    <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
-	      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+	      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
 	        입찰현황 보기
 	      </button>
 	    </h2>
@@ -75,6 +116,6 @@ function cart() {
 	    </div>
 	  </div>
 	</div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
-</body>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+</div>
 </html>
