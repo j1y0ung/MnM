@@ -22,9 +22,9 @@
 		</selectKey>
 		INSERT INTO
 		item (itemId, title, description, img, quantity, regiDate,
-		views,  userId, type, parentCatId, childCatId)
+		views, shippingFee, userId, type, parentCatId, childCatId)
 		VALUES (#{itemId}, #{title}, #{description}, #{img}, #{quantity}, to_char(sysdate,'yy/mm/dd'),
-		0, #{account.userid}, 'crowdFunding', #{parentCatId}, #{childCatId})
+		0, 0, #{account.userid}, 'crowdFunding', #{parentCatId}, #{childCatId})
 	</insert>
 		<!-- INSERT INTO
 		item (itemId, title, description, img, quantity, regiDate,
