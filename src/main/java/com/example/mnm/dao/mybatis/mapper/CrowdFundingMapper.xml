@@ -276,7 +276,6 @@
 		i.views AS "item.views",
 		i.shippingFee AS "item.shippingFee", 
 		i.userid AS "item.account.userid", 
-		i.productid AS "item.product.productid",
 		c.crowdfundingid AS "crowdfundingid", 
 		c.shortInfo AS "shortInfo",
 		c.targetAmount AS "targetAmount",
@@ -287,13 +286,10 @@
 		c.numberOfSponsor AS "numberOfSponsor",
 		c.status AS "status", 
 		c.itemid AS "item.itemid",
-		p.productid AS "item.product.productid", 
-		p.name AS "item.product.name",
-		ca.catid AS "item.product.category.catid", 
-		ca.name AS "item.product.category.name"
-		FROM crowdFundingItem c, item i, product p, category ca, account a
-		WHERE c.itemid = i.itemid AND i.productid = p.productid AND p.catid =
-		ca.catid AND i.userid = a.userid 
+		ca.catid AS "item.category.catId", 
+		ca.catname AS "item.category.catName"
+		FROM crowdFundingItem c, item i, category ca, account a
+		WHERE c.itemid = i.itemid AND i.childCatId = ca.catid AND i.userid = a.userid 
 		AND i.userid=#{userId}
 	</select>
 	
