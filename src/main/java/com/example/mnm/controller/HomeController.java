@@ -9,17 +9,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.support.PagedListHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.mnm.domain.Account;
 import com.example.mnm.domain.AuctionItemList;
-import com.example.mnm.domain.Category;
-import com.example.mnm.domain.CrowdFundingItem;
 import com.example.mnm.service.MnmStoreFacade;
 
 @Controller
@@ -35,7 +32,7 @@ public class HomeController {
 	
 	@RequestMapping("/")
 	public String goHome(HttpServletRequest request, HttpSession session, ModelMap model) throws Exception {
-		logger.info("[HomeController INFO] goHome()");
+		logger.info("goHome()");
 //		List<PersonalDealItemList> personalDealItemList = store.getPersonalDealItemList();
 		
 		// 경매 아이템 4개 가져옴
@@ -64,6 +61,20 @@ public class HomeController {
 	@RequestMapping("/crowdFundingList.go")
 	public String goCrowdFundingList(HttpServletRequest request, Model model) {
 		return "thyme/crowdFundingListView";
+	}
+	
+	// 세션 체크용
+	@RequestMapping("/sessionCheck")
+	private String sessionCheck(@ModelAttribute Account account, HttpServletRequest request) throws Exception {
+		logger.info("sessionCheck()");
+		
+		HttpSession session = request.getSession();
+		Account curSession = (Account) session.getAttribute("account");
+		if (curSession != null) {
+			logger.info("curSession.getName:" + curSession.getName());
+		}
+		
+		return "redirect:/";
 	}
 	
 }
