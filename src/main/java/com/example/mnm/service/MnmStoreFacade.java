@@ -39,6 +39,7 @@ public interface MnmStoreFacade {
 	List<Account> getAccountList(); 
 	String getPwd(String userid);
 	Account getAccount(String userid);
+	String hasAccount(String userid);
   
 	//Auction
 	void insertAuctionItem(AuctionItem auctionItem);

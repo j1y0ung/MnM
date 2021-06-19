@@ -9,14 +9,14 @@
 				<a href="" th:href="@{/}"><img border="0" src="/images/mnm_logo.png" width="150" /></a>
 			</td>
 			<td style="text-align:right">
-				<a th:if="${session.account == null}" th:href="@{/loginForm.do}">login</a>
-				<a th:if="${session.account == null}" th:href="@{/joinForm.do}">join</a>
-				<a th:if="${session.account != null}" th:href="@{/logout.do}">logout</a>
-				<a th:if="${session.account != null}" th:href="@{/cart.do}">cart</a>
-				<a th:if="${session.account != null}" th:href="@{/mypage.do}">mypage</a>
+				<a th:if="${session.account == null}" href="/login">login</a>
+				<a th:if="${session.account == null}" th:href="@{/join}">join</a>
+				<a th:if="${session.account != null}" th:href="@{/logout}">logout</a>
+				<a th:if="${session.account != null}" th:href="@{/cart}">cart</a>
+				<a th:if="${session.account != null}" th:href="@{/mypage}">mypage</a>
 				
 				<!-- 세션 확인용 -->
-				<a th:if="${session != null}" th:href="@{/sessionCheck.do}">checkSession</a>
+				<a th:if="${session != null}" th:href="@{/sessionCheck}">checkSession(log확인)</a>
 			</td>
 		</tr>
 		<tr>

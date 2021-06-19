@@ -21,5 +21,7 @@ public interface AccountMapper {
 	String getPwd(String id);
 	
 	Account getAccount(String id);
+	
+	String hasAccount(String id);
 
 }

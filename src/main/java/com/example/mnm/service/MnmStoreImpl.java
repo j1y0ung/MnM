@@ -82,28 +82,32 @@ public class MnmStoreImpl implements MnmStoreFacade {
 	
 	// 회원관리
 	public void insertAccount(Account account) {
-		logger.info("[MnmStoreImpl INFO] insertAccount()");
+		logger.info("insertAccount()");
 		accountDao.insertAccount(account);
 	}
 	public void deleteAccount(String userid) {
-		logger.info("[MnmStoreImpl INFO] deleteAccount()");
+		logger.info("deleteAccount()");
 		accountDao.deleteAccount(userid);
 	}
 	public void updateAccount(Account account) {
-		logger.info("[MnmStoreImpl INFO] updateAccount()");
+		logger.info("updateAccount()");
 		accountDao.updateAccount(account);
 	}
 	public List<Account> getAccountList() {
-		logger.info("[MnmStoreImpl INFO] getAccountList()");
+		logger.info("getAccountList()");
 		return accountDao.getAccountList();
 	}
 	public String getPwd(String id) {
-		logger.info("[MnmStoreImpl INFO] getPwd()");
+		logger.info("getPwd()");
 		return accountDao.getPwd(id);
 	}
 	public Account getAccount(String id) {
-		logger.info("[MnmStoreImpl INFO] getAccount()");
+		logger.info("getAccount()");
 		return accountDao.getAccount(id);
+	}
+	public String hasAccount(String id) {
+		logger.info("hasAccount()");
+		return accountDao.hasAccount(id);
 	}
 	
 	// Auction
@@ -268,11 +272,11 @@ public class MnmStoreImpl implements MnmStoreFacade {
 //		return PersonalDealDao.getFourPersonalDealItemList();
 //	}
 	public List<AuctionItemList> getFourAuctionItemList() {
-		logger.info("[MnmStoreImpl INFO] getFourAuctionItemList()");
+		logger.info("getFourAuctionItemList()");
 		return auctionDao.getFourAuctionItemList();
 	}
 	public List<CrowdFundingItem> getFourCrowdFundingItemList() {
-		logger.info("[MnmStoreImpl INFO] getFourCrowdFundingItemList()");
+		logger.info("getFourCrowdFundingItemList()");
 		return crowdFundingDao.getFourCrowdFundingItemList();
 	}
 
