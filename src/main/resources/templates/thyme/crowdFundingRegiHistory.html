@@ -12,9 +12,9 @@
 <div class="container">
 <br><h1 align="center">펀딩 등록 내역</h1><br>
 
-<table th:if="${#lists.isEmpty(myCrowdFundingItemList)}">
-	<h2>조회결과가 없습니다.</h2>
-</table>
+<h2 th:if="${#lists.isEmpty(myCrowdFundingItemList)}">
+	조회결과가 없습니다.
+</h2>
 
 <table th:unless="${#lists.isEmpty(myCrowdFundingItemList)}">
 	<tr>
@@ -30,7 +30,7 @@
 	      	</form>
 	      </td>
 		<td>
-			<form action="" th:action="@{'/crowdFunding/update/{itemId}'(itemId=${crowdFundingItem.item.itemId})}" method="get">
+			<form action="" th:action="@{'/crowdFunding/delete/{itemId}'(itemId=${crowdFundingItem.item.itemId})}" method="get">
 	      	<input type="submit"  class="btn btn-primary btn-lg" value="삭제하기" >
 	      	</form>
 	    </td>

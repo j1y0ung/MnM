@@ -6,7 +6,15 @@
 <title>펀딩 내역</title>
 </head>
 <body>
+
+<header th:include="fragment/header :: headerFragment"></header>
+
+<div class="container">
 <br><h1 align="center">펀딩 내역</h1><br>
+<table th:if="${#lists.isEmpty(myCrowdFundingItemList)}">
+	<h2>조회결과가 없습니다.</h2>
+</table>
+
 <table th:unless="${#lists.isEmpty(myLists)}">
 	<tr>
 		<th>펀딩 일시</th>
@@ -25,6 +33,9 @@
 		</form>
 	</tr>
 </table>
+</div>
+
+<footer th:include="fragment/footer :: footerFragment"></footer>
 
 </body>
 </html>
