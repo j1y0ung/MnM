@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.example.mnm.domain.Account;
 import com.example.mnm.domain.Login;
 import com.example.mnm.service.MnmStoreFacade;
+import com.example.mnm.validator.LoginValidator;
 
 @Controller
 @RequestMapping("login")
@@ -43,11 +44,24 @@ public class LoginController {
 	
 	// 로그인 실행
 	@RequestMapping(method=RequestMethod.POST)
-	public String submit(HttpSession session, @ModelAttribute Login login, BindingResult result, Model model) {
+	public String submit(HttpSession session, @ModelAttribute("login") Login login, BindingResult result, Model model) {
 		logger.info("submit()");
-		
 		String inputUserId = login.getUserId();
 		String inputPwd = login.getPwd();
+//		new LoginValidator().validate(login, result);
+		LoginValidator val = new LoginValidator();
+		val.validate(login, result);
+		
+		if(store.getAccount(inputUserId) == null) {
+			val.checkAccount(login, result);
+		}
+		else if(!store.getAccount(inputUserId).getPwd().equals(inputPwd)) {
+			val.checkPwd(login, result);
+		}
+		
+		if(result.hasErrors()) {
+            return formViewName;
+		}
 		
 		if (session.getAttribute("userid") != null ){
 			session.removeAttribute("account");

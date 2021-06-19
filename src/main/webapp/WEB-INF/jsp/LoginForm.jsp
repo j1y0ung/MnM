@@ -19,9 +19,13 @@
 		<td>
 			<form:form modelAttribute="login">
 				<form:label path="userId">id</form:label>
-				<form:input path="userId"></form:input><br>
+				<form:input path="userId"></form:input>
+				<form:errors path="userId"/>
+				<br>
 				<form:label path="pwd">pwd</form:label>
-				<form:input path="pwd"></form:input><br>
+				<form:input path="pwd"></form:input>
+				<form:errors path="pwd"/>
+				<br>
 				<input type="submit" value="로그인"/>
 			</form:form>
 			<a href="https://kauth.kakao.com/oauth/authorize?
