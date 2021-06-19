@@ -12,6 +12,7 @@ public class Account implements Serializable {
 	private String favcategory;
 	private String accountNum;
 	private String pwd;
+	private String kakao;
 	
 	public String getUserid() {
 		return userid;
@@ -60,6 +61,12 @@ public class Account implements Serializable {
 	}
 	public void setPwd(String pwd) {
 		this.pwd = pwd;
+	}
+	public String getKakao() {
+		return kakao;
+	}
+	public void setKakao(String kakao) {
+		this.kakao = kakao;
 	}
 	
 }
