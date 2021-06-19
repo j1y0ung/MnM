@@ -21,7 +21,7 @@ public class AddAuctionItemToCartController {
 	private MnmStoreFacade mnmStore;
 
 	@Autowired
-	public void setmnmStore(MnmStoreFacade mnmStore) {
+	public void setMnmStore(MnmStoreFacade mnmStore) {
 		this.mnmStore = mnmStore;
 	}
 

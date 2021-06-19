@@ -40,7 +40,7 @@ public class AddAuctionItemController implements ApplicationContextAware {
 	
 	private MnmStoreFacade mnmStore;
 	@Autowired
-	public void setmnmStore(MnmStoreFacade mnmStore) {
+	public void setMnmStore(MnmStoreFacade mnmStore) {
 		this.mnmStore = mnmStore;
 	}
 	

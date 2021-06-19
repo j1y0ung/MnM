@@ -42,7 +42,7 @@ public interface AuctionMapper {
 	  
 	  List<Bid> getBids(String auctionId);
 	  
-	  void updateWinner(String winnerId, int bidPrice, String auctionId);
+	  void updateWinner(String winnerId, int bidPrice, String auctionId, Date curTime);
 	  
 	  Bid findWinnerBid(String auctionId);
 	  
@@ -50,7 +50,9 @@ public interface AuctionMapper {
 	  
 	  void updateImmediatePurchase(String auctionId, int immdPurchasePrice, String winnerId);
 	  
-	  void updateGiveUpWinning(String auctionId);
+	  void updateGiveUpAuctionItem(String auctionId);
+	  
+	  void updateGiveUpBid(String auctionId, String userId);
 	  
 	  Bid findSecondBid(String auctionId, String preWinnerId);
 	  

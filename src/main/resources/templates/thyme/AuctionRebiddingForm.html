@@ -17,7 +17,8 @@
 		function checkDisable(frm)
 		{
 		    if( frm.immdPurchase.checked == true ){
-			   frm.immdPurchasePrice.disabled = true;
+		    	document.getElementById('immdPurchasePrice').value=0;
+		    	frm.immdPurchasePrice.disabled = true;
 			} else 
 			{
 			   frm.immdPurchasePrice.disabled = false;

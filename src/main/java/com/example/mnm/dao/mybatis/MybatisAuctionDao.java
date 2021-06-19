@@ -60,8 +60,12 @@ public class MybatisAuctionDao implements AuctionDao {
 		auctionMapper.updateAuctionItem(auctionItem);
 	}
 	
-	public void updateGiveUpWinning(String auctionId) throws DataAccessException {
-		auctionMapper.updateGiveUpWinning(auctionId);
+	public void updateGiveUpAuctionItem(String auctionId) throws DataAccessException {
+		auctionMapper.updateGiveUpAuctionItem(auctionId);
+	}
+		
+	public void updateGiveUpBid(String auctionId, String userId) throws DataAccessException {
+		auctionMapper.updateGiveUpBid(auctionId, userId);
 	}
 	
 	public Bid findSecondBid(String auctionId, String preWinnerId) throws DataAccessException {
@@ -84,8 +88,8 @@ public class MybatisAuctionDao implements AuctionDao {
 		return auctionMapper.getBids(auctionId);
 	}
 
-	public void updateWinner(String winnerId, int bidPrice, String auctionId) throws DataAccessException {
-		auctionMapper.updateWinner(winnerId, bidPrice, auctionId);
+	public void updateWinner(String winnerId, int bidPrice, String auctionId, Date curTime) throws DataAccessException {
+		auctionMapper.updateWinner(winnerId, bidPrice, auctionId, curTime);
 	}
 
 	public Bid findWinnerBid(String auctionId) throws DataAccessException {

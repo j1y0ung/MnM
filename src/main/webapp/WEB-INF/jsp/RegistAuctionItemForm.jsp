@@ -11,6 +11,7 @@
 function checkDisable(frm)
 {
     if( frm.immdPurchase.checked == true ){
+    	document.getElementById('immdPurchasePrice').value=0;
 	   frm.immdPurchasePrice.disabled = true;
 	} else 
 	{
@@ -141,7 +142,7 @@ $(document).on("change", "select.category1", function(){
 	  
 	 });
 });
-// 카테고리 유효성 검사
+// 카테고리/이미지 유효성 검사
 $(function () {
 	$("#frm").submit(function() {
 		if($("#category1").val()=="" || $("#category2").val()=="") {

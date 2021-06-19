@@ -13,7 +13,7 @@
   
   <update id="updateAuctionItem" parameterType="AuctionItem">
   	UPDATE AUCTIONITEM
-    SET STARTPRICE = #{startPrice}, BIDUNIT = #{bidUnit}, IMMDPURCHASEPRICE = #{immdPurchasePrice}, STARTDATE = #{startDate}, ENDDATE = #{endDate}
+    SET STARTPRICE = #{startPrice}, CURRENTPRICE = #{currentPrice}, BIDUNIT = #{bidUnit}, IMMDPURCHASEPRICE = #{immdPurchasePrice}, STARTDATE = #{startDate}, ENDDATE = #{endDate}
     WHERE AUCTIONID = #{auctionId}
   </update>
   
@@ -86,15 +86,17 @@
   </select>
   
   <select id="findWinnerBid" resultType="bid">
-  	SELECT BIDPRICE, USERID, AUCTIONID
-	FROM (SELECT BIDPRICE, USERID, AUCTIONID FROM BID WHERE AUCTIONID = #{AUCTIONID} ORDER BY BIDPRICE DESC)
+  	SELECT *
+	FROM (SELECT * FROM BID WHERE AUCTIONID = #{AUCTIONID} AND GIVEUP!='1' ORDER BY BIDPRICE DESC)
 	WHERE ROWNUM=1
   </select>
   
   <update id="updateWinner">
-  	UPDATE AUCTIONITEM
-  	SET WINNERID=#{winnerId}, WINNINGBIDPRICE=#{bidPrice}, STATUS='낙찰'
-  	WHERE AUCTIONID = #{auctionId}
+    <![CDATA[
+	  	UPDATE AUCTIONITEM
+	  	SET WINNERID=#{winnerId}, WINNINGBIDPRICE=#{bidPrice}, STATUS='낙찰'
+	  	WHERE AUCTIONID = #{auctionId} AND ENDDATE <= #{curTime}
+  	]]>
   </update>
   
   <select id="getStatus" resultType="string">
@@ -109,16 +111,22 @@
   	WHERE AUCTIONID = #{param1}
   </update>
   
-  <update id="updateGiveUpWinning">
+  <update id="updateGiveUpAuctionItem">
   	UPDATE AUCTIONITEM
   	SET WINNINGBIDPRICE=NULL, STATUS='낙찰포기'
   	WHERE AUCTIONID = #{auctionId}
   </update>
   
+  <update id="updateGiveUpBid">
+  	UPDATE BID
+  	SET GIVEUP='1'
+  	WHERE AUCTIONID = #{auctionId} AND USERID = #{userId}
+  </update>
+  
   <select id="findSecondBid" resultType="Bid">
    	SELECT *
 	FROM (SELECT * FROM BID WHERE AUCTIONID = #{auctionId} ORDER BY BIDPRICE DESC)
-	WHERE ROWNUM=1 AND USERID != #{preWinnerId}
+	WHERE ROWNUM = 1 AND USERID != #{preWinnerId} AND GIVEUP != '1'
   </select>
   
   <update id="updateStatus">

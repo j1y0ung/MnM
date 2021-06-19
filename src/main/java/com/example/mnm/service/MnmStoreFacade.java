@@ -59,10 +59,10 @@ public interface MnmStoreFacade {
 	void endAuctionScheduler(Date endTime, String auctionId);
 	String getStatus(String auctionId);
 	void updateImmediatePurchase(String auctionId, int immdPurchasePrice, String winnerId);
-	void updateGiveUpWinning(String auctionId);
+	void updateGiveUpWinning(String auctionId, String userId);
 	Bid findSecondBid(String auctionId, String preWinnerId);
 	Bid findWinnerBid(String auctionId);
-	void updateWinner(String winnerId, int bidPrice, String auctionId);
+	void updateWinner(String winnerId, int bidPrice, String auctionId, Date curTime);
 	void insertOrders(Orders orders);
 	void insertLineItem(List<LineItem> lineItems);
 	void updateStatus(String status, String auctionId);

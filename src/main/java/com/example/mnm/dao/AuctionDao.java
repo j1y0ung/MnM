@@ -21,12 +21,13 @@ public interface AuctionDao {
 	  List<AuctionItemList> searchAuctionItemList(String word) throws DataAccessException;
 	  AuctionItem getAuctionItem(String auctionId) throws DataAccessException;
 	  void updateAuctionItem(AuctionItem auctionItem) throws DataAccessException;
-	  void updateGiveUpWinning(String auctionId) throws DataAccessException;
+	  void updateGiveUpAuctionItem(String auctionId) throws DataAccessException;
+      void updateGiveUpBid(String auctionId, String userId) throws DataAccessException;
 	  void deleteAuctionItem(String auctionId) throws DataAccessException;
 	  void insertBidding(Bid bid) throws DataAccessException;
 	  void updateCurrentPrice(String auctionId, int bidPrice) throws DataAccessException;
 	  List<Bid> getBids(String auctionId) throws DataAccessException;
-	  void updateWinner(String winnerId, int bidPrice, String auctionId) throws DataAccessException;
+	  void updateWinner(String winnerId, int bidPrice, String auctionId, Date curTime) throws DataAccessException;
 	  Bid findWinnerBid(String auctionId) throws DataAccessException;
 	  String getStatus(String auctionId) throws DataAccessException;
 	  void updateImmediatePurchase(String auctionId, int immdPurchasePrice, String winnerId) throws DataAccessException;

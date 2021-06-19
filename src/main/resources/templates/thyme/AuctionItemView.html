@@ -109,7 +109,7 @@
 	      <div class="accordion-body">
 	        <table th:unless="${#lists.isEmpty(bids)}">
 	        	<tr th:each="bid : ${bids}">
-					<td th:text="'입찰자: '+${bid.userId}+', 입찰가: '+${bid.bidPrice}+'원'"></li>
+					<td th:if="${bid.giveUp} != '1'" th:text="'입찰자: '+${bid.userId}+', 입찰가: '+${bid.bidPrice}+'원'"></li>
 				</tr>
 	        </table>
 	      </div>

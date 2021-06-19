@@ -7,6 +7,7 @@ public class Bid implements Serializable {
 	private int bidPrice;
 	private String userId;
 	private String auctionId;
+	private String giveUp;
 	
 	public Bid() {
 	}
@@ -27,5 +28,11 @@ public class Bid implements Serializable {
 	}
 	public void setAuctionId(String auctionId) {
 		this.auctionId = auctionId;
+	}
+	public String getGiveUp() {
+		return giveUp;
+	}
+	public void setGiveUp(String giveUp) {
+		this.giveUp = giveUp;
 	}
 }

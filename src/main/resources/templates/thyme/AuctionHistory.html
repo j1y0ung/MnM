@@ -42,7 +42,7 @@
 				<p>시작일: <span th:text="${#dates.format(sellingAuctionItem.startDate, 'yyyy/MM/dd HH:mm')}"></span></p>
 				<p>마감일: <span th:text="${#dates.format(sellingAuctionItem.endDate, 'yyyy/MM/dd HH:mm')}"></span></p>
 				<a th:if="${sellingAuctionItem.status.toString().equals('낙찰포기')}" class="btn btn-warning btn-md" th:href="@{/auction/bidding/{auctionId}/second(auctionId=${sellingAuctionItem.auctionId})}" onclick="return secondWin();">후순위자 낙찰</a><br><br>
-				<a th:if="${sellingAuctionItem.status.toString().equals('유찰')} or ${sellingAuctionItem.status.toString().equals('낙찰')} or ${sellingAuctionItem.status.toString().equals('낙찰포기')}" class="btn btn-danger btn-md" th:href="@{/auction/rebidding/{auctionId}(auctionId=${sellingAuctionItem.auctionId})}" onclick="return rebidding();">재경매</a><br><br>
+				<a th:if="${sellingAuctionItem.status.toString().equals('유찰')} or ${sellingAuctionItem.status.toString().equals('낙찰')} or ${sellingAuctionItem.status.toString().equals('낙찰포기')} or ${sellingAuctionItem.status.toString().equals('즉시구매완료')}" class="btn btn-danger btn-md" th:href="@{/auction/rebidding/{auctionId}(auctionId=${sellingAuctionItem.auctionId})}" onclick="return rebidding();">재경매</a><br><br>
 				<a href="#" th:href="@{/auction/{auctionId}(auctionId=${sellingAuctionItem.auctionId})}" class="btn btn-primary">상세 정보 보기</a><br><br>
 			</div>
 		</div>
