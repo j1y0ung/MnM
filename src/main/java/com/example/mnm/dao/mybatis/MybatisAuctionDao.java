@@ -11,7 +11,8 @@ import com.example.mnm.dao.mybatis.mapper.AuctionMapper;
 import com.example.mnm.domain.AuctionItem;
 import com.example.mnm.domain.AuctionItemList;
 import com.example.mnm.domain.Bid;
-import com.example.mnm.domain.Item;
+import com.example.mnm.domain.LineItem;
+import com.example.mnm.domain.Orders;
 
 @Repository
 public class MybatisAuctionDao implements AuctionDao {
@@ -99,6 +100,26 @@ public class MybatisAuctionDao implements AuctionDao {
 		auctionMapper.updateImmediatePurchase(auctionId, immdPurchasePrice, winnerId);
 	}
 	
+	public void insertOrders(Orders orders) throws DataAccessException {
+		auctionMapper.insertOrders(orders);
+	}
+	  
+	public void insertLineItem(List<LineItem> lineItems) throws DataAccessException {
+		auctionMapper.insertLineItem(lineItems);
+	}
+	
+	public void updateStatus(String status, String auctionId) throws DataAccessException {
+		auctionMapper.updateStatus(status, auctionId);
+	}
+	public Orders getAuctionOrder(int orderId) throws DataAccessException {
+		return auctionMapper.getAuctionOrder(orderId);
+	}
+	public int getOrderId(int itemId) throws DataAccessException {
+		return auctionMapper.getOrderId(itemId);
+	}
+	public void updateRebidding(String auctionId) throws DataAccessException {
+		auctionMapper.updateRebidding(auctionId);
+	}
 	public List<AuctionItemList> getSellingAuctionItemList(String userId) throws DataAccessException {
 		return auctionMapper.getSellingAuctionItemList(userId);
 	}
@@ -109,7 +130,7 @@ public class MybatisAuctionDao implements AuctionDao {
 	
 	public List<AuctionItemList> getAuctionedItemList(String userId) throws DataAccessException {
 		return auctionMapper.getAuctionedItemList(userId);
-	}	
+	}
 	
 	@Override
 	public List<AuctionItemList> getFourAuctionItemList() throws DataAccessException {

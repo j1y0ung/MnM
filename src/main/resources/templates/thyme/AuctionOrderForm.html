@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/default_layout">
+<meta charset="UTF-8">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+<title>낙찰 물품 결제</title>
+<!-- index.html 고유 CSS 추가 -->
+<th:block layout:fragment="css">
+	<link rel="stylesheet" th:href="@{/css/page/home.css}" >
+</th:block>
+    
+<!-- index.html 고유 스크립트 추가 -->
+<th:block layout:fragment="script">
+	<script th:src="@{/js/page/home.js}"></script>
+</th:block>
+<div layout:fragment="content">
+	<br><h1>낙찰 물품 결제</h1>
+	<br>
+		<form action="" th:action="@{/auction/order}" th:object="${orders}" method="post">
+		<table align="center">
+			<tr>
+				<td>
+					<table bgcolor="#FFFF88" class="table table-bordered">
+						<tr>
+							<td colspan="4"><font color="green" size="4"><b>주문내용</b></font></td>
+						</tr>
+						<tr>
+							<td><b></b></td>
+							<td><b>상품제목</b></td>
+							<td><b>낙찰금액</b></td>
+							<td><b>판매자</b></td>
+						</tr>
+						<tr bgcolor="#FFFF88">
+							<td><img th:src="@{'/upload/' + ${auctionItem.item.img}}" width="600" height="400"/></td>
+							<td th:href="@{/auction/{auctionId}(auctionId=${auctionItem.auctionId})}"
+								th:text="${auctionItem.item.title}">title</td>
+							<td th:text="${auctionItem.winningBidPrice}">price</td>
+							<td th:text="${auctionItem.item.userId}">seller</td>
+						</tr>
+						<tr>
+							<td colspan="4"><font color="green" size="4"><b>배송정보</b></font></td>
+						</tr>
+						<tr>
+							<td colspan="1">이름 :</td>
+							<td colspan="3"><input type="text" th:field="${orders.shipToName}" /></td>
+							<td class="err" th:if="${#fields.hasErrors('shipToName')}" th:errors="*{shipToName}">Name Error</td>
+						</tr>
+						<tr>
+							<td colspan="1">전화번호 :</td>
+							<td colspan="3"><input type="text" th:field="${orders.phone}" placeholder="010-XXXX-XXXX"/></td>
+							<td class="err" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}">Phone Error</td>
+						</tr>
+						<tr>
+							<td colspan="1">주소 :</td>
+							<td colspan="3"><input type="text" th:field="${orders.shipAddr}" /></td>
+							<td class="err" th:if="${#fields.hasErrors('shipAddr')}" th:errors="*{shipAddr}">Address Error</td>
+						</tr>
+						<tr>
+							<td colspan="4"><font color="green" size="4"><b>결제정보</b></font></td>
+						</tr>
+						<tr>
+							<td colspan="1">은행 :</td>
+							<td colspan="3"><input type="text" th:field="${orders.bankName}"></td>
+							<td class="err" th:if="${#fields.hasErrors('bankName')}" th:errors="*{bankName}">Bank Error</td>
+						</tr>
+						<tr>
+							<td>카드번호 :</td>
+							<td colspan="3"><input type="text" th:field="${orders.cardNumber}" placeholder="XXXX-XXXX-XXXX-XXXX"/></td>
+							<td class="err" th:if="${#fields.hasErrors('cardNumber')}" th:errors="*{cardNumber}">Card Error</td>
+						</tr>
+						<tr>
+							<td>만료일 :</td>
+							<td colspan="3"><input type="text" th:field="${orders.expiryDate}" placeholder="MM/YYYY"/></td>
+							<td class="err" th:if="${#fields.hasErrors('expiryDate')}" th:errors="*{expiryDate}">Date Error</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td>
+				<input type="hidden" th:field="${auctionItem.auctionId}">
+				<input type="hidden" th:field="${auctionItem.winningBidPrice}">
+				<input type="submit" value="결제하기"/></td>
+			</tr>
+		</table>
+		</form>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+</div>
+</html>

@@ -19,6 +19,7 @@
 				<c:if test="${empty session.account}" ><a href="<c:url value="/joinForm.do"/>">join</a></c:if>
 				<c:if test="${!empty session.account}" ><a href="<c:url value="/logout.do"/>">logout</a></c:if>
 				<c:if test="${!empty session.account}" ><a href="<c:url value="/cart.do"/>">cart</a></c:if>
+				<c:if test="${!empty session.account}" ><a href="<c:url value="/auction/viewCart.do"/>">auction cart</a></c:if>
 				<c:if test="${!empty session.account}" ><a href="<c:url value="/mypage.do"/>">mypage</a></c:if>
 			</td>
 		</tr>

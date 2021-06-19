@@ -1,11 +1,11 @@
-<%@page contentType="text/html; charset=utf-8" %>
+<%@page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <html>
 <head>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 <title>경매 아이템 등록 화면</title>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script src="//code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 function checkDisable(frm)
@@ -20,9 +20,11 @@ function checkDisable(frm)
 </script>
 </head>
 <body>
+<%@include file ="header.jsp" %>
 <br><h1 align="center">경매 아이템 등록하기</h1><br>
 <div class="container">
-	<form:form action="/auction/add" modelAttribute="auctionItem" method="post" enctype="multipart/form-data">
+	<spring:hasBindErrors name="auctionItem" />
+	<form:form id="frm" name="frm" action="/auction/add" modelAttribute="auctionItem" method="post" enctype="multipart/form-data">
 		<label>상위 카테고리</label>:
 		<select class="category1" id="category1" name="category1">
 			<option value="">전체</option>
@@ -36,27 +38,34 @@ function checkDisable(frm)
 		<br>
 		<form:label path="item.title">물품 제목</form:label>:<br>
 		<form:input path="item.title" />
+		<form:errors path="item.title"/>
 		<br>
 		<form:label path="item.description">물품 설명</form:label>:<br>
 		<form:textarea path="item.description" rows="20" cols="170"/>
+		<form:errors path="item.description"/>
 		<br>
 		<form:label path="item.img">이미지</form:label>:<br>
 		<input type="file" id="file" name="file" placeholder="파일 선택">
 		<br>
 		<form:label path="item.quantity">수량</form:label>:<br>
 		<form:input path="item.quantity" />
+		<form:errors path="item.quantity"/>
 		<hr>
 		<form:label path="startPrice">시작가</form:label>:<br>
 		<form:input path="startPrice" />
+		<form:errors path="startPrice"/>
 		<br>
 		<form:label path="bidUnit">입찰단위</form:label>:<br>
 		<form:input path="bidUnit" />
+		<form:errors path="bidUnit"/>
 		<br>
 		<form:label path="startDate">시작일</form:label>:<br>
 		<input type="datetime-local" id="startDate" name="startDate" value="${auctionItem.startDate}"/>
+		<form:errors path="startDate"/>
 		<br>
 		<form:label path="endDate">종료일</form:label>:<br>
 		<input type="datetime-local" id="endDate" name="endDate" value="${auctionItem.endDate}"/>
+		<form:errors path="endDate"/>
 		<hr>
 		즉시 구매:
 		<input type="checkbox" id="immdPurchase" name="immdPurchase" value="disable" onClick="checkDisable(this.form)"/>불가능<br>
@@ -131,9 +140,22 @@ $(document).on("change", "select.category1", function(){
 	  }
 	  
 	 });
-	 
+});
+// 카테고리 유효성 검사
+$(function () {
+	$("#frm").submit(function() {
+		if($("#category1").val()=="" || $("#category2").val()=="") {
+			alert("카테고리를 선택해주세요.")
+			return false
+		}
+		else if($("#file").val()=="") {
+			alert("이미지를 첨부해주세요.")
+			return false
+		}
 	});
+});
 </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+<%@include file ="footer.jsp" %>
 </body>
 </html>

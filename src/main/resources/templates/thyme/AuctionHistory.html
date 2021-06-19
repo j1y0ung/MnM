@@ -1,67 +1,85 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta charset="utf-8">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/default_layout">
+<meta charset="UTF-8">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 <title>경매 내역</title>
-<script>
-function giveup() {
-	return confirm("정말 포기하시겠습니까?");		
-}
-function secondWin() {
-	return confirm("후순위자를 낙찰하시겠습니까?");		
-}
-</script>
-</head>
-<body align="center">
-<br><h1 align="center">경매 내역</h1><br>
-<br>
-<h2>내가 판매한 물품</h2><br>
-<div class="card-group" th:unless="${#lists.isEmpty(sellingAuctionItemList)}">
-	<div class="card" th:each="sellingAuctionItem: ${sellingAuctionItemList}">
-		<img class="card-img-top" th:src="@{'/upload/' + ${sellingAuctionItem.img}}" width="300" height="200"/>
-		<div class="card-body">
-			<h5>제목: <span th:text="${sellingAuctionItem.title}"></span></h5>
-			<h6>상태: <span th:text="${sellingAuctionItem.status}"></span></h6>
-			<p>입찰수: <span th:text="${sellingAuctionItem.bidNum}"></span></p>
-			<p>시작일: <span th:text="${sellingAuctionItem.startDate}"></span></p>
-			<p>마감일: <span th:text="${sellingAuctionItem.endDate}"></span></p>
-			<a th:if="${sellingAuctionItem.status.toString().equals('낙찰포기')}" class="btn btn-warning btn-md" th:href="@{/auction/bidding/{auctionId}/second(auctionId=${sellingAuctionItem.auctionId})}" onclick="return secondWin();">후순위자 낙찰</a><br><br>
-			<a href="#" th:href="@{/auction/{auctionId}(auctionId=${sellingAuctionItem.auctionId})}" class="btn btn-primary">상세 정보 보기</a><br><br>
+<!-- index.html 고유 CSS 추가 -->
+<th:block layout:fragment="css">
+	<link rel="stylesheet" th:href="@{/css/page/home.css}" >
+</th:block>
+    
+<!-- index.html 고유 스크립트 추가 -->
+<th:block layout:fragment="script">
+	<script th:src="@{/js/page/home.js}"></script>
+	<script>
+		function giveup() {
+			return confirm("정말 포기하시겠습니까?");		
+		}
+		function secondWin() {
+			return confirm("후순위자를 낙찰하시겠습니까?");		
+		}
+		function rebidding() {
+			return confirm("재경매 하시겠습니까?");		
+		}
+	</script>
+	<script th:if="${noSecondBid}">
+	    alert('후순위자가 없습니다.');
+	</script>
+</th:block>
+<div layout:fragment="content">
+	<br><h1 align="center">경매 내역</h1><br>
+	<br>
+	<h2>내가 판매한 물품</h2><br>
+	<div class="card-group" th:unless="${#lists.isEmpty(sellingAuctionItemList)}">
+		<div class="card" th:each="sellingAuctionItem: ${sellingAuctionItemList}">
+			<img class="card-img-top" th:src="@{'/upload/' + ${sellingAuctionItem.img}}" width="300" height="200"/>
+			<div class="card-body">
+				<h5>제목: <span th:text="${sellingAuctionItem.title}"></span></h5>
+				<h6>상태: <span th:text="${sellingAuctionItem.status}"></span></h6>
+				<p>입찰수: <span th:text="${sellingAuctionItem.bidNum}"></span></p>
+				<p>시작일: <span th:text="${#dates.format(sellingAuctionItem.startDate, 'yyyy/MM/dd HH:mm')}"></span></p>
+				<p>마감일: <span th:text="${#dates.format(sellingAuctionItem.endDate, 'yyyy/MM/dd HH:mm')}"></span></p>
+				<a th:if="${sellingAuctionItem.status.toString().equals('낙찰포기')}" class="btn btn-warning btn-md" th:href="@{/auction/bidding/{auctionId}/second(auctionId=${sellingAuctionItem.auctionId})}" onclick="return secondWin();">후순위자 낙찰</a><br><br>
+				<a th:if="${sellingAuctionItem.status.toString().equals('유찰')} or ${sellingAuctionItem.status.toString().equals('낙찰')} or ${sellingAuctionItem.status.toString().equals('낙찰포기')}" class="btn btn-danger btn-md" th:href="@{/auction/rebidding/{auctionId}(auctionId=${sellingAuctionItem.auctionId})}" onclick="return rebidding();">재경매</a><br><br>
+				<a href="#" th:href="@{/auction/{auctionId}(auctionId=${sellingAuctionItem.auctionId})}" class="btn btn-primary">상세 정보 보기</a><br><br>
+			</div>
 		</div>
 	</div>
-</div>
-<hr>
-<h2>내가 입찰한 물품</h2><br>
-<div class="card-group" th:unless="${#lists.isEmpty(biddingAuctionItemList)}">
-	<div class="card" th:each="biddingAuctionItem: ${biddingAuctionItemList}">
-		<img class="card-img-top" th:src="@{'/upload/' + ${biddingAuctionItem.img}}" width="300" height="200"/>
-		<div class="card-body">
-			<h5>제목: <span th:text="${biddingAuctionItem.title}"></span></h5>
-			<h6>상태: <span th:text="${biddingAuctionItem.status}"></span></h6>
-			<p>입찰수: <span th:text="${biddingAuctionItem.bidNum}"></span></p>
-			<p>시작일: <span th:text="${biddingAuctionItem.startDate}"></span></p>
-			<p>마감일: <span th:text="${biddingAuctionItem.endDate}"></span></p>
-			<a href="#" th:href="@{/auction/{auctionId}(auctionId=${biddingAuctionItem.auctionId})}" class="btn btn-primary">상세 정보 보기</a><br><br>
+	<hr>
+	<h2>내가 입찰한 물품</h2><br>
+	<div class="card-group" th:unless="${#lists.isEmpty(biddingAuctionItemList)}">
+		<div class="card" th:each="biddingAuctionItem: ${biddingAuctionItemList}">
+			<img class="card-img-top" th:src="@{'/upload/' + ${biddingAuctionItem.img}}" width="300" height="200"/>
+			<div class="card-body">
+				<h5>제목: <span th:text="${biddingAuctionItem.title}"></span></h5>
+				<h6>상태: <span th:text="${biddingAuctionItem.status}"></span></h6>
+				<p>입찰수: <span th:text="${biddingAuctionItem.bidNum}"></span></p>
+				<p>시작일: <span th:text="${#dates.format(biddingAuctionItem.startDate, 'yyyy/MM/dd HH:mm')}"></span></p>
+				<p>마감일: <span th:text="${#dates.format(biddingAuctionItem.endDate, 'yyyy/MM/dd HH:mm')}"></span></p>
+				<a href="#" th:href="@{/auction/{auctionId}(auctionId=${biddingAuctionItem.auctionId})}" class="btn btn-primary">상세 정보 보기</a><br><br>
+			</div>
 		</div>
 	</div>
-</div>
-<hr>
-<h2>내가 낙찰받은 물품</h2><br>
-<div class="card-group" th:unless="${#lists.isEmpty(auctionedItemList)}">
-	<div class="card" th:each="auctionedItem: ${auctionedItemList}">
-		<img class="card-img-top" th:src="@{'/upload/' + ${auctionedItem.img}}" width="300" height="200"/>
-		<div class="card-body">
-			<h5>제목: <span th:text="${auctionedItem.title}"></span></h5>
-			<h6>상태: <span th:text="${auctionedItem.status}"></span></h6>
-			<p>입찰수: <span th:text="${auctionedItem.bidNum}"></span></p>
-			<p>시작일: <span th:text="${auctionedItem.startDate}"></span></p>
-			<p>마감일: <span th:text="${auctionedItem.endDate}"></span></p>
-			<a th:unless="${auctionedItem.status.toString().equals('결제완료')}" class="btn btn-warning btn-md" th:href="@{/auction/bidding/{auctionId}/giveup(auctionId=${auctionedItem.auctionId})}" onclick="return giveup();">낙찰 포기</a><br><br>
-			<a href="#" th:href="@{/auction/{auctionId}(auctionId=${auctionedItem.auctionId})}" class="btn btn-primary">상세 정보 보기</a><br><br>
+	<hr>
+	<h2>내가 낙찰받은 물품</h2><br>
+	<div class="card-group" th:unless="${#lists.isEmpty(auctionedItemList)}">
+		<div class="card" th:each="auctionedItem: ${auctionedItemList}">
+			<img class="card-img-top" th:src="@{'/upload/' + ${auctionedItem.img}}" width="300" height="200"/>
+			<div class="card-body">
+				<h5>제목: <span th:text="${auctionedItem.title}"></span></h5>
+				<h6>상태: <span th:text="${auctionedItem.status}"></span></h6>
+				<p>입찰수: <span th:text="${auctionedItem.bidNum}"></span></p>
+				<p>시작일: <span th:text="${#dates.format(auctionedItem.startDate, 'yyyy/MM/dd HH:mm')}"></span></p>
+				<p>마감일: <span th:text="${#dates.format(auctionedItem.endDate, 'yyyy/MM/dd HH:mm')}"></span></p>
+				<a th:unless="${auctionedItem.status.toString().equals('결제완료')}" href="#" th:href="@{/auction/order(auctionId=${auctionedItem.auctionId})}" class="btn btn-success">결제하기</a><br><br>
+				<a th:unless="${auctionedItem.status.toString().equals('결제완료')}" class="btn btn-warning btn-md" th:href="@{/auction/bidding/{auctionId}/giveup(auctionId=${auctionedItem.auctionId})}" onclick="return giveup();">낙찰 포기</a><br><br>
+				<a th:if="${auctionedItem.status.toString().equals('결제완료')}" class="btn btn-secondary btn-md" th:href="@{/auction/viewOrder.do(itemId=${auctionedItem.itemId}, auctionId=${auctionedItem.auctionId})}">결제 내역</a><br><br>
+				<a href="#" th:href="@{/auction/{auctionId}(auctionId=${auctionedItem.auctionId})}" class="btn btn-primary">상세 정보 보기</a><br><br>
+			</div>
 		</div>
 	</div>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
-</body>
 </html>

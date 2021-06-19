@@ -32,11 +32,9 @@ public class AddAuctionItemToCartController {
 	
 	@RequestMapping("/auction/addItemToCart.do")
 	public String handleRequest(
-			@RequestParam("auctionId") String auctionId,
-			@ModelAttribute("sessionCart") AuctionCart cart,
-			Model model,
-			RedirectAttributes redirect
-			) throws Exception {
+			@RequestParam("auctionId") String auctionId, @ModelAttribute("sessionCart") AuctionCart cart,
+			Model model, RedirectAttributes redirect) throws Exception {
+		// 카트에 이미 해당 물품이 들어있는 경우
 		if (cart.containsItemId(auctionId)) {
 			redirect.addAttribute("alreadyAdded", true);
 			return "redirect:/auction/" + auctionId;
