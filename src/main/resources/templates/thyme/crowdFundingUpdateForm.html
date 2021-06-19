@@ -5,15 +5,18 @@
 <title>펀딩 수정 화면</title>
 </head>
 <body>
-<br><h1 align="center">펀딩 아이템 수정하기</h1><br>
+
+<header th:include="fragment/header :: headerFragment"></header>
+
 <div class="container">
+<br><h1 align="center">펀딩 아이템 수정하기</h1><br>
 	<div class="row-lg-10">
 		<form action="" th:action="@{/crowdFunding/update}" th:object="${crowdFundingItem}" method="post" enctype="multipart/form-data">
 		<div class="row-lg-10">
             <div class="form-group">
-            	<input type="hidden" th:field="*{item.account.userId}">
-            	<input type="hidden" th:field="*{crowdFundingId}">
-            	<input type="hidden" th:field="*{item.itemId}">
+            	<input type="hidden" th:value="*{item.account.userid}">
+            	<input type="hidden" th:value="*{crowdFundingId}">
+            	<input type="hidden" th:value="*{item.itemId}">
 				<p>
 			        <label for="title">제목</label>:<br>
 			        <input type="text" id="title" th:field="*{item.title}" />
@@ -30,7 +33,7 @@
 		  </div>
 		  <div class="row-lg-10">
            <div class="form-group">
-				카테고리: <select class="form-select form-select-sm" th:field="*{item.product.category.catId}">
+				카테고리: <select class="form-select form-select-sm" th:field="*{item.category.catId}">
   							<option th:each="category : ${categories}"
   								th:value="${category.catId}"
   								th:text="${category.name}">카테고리</option>
@@ -39,7 +42,7 @@
           </div>
            <div class="row-lg-10">
             <div class="form-group">
-				카테고리: <select class="form-select form-select-sm" th:field="*{item.product.productId}">
+				카테고리: <select class="form-select form-select-sm" th:field="*{item.childCatId}">
   							<option th:each="product : ${products}"
   								th:value="${product.productId}"
   								th:text="${product.name}">제품군</option>
@@ -66,8 +69,8 @@
 		  <div class="row-lg-10">
             <div class="form-group">
             	<p>
-			        <label for="detailInfo">프로젝트 상세내용</label>:<br>
-			        <textarea id="detailInfo" rows="20" th:field="*{item.description}"></textarea>
+			        <label for="description">프로젝트 상세내용</label>:<br>
+			        <textarea id="description" rows="20" th:field="*{item.description}"></textarea>
 	    		</p>
             </div>
 		  </div>
@@ -130,5 +133,8 @@
 		</form> 
 	</div>						
 </div>
+
+<footer th:include="fragment/footer :: footerFragment"></footer>
+
 </body>
 </html>

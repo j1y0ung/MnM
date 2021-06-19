@@ -61,5 +61,11 @@ public class Account implements Serializable {
 	public void setPwd(String pwd) {
 		this.pwd = pwd;
 	}
+	@Override
+	public String toString() {
+		return "Account [userid=" + userid + ", email=" + email + ", name=" + name + ", addr=" + addr + ", phone="
+				+ phone + ", favcategory=" + favcategory + ", accountNum=" + accountNum + ", pwd=" + pwd + "]";
+	}
+	
 	
 }

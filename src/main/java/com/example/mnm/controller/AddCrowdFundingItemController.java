@@ -34,7 +34,7 @@ public class AddCrowdFundingItemController {
 	//	}
 
 	@GetMapping("")
-	protected ModelAndView form(ModelMap model, HttpSession session) {
+	protected ModelAndView form(ModelMap model, HttpSession session) throws Exception {
 		
 		ModelAndView mav = new ModelAndView();
 		
@@ -62,7 +62,7 @@ public class AddCrowdFundingItemController {
 			, HttpSession session
 			, MultipartHttpServletRequest request
 			//			, SessionStatus status
-			) {
+			) throws Exception {
 		System.out.println(crowdFundingItem.toString());
 		
 		crowdFundingItem.getItem().getAccount().setUserid(((Account) session.getAttribute("account")).getUserid());

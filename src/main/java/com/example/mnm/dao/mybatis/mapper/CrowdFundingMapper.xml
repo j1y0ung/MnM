@@ -47,7 +47,8 @@
 	<update id="updateItemById"
 		parameterType="Item">
 		UPDATE item SET 
-		productId=#{item.product.productId}, 
+		childCatId=#{item.childCatId}, 
+		parentCatId=#{item.parentCatId}, 
 		title=#{item.title}, 
 		description=#{item.description}, 
 		img=#{item.img} 
@@ -276,7 +277,7 @@
 		i.views AS "item.views",
 		i.shippingFee AS "item.shippingFee", 
 		i.userid AS "item.account.userid", 
-		c.crowdfundingid AS "crowdfundingid", 
+		c.crowdfundingid AS "crowdfundingId", 
 		c.shortInfo AS "shortInfo",
 		c.targetAmount AS "targetAmount",
 		c.startDate AS "startDate", 
@@ -285,7 +286,7 @@
 		c.currentSponsoredAmount AS "currentSponsoredAmount", 
 		c.numberOfSponsor AS "numberOfSponsor",
 		c.status AS "status", 
-		c.itemid AS "item.itemid",
+		c.itemid AS "item.itemId",
 		ca.catid AS "item.category.catId", 
 		ca.catname AS "item.category.catName"
 		FROM crowdFundingItem c, item i, category ca, account a
