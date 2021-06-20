@@ -17,7 +17,7 @@
   </div>	
   <div class="row">
     <div class="col">
-      <img src="" alt="대표 사진">
+      <img th:src="@{'/upload/' + ${crowdFundingItem.item.img}}" alt="대표 사진" width="600" height="400" />
     </div>
     <div class="col">
       <p>모인 금액: <span th:text="${crowdFundingItem.currentSponsoredAmount}"></span></p>
