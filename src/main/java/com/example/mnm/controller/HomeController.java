@@ -39,7 +39,7 @@ public class HomeController {
 		// 각 카테고리별로 4개씩 가져오기
 //		List<PersonalDealItem> personalDealItemList = store.getFourPersonalDealItemList();
 //		model.put("personalDealItems", personalDealItemList);
-//		System.out.println("@@@@@@@@@@@@ " + personalDealItemList);
+
 		List<AuctionItemList> auctionItems = store.getFourAuctionItemList();
 		model.put("auctionItems", auctionItems);
 		
@@ -48,21 +48,6 @@ public class HomeController {
 
 		return "thyme/home";
 	}
-	
-//	@RequestMapping("/personalDealList.go")
-//	public String goPersonalDealList(HttpServletRequest request, Model model) {
-//		return "thyme/";
-//	}
-//
-//	@RequestMapping("/auctionList.go")
-//	public String goAuctionList(HttpServletRequest request, Model model) {
-//		return "thyme/auctionItemListView";
-//	}
-//	
-//	@RequestMapping("/crowdFundingList.go")
-//	public String goCrowdFundingList(HttpServletRequest request, Model model) {
-//		return "thyme/crowdFundingListView";
-//	}
 	
 	// 세션 체크용
 	@RequestMapping("/sessionCheck")
