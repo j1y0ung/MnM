@@ -97,5 +97,10 @@ public class MybatisPersonalDealDao implements PersonalDealDao{
 		personalDealMapper.removePersonalDealItem(personalDealId);
 	}
 
+	@Override
+	public List<PersonalDealItem> getRecommendedItemList(String fav) {
+		return personalDealMapper.getRecommendedItemList(fav);
+	}
+
 
 }

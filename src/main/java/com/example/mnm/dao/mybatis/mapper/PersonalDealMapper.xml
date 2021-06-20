@@ -75,4 +75,15 @@
     ORDER BY views DESC
    ]]>    
   </select>
+  
+  <select id="getRecommendedItemList" parameterType="string" resultType="PersonalDealItem">
+  <![CDATA[
+	select * from (select * from item i
+					where i.type='personalDeal' 
+					and i.parentcatid=(select catid from category
+										where catname=#{fav})
+					order by dbms_random.value)
+					where rownum <= 3
+   ]]>    
+  </select>
 </mapper>
