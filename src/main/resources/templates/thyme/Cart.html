@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/default_layout">
+<meta charset="UTF-8">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+<title>장바구니</title>
+<!-- index.html 고유 CSS 추가 -->
+<th:block layout:fragment="css">
+	<link rel="stylesheet" th:href="@{/css/page/home.css}" >
+</th:block>
+    
+<!-- index.html 고유 스크립트 추가 -->
+<th:block layout:fragment="script">
+	<script th:src="@{/js/page/home.js}"></script>
+</th:block>
+
+<div layout:fragment="content">
+	<h2><a href="#" th:href="@{#}">중고거래 관심물품</a></h2>   
+	<h2><a href="#" th:href="@{/auction/viewCart.do}">경매 관심물품</a></h2>   
+	<h2><a href="#" th:href="@{#}">크라우드펀딩 관심물품</a></h2>   
+</div>
+</html>
