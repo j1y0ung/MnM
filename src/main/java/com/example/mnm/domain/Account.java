@@ -84,6 +84,7 @@ public class Account implements Serializable {
 	public void setPwd(String pwd) {
 		this.pwd = pwd;
 	}
+
 	public String getPwdconfirm() {
 		return pwdconfirm;
 	}

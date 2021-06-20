@@ -29,15 +29,14 @@ public class ViewMyCrowdFundingItemListController {
 		Account account = (Account) session.getAttribute("account");
 		if(account == null) {
 			return "redirect:/signon";
-		} else {
-			model.put("session", account);
 		}
 		
-		// 테스트 용 : 사용자 id가 1이라고 가정 
-		List<CrowdFundingItem> list = storeFacade.getMyFundingItemListById("1");
-		// 세션에서 사용자 id 가져와서 사용 
-//		List<CrowdFundingItem> list = storeFacade.getMyFundingItemListById(account.getUserId());
+		// 테스트 용 : 사용자 id가 1이라고 가정
+//		System.out.println(account.getUserid());
+//		List<CrowdFundingItem> list = storeFacade.getMyFundingItemListById("1");
 		
+		// 세션에서 사용자 id 가져와서 사용 
+		List<CrowdFundingItem> list = storeFacade.getMyFundingItemListById(account.getUserid());
 		model.put("myCrowdFundingItemList", list);
 		
 		return "thyme/crowdFundingRegiHistory";

@@ -5,11 +5,11 @@ import java.io.Serializable;
 @SuppressWarnings("serial")
 public class FundingForm implements Serializable{
 	private Orders orders;
-	private CrowdFundingItem crowdFundingItem;
+	private CrowdFundingItem crowdFunding;
 	
 	public FundingForm() {
 		orders = new Orders();
-		crowdFundingItem = new CrowdFundingItem(new Item());
+		crowdFunding = new CrowdFundingItem(new Item());
 	}
 	public Orders getOrders() {
 		return orders;
@@ -18,10 +18,16 @@ public class FundingForm implements Serializable{
 		this.orders = orders;
 	}
 	public CrowdFundingItem getCrowdFundingItem() {
-		return crowdFundingItem;
+		return crowdFunding;
 	}
 	public void setCrowdFundingItem(CrowdFundingItem crowdFundingItem) {
-		this.crowdFundingItem = crowdFundingItem;
+		this.crowdFunding = crowdFundingItem;
+	}
+	
+	@Override
+	public String toString() {
+		return "FundingForm [orders=" + orders + ", crowdFunding=" + crowdFunding + "]";
 	}
 
+	
 }
