@@ -12,15 +12,17 @@
   	<hr>
     <h1><span th:text="${personalDealItem.item.title}"> - </span><span th:text="${personalDealItem.title}"></span></h1>
   </div>	
-  <div class="row">
+  <div align="center">
     <div class="col">
-     <p rowspan="7"><img th:src="${personalDealItem.item.img}"/></p>
+     <!--<p rowspan="7"><img th:src="${personalDealItem.item.img}"/></p>-->
     </div>
     <div class="col">
       <p>설명: <span th:text="${personalDealItem.item.description}"></span></p>
-      <p><b>판매희망가: <span th:text="${personalDealItem.price}"></span></b><br><br></p>
-      <p>상품상태: <span th:text="${personalDealItem.dealStatus}"></span></p>
-      <p>배송비: <span th:text="${personalDealItem.item.shippingFee}"></span></p>
+      <p>카테고리: <span th:text="${parentCatId} + '>' + ${childCatId}"></span></p>
+      <p><b>판매희망가: <span th:text="${personalDealItem.price}+'원'"></span></b><br><br></p>
+      <p>거래진행 상태: <span th:text="${personalDealItem.dealStatus}"></span></p>
+      <p>상품 상태: <span th:text="${personalDealItem.productStatus}"></span></p>
+      <p>배송비: <span th:text="${personalDealItem.item.shippingFee}+'원'"></span></p>
       <p>판매자 아이디: <span th:text="${personalDealItem.item.userId}"></span></p>
       <p>거래지역: <span th:text="${personalDealItem.location}"></span></p>
       <p>조회수: <span th:text="${personalDealItem.item.views}"></span></p>
@@ -29,8 +31,8 @@
       	<input type="submit"  class="btn btn-primary btn-lg" value="구매하기" >
       </form>
     </div>
-    <a href='<c:url value="/shop/addItemToCart.do">
-		<c:param name="itemId" value="${item.itemId}"/></c:url>'>장바구니</a>&nbsp;
+    <a href="#" th:href="@{/personalDeal/newest}">중고물품 목록</a>&nbsp;
+    <a href="#" th:href="@{/personalDeal/addItemToCart.do(personalDealId=${personalDealItem.personalDealId}, itemId=${personalDealItem.itemId}, img=${personalDealItem.item.img})}">장바구니 넣기</a>&nbsp;
   </div>
 </div>
 </body>

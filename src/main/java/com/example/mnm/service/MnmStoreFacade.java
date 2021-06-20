@@ -97,11 +97,17 @@ public interface MnmStoreFacade {
 	List<PersonalDealItem> getAllPersonalDealItems();
 	List<PersonalDealItem> getPersonalDealItemList();
 	PersonalDealItem getPersonalDealItemById(String personalDealId);
+	PersonalDealItem getPersonalDealItem(String personalDealId);
 	void addPersonalDealItem(PersonalDealItem personalDealItem);
+	void removePersonalDealItem(String personalDealId);
 	void removePersonalDealItemById(String itemId);
 	void updatePersonalDealItemById(String personalDealId, PersonalDealItem personalDealItem);
 	void finishDealById(int userId, PersonalDealItem personalDealItem);
-	
+	List<PersonalDealItem> searchPersonalDealItemList(String word);
+	List<PersonalDealItem> getNewestPersonalDealItemList();
+	List<PersonalDealItem> getPopularPersonalDealItemList();
+	List<PersonalDealItem> getLowestPricePersonalDealItemList();
+	List<PersonalDealItem> getHightestPricePersonalDealItemList();
 	
 	
 }
