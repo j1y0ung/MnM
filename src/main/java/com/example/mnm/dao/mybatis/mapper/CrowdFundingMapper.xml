@@ -333,7 +333,27 @@
 	
 	<select id="getFourCrowdFundingItemList" resultType="CrowdFundingItem">
 	<![CDATA[
-		select * from crowdfundingitem c, item i
+		select 
+		i.title AS "item.title", 
+		i.description AS "item.description",
+		c.status as "status", 
+		i.img AS "item.img",
+		i.quantity AS "item.quantity", 
+		i.regiDate AS "item.regiDate", 
+		i.views AS "item.views",
+		i.shippingFee AS "item.shippingFee", 
+		i.userid AS "item.account.userid", 
+		c.crowdfundingid AS "crowdfundingId", 
+		c.shortInfo AS "shortInfo",
+		c.targetAmount AS "targetAmount",
+		c.startDate AS "startDate", 
+		c.closingDate AS "closingDate", 
+		c.productComposition AS "productComposition",
+		c.currentSponsoredAmount AS "currentSponsoredAmount", 
+		c.numberOfSponsor AS "numberOfSponsor",
+		c.status AS "status", 
+		c.itemid AS "item.itemId"
+		from crowdfundingitem c, item i
 		where c.itemid=i.itemid and type='crowdFunding' and status='등록' and rownum <= 4
 		order by views DESC
 	]]>    
