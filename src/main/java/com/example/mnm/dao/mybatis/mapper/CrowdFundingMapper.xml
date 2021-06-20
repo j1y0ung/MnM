@@ -308,7 +308,7 @@
 		ca.catname AS "item.category.catName"
 		FROM crowdFundingItem c, item i, category ca, account a
 		WHERE c.itemid = i.itemid AND i.childCatId = ca.catid AND i.userid = a.userid 
-		AND o.userid=#{userId}
+		AND i.userid=#{userId}
 	</select>
 	
 	<!-- 내가 펀딩한 펀딩 아이템 가져오기 -->
