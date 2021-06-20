@@ -283,7 +283,7 @@
 	
 	<!-- 내가 등록한 펀딩 아이템 가져오기 -->
 	<select id="getMyFundingItemListById" parameterType="string"
-		resultType="FundingForm">
+		resultType="crowdFundingItem">
 		SELECT
 		i.title AS "item.title", 
 		i.description AS "item.description",
