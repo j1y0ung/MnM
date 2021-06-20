@@ -44,7 +44,7 @@
 <td>
 	<a href="${path}/crowdFunding/deadline">마감 임박순</a>
 </td>
-<td>
+<%-- <td>
 <form:form commandName="Category" action="/crowdFunding/category" method="post" enctype="multipart/form-data">
 		<label>상위 카테고리</label>:
 		<select class="category1" id="category1" name="category1">
@@ -57,7 +57,7 @@
 		</select>
 	<input type="submit" class="btn btn-primary" value="카테고리 별로 보기">
 </form:form>
-</td>
+</td> --%>
 </tr>
 </table>	
 <hr>

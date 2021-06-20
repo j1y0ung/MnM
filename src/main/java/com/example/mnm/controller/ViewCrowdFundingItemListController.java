@@ -31,21 +31,6 @@ public class ViewCrowdFundingItemListController {
 		mav.addObject("crowdFundingItemList", crowdlist);
 		System.out.println(crowdlist.toString());
 
-		// 페이지 설정(미완) 
-		//		PagedListHolder<CrowdFundingItem> pagedList = new PagedListHolder<CrowdFundingItem>(crowdlist);
-		//		pagedList.setPageSize(10);
-		//		if(page == null) { pagedList.setPage(1); }
-		//		request.getSession().setAttribute("crowdFundingItemList", pagedList);
-		//
-		//		if ("next".equals(page)) {
-		//			pagedList.nextPage();
-		//		}
-		//		else if ("previous".equals(page)) {
-		//			pagedList.previousPage();
-		//		}
-		//
-		//		mav.addObject("crowdFundingItemList", pagedList);
-
 		// 카테고리
 		List<Category> categoryList = storeFacade.getCategoryList();
 		mav.setViewName("crowdFundingListView");
