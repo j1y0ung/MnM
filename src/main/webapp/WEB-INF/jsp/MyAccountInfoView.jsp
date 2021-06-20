@@ -83,7 +83,7 @@ for(var i = 0; i < jsonData.length; i++) {
 var cate1Select = $("select.category1")
 
 for(var i = 0; i < cate1Arr.length; i++) {
-	cate1Select.append("<option value='" + cate1Arr[i].catId + "'>"
+	cate1Select.append("<option value='" + cate1Arr[i].catName + "'>"
       + cate1Arr[i].catName + "</option>"); 
 }
 </script>
