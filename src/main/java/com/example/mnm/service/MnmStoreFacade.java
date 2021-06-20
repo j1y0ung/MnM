@@ -108,6 +108,6 @@ public interface MnmStoreFacade {
 	List<PersonalDealItem> getPopularPersonalDealItemList();
 	List<PersonalDealItem> getLowestPricePersonalDealItemList();
 	List<PersonalDealItem> getHightestPricePersonalDealItemList();
-	
+	List<PersonalDealItem> getRecommendedItemList(String fav);
 	
 }

@@ -395,4 +395,8 @@ public class MnmStoreImpl implements MnmStoreFacade {
 		logger.info("getFourCrowdFundingItemList()");
 		return crowdFundingDao.getFourCrowdFundingItemList();
 	}
+	public List<PersonalDealItem> getRecommendedItemList(String fav) {
+		logger.info("getRecommendedItemList()");
+		return personalDealDao.getRecommendedItemList(fav);
+	}
 }
