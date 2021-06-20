@@ -24,7 +24,10 @@ public class MvcConfig implements WebMvcConfigurer {
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(interceptor)
-				.addPathPatterns("/**");		
+				.addPathPatterns("/auction/bidding/**", "/mypage/**", "/myaccount/**", "/cart", "/personalDeal/add",
+						"/personalDeal/myList", "/personalDeal/update/**", "/personalDeal/remove/**", "/personalDeal/order/**",
+						"/crowdFunding/add", "/crowdFunding/myList", "/crowdFunding/update/**", "/crowdFunding/delete/**",
+						"/crowdFunding/myFundingCheckout/**", "/crowdFunding/fund/**");		
 	}
 
 }

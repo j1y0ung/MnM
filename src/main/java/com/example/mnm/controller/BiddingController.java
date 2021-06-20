@@ -36,9 +36,13 @@ public class BiddingController {
 		this.mnmStore = mnmStore;
 	}
 	// 입찰
-	@PostMapping("/auction/bidding/{auctionId}")
+	@RequestMapping("/auction/bidding/{auctionId}")
 	public String bid(@PathVariable String auctionId, @ModelAttribute("account") Account account, 
 			HttpServletRequest request, RedirectAttributes redirect) throws Exception {
+		
+		if (request.getParameter("bidPrice") == null) {
+			return "redirect:/auction/" + auctionId;
+		}
 		// 폼에 입력된 입찰가
 		int bidPrice = Integer.parseInt(request.getParameter("bidPrice"));
 		AuctionItem auctionItem = mnmStore.getAuctionItem(auctionId);
