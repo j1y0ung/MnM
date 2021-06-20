@@ -318,7 +318,7 @@
 		o.totalPrice AS "orders.totalPrice",
 		l.linenum AS "orders.lineNum"
 		FROM crowdFundingItem c, item i, orders o, lineitem l
-		WHERE c.itemid = i.itemid AND i.userid = o.userid AND o.orderId = l.orderId
+		WHERE c.itemid = i.itemid AND o.orderId = l.orderId AND l.itemid = i.itemid
 		AND o.userid=#{userId}
 	</select>
 	
