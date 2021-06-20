@@ -7,6 +7,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Positive;
 
 @SuppressWarnings("serial")
+public class Item implements Serializable{
   /* Private Fields */
   private String itemId;
   @NotEmpty
@@ -33,6 +34,8 @@ import javax.validation.constraints.Positive;
   private int quantity;
   private String type;
   private String userId;
+
+  private Account account;
 
   /* JavaBeans Properties */
   
@@ -112,7 +115,7 @@ public int getSupplierId() { return supplierId; }
 
   public String getStatus() { return status; }
   public void setStatus(String status) { this.status = status; }
-
+ 
   public String getAttribute1() { return attribute1; }
   public void setAttribute1(String attribute1) { this.attribute1 = attribute1; }
   public String getAttribute2() { return attribute2; }
@@ -133,6 +136,12 @@ public int getSupplierId() { return supplierId; }
 		this.userId = userId;
 	}
 	
+	 public Account getAccount() { return account; }
+	 
+	public void setAccount(Account account) {
+		
+		this.account = account;
+	}
 	@Override
 	public String toString() {
 		return "Item [itemId=" + itemId + ", title=" + title + ", description=" + description + ", img=" + img
@@ -141,7 +150,9 @@ public int getSupplierId() { return supplierId; }
 				+ ", supplierId=" + supplierId + ", status=" + status + ", attribute1=" + attribute1 + ", attribute2="
 				+ attribute2 + ", attribute3=" + attribute3 + ", attribute4=" + attribute4 + ", attribute5="
 				+ attribute5 + ", category=" + category + ", quantity=" + quantity + ", type=" + type + ", userId="
-				+ userId + "]";
+				+ userId + ", account=" + account + "]";
 	}
+	
+	
   
 }

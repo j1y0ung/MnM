@@ -98,6 +98,7 @@ public class Orders implements Serializable{
 	}
 	public void setLineNum(int lineNum) {
 		this.lineNum = lineNum;
+	}
 
 	public List<LineItem> getLineItems() {
 		return lineItems;
