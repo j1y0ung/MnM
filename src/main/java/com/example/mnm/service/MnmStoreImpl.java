@@ -317,20 +317,6 @@ public class MnmStoreImpl implements MnmStoreFacade {
 		crowdFundingDao.cancelUpdate(fundingForm);
 	}
 	
-	// 홈에 노출되는 아이템들 가져오기
-//	public List<PersonalDealItem> getFourPersonalDealItemList() {
-//		logger.info("[MnmStoreImpl INFO] getFourPersonalDealItemList()");
-//		return PersonalDealDao.getFourPersonalDealItemList();
-//	}
-	public List<AuctionItemList> getFourAuctionItemList() {
-		logger.info("getFourAuctionItemList()");
-		return auctionDao.getFourAuctionItemList();
-	}
-	public List<CrowdFundingItem> getFourCrowdFundingItemList() {
-		logger.info("getFourCrowdFundingItemList()");
-		return crowdFundingDao.getFourCrowdFundingItemList();
-	}
-
 	//PersonalDeal
 	@Autowired PersonalDealDao personalDealDao;
 	
@@ -364,6 +350,17 @@ public class MnmStoreImpl implements MnmStoreFacade {
 		personalDealDao.finishDealById(userId, personalDealItem);
 	}
 	
-	
-	
+	// 홈에 노출되는 아이템들 가져오기
+	public List<PersonalDealItem> getFourPersonalDealItemList() {
+		logger.info("getFourPersonalDealItemList()");
+		return personalDealDao.getFourPersonalDealItemList();
+	}
+	public List<AuctionItemList> getFourAuctionItemList() {
+		logger.info("getFourAuctionItemList()");
+		return auctionDao.getFourAuctionItemList();
+	}
+	public List<CrowdFundingItem> getFourCrowdFundingItemList() {
+		logger.info("getFourCrowdFundingItemList()");
+		return crowdFundingDao.getFourCrowdFundingItemList();
+	}
 }

@@ -28,7 +28,7 @@
 		</tr>
 		<tr>
 			<td>
-				<a href="<c:url value="/personalDeal/list"/>">PersonalDeal</a>
+				<a href="<c:url value="/personalDeal"/>">PersonalDeal</a>
 				&nbsp&nbsp<img border="0" src="/images/separator.gif" />&nbsp&nbsp
 				<a href="<c:url value="/auction/recently"/>">Auction</a>
 				&nbsp&nbsp<img border="0" src="/images/separator.gif"/>&nbsp&nbsp
