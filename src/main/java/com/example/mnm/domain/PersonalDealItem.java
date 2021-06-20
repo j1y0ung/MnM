@@ -1,20 +1,29 @@
 package com.example.mnm.domain;
 
 import java.sql.Date;
+import java.io.Serializable;
 
-public class PersonalDealItem {
+import org.springframework.format.annotation.DateTimeFormat;
+
+@SuppressWarnings("serial")
+public class PersonalDealItem implements Serializable{
 	private String personalDealId;
 	private Item item;
+	private String itemId;
 	private String title; //개인 간 거래  글 제목
 	private String shippingFee; //배송비 추가 여부
 	private String description; //판매자 추가 설명
 	private String location; //거래 지역 정보
 	private String productStatus; //상품상태
+	@DateTimeFormat(pattern="yyyy-MM-dd\'T\'HH:mm")
 	private Date date; //판매 글 작성일
-	private String dealStatus; //개인 간 거래 진행 상태
+	private String dealStatus; //개인 간 거래 진행 상태 (판매중, 판매완료)
 	private int views; //조회수
 	private int price; //판매희망가
-	
+
+	public PersonalDealItem() {
+		
+	}
 	public String getPersonalDealId() {
 		return personalDealId;
 	}
@@ -28,6 +37,12 @@ public class PersonalDealItem {
 	public void setItem(Item item) {
 		this.item = item;
 	}
+	public String getItemId() {
+		return itemId;
+	}
+	public void setItemId(String itemId) {
+		this.itemId = itemId;
+	}	
 	public String getTitle() {
 		return title;
 	}
@@ -70,12 +85,7 @@ public class PersonalDealItem {
 	public void setViews(int views) {
 		this.views = views;
 	}
-	@Override
-	public String toString() {
-		return "PersonalDealItem [item=" + item + ", title=" + title + ", shippingFee=" + shippingFee + ", description="
-				+ description + ", location=" + location + ", date=" + date + ", dealStatus=" + dealStatus + ", views="
-				+ views + "]";
-	}
+	
 	public int getPrice() {
 		return price;
 	}
@@ -87,7 +97,13 @@ public class PersonalDealItem {
 	}
 	public void setProductStatus(String productStatus) {
 		this.productStatus = productStatus;
-	}	
+	}
 	
+	@Override
+	public String toString() {
+		return "PersonalDealItem [item=" + item + ", itemId=" + itemId + ", title=" + title + ", shippingFee=" + shippingFee + ", description="
+				+ description + ", location=" + location + ", productStatus=" + productStatus + ", date=" + date + ", dealStatus=" + dealStatus + ", views="
+				+ views + ", price=" + price + "]";	
+	}
 }
 

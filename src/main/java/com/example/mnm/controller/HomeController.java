@@ -20,6 +20,7 @@ import com.example.mnm.domain.Account;
 import com.example.mnm.domain.AuctionItemList;
 import com.example.mnm.domain.Category;
 import com.example.mnm.domain.CrowdFundingItem;
+import com.example.mnm.domain.PersonalDealItem;
 import com.example.mnm.service.MnmStoreFacade;
 
 @Controller
@@ -47,14 +48,18 @@ public class HomeController {
 //		PagedListHolder<CrowdFundingItem> pagedList = new PagedListHolder<CrowdFundingItem>(crowdFundingItems);
 //		pagedList.setPageSize(10);
 //		model.put("crowdFundingItemList", pagedList);
+		
+		//중고물품 4개 가져옴
+		//List<PersonalDealItem> personalDealItems = store.getFourPersonalDealItemList();
+		//model.put("personalDealItems", personalDealItems);
 
 		return "thyme/home";
 	}
 	
-//	@RequestMapping("/personalDealList.go")
-//	public String goPersonalDealList(HttpServletRequest request, Model model) {
-//		return "thyme/";
-//	}
+	@RequestMapping("/personalDealList.go")
+	public String goPersonalDealList(HttpServletRequest request, Model model) {
+		return "thyme/personalDealItemListView";
+	}
 
 	@RequestMapping("/auctionList.go")
 	public String goAuctionList(HttpServletRequest request, Model model) {

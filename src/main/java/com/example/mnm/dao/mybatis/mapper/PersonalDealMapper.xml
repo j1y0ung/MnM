@@ -5,85 +5,27 @@
 	namespace="com.example.mnm.dao.mybatis.mapper.PersonalDealMapper">
 	<cache />
 	
-	<select id="getAllPersonalDealItems" parameterType="PersonalDealItem"
-		resultType="PersonalDealItem">
-		SELECT
-		i.title AS "item.title",
-		i.description AS "item.description",
-		i.status as "status",
-		i.img AS "item.img",
-		i.quantity AS "item.quantity",
-		i.regiDate AS "item.regiDate", 
-		i.views AS "item.views",
-		i.shippingFee AS "item.shippingFee", 
-		i.userid AS "item.account.userid", 
-		i.productid AS "item.product.productid",
-		p.location AS "location",
-		p.dealStatus AS "dealStatus",
-		p.price AS "price"
-		FROM personalDealItem p, item i
-		WHERE p.itemid = i.itemid
-		AND personalDealItemId=#{personalDealItemId}
-		</select>
-		
-	<select id="getPersonalDealItemList" parameterType="PersonalDealItem"
-		resultType="PersonalDealItem">
-		SELECT
-		i.title AS "item.title",
-		i.description AS "item.description",
-		i.status as "status",
-		i.img AS "item.img",
-		i.quantity AS "item.quantity",
-		i.regiDate AS "item.regiDate", 
-		i.views AS "item.views",
-		i.shippingFee AS "item.shippingFee", 
-		i.userid AS "item.account.userid", 
-		i.productid AS "item.product.productid",
-		p.location AS "location",
-		p.dealStatus AS "dealStatus",
-		p.price AS "price",
-		FROM personalDealItem p, item i
-		WHERE p.itemid = i.itemid
-		AND p.personalDealItemId=#{personalDealItemId}
-		</select>
+	<select id="getPersonalDealItem" resultType="PersonalDealItem">
+    SELECT * FROM PERSONALDEALITEM
+    WHERE PERSONALDEALID=#{PERSONALDEALID}
+    </select>
 		
 	<insert id="addPersonalDealItem" parameterType="PersonalDealItem">
 		INSERT INTO 
-		personalDealItem(location, dealStatus, price, itemid)
-		VALUES (#{location}, #{dealStatus}, #{price}, #{itemid})
+		PERSONALDEALITEM(PERSONALDEALID, LOCATION, DEALSTATUS, PRICE, ITEMID)
+		VALUES (personalDealId_seq.nextval, #{location}, '판매중', #{price}, #{item.itemid})
 	</insert>
 		
-	<insert id="addItem" parameterType="Item">
-		<selectKey keyProperty="itemId" resultType="integer" order="BEFORE">
-			select ITEMID_SEQ.nextval FROM DUAL
-		</selectKey>
-		INSERT INTO
-		item (itemId, title, description, img, quantity, regiDate,
-		views,  userId, productId, type)
-		VALUES (#{itemId}, #{title}, #{description}, #{img}, #{quantity}, to_char(sysdate,'yy/mm/dd'),
-		0, #{account.userId}, #{product.productId}, 'crowdFunding')
-	</insert>
-		
-	<update id="removePersonalDealItemById" parameterType="String">
-		DELETE FROM personalDealItem
-		WHERE personalDealItemId=#{personalDealItemId}
+	<update id="updatePersonalDealItem" parameterType="PersonalDealItem">
+	UPDATE PERSONALDEALITEM 
+	SET LOCATION = #{location}, PRICE = #{price}
+	WHERE PERSONALDEALID=#{PERSONALDEALID}
 	</update>
-		
-	<delete id="removeItemById" parameterType="string">
-		DELETE FROM
-		item
-		WHERE itemid=#{itemId}
-	</delete>
-		
-	<update id="updatePersonalDealItemById" parameterType="PersonalDealItem">
-		UPDATE personalDealItem
-		SET
-		location=#{personalDealItem.location},
-		dealStatus=#{personalDealItem.dealStatus},
-		price=#{personalDealItem.price}
-		WHERE
-		personalDealItemId=#{personalDealItemId}
-	</update>
+	
+   <delete id="removePersonalDealItem" parameterType="string">
+    DELETE FROM PERSONALDEALITEM 
+    WHERE PERSONALDEALID=#{PERSONALDEALID}
+   </delete>
 		
 	<update id="updateItemById"
 		parameterType="Item">
@@ -105,4 +47,42 @@
 		personalDealItemId=#{personalDealItemId}
 	</update>
 	
+	<select id="searchPersonalDealItemList" resultType="PersonalDealItem" parameterType="string">
+    SELECT PERSONALDEALID, TITLE, IMG, LOCATION, DEALSTATUS, PRICE, VIEWS, REGIDATE, P.ITEMID 
+    FROM PERSONALDEALITEM P, ITEM I
+    WHERE P.ITEMID=I.ITEMID AND type='personalDeal' AND DEALSTATUS='판매중' AND TITLE LIKE '%' ||  #{word} || '%' 	
+	</select>
+	
+	<select id="getNewestPersonalDealItemList" resultType="PersonalDealItem">
+    SELECT PERSONALDEALID, TITLE, IMG, LOCATION, DEALSTATUS, PRICE, VIEWS, REGIDATE, P.ITEMID 
+    FROM PERSONALDEALITEM P, ITEM I
+    WHERE P.ITEMID=I.ITEMID AND type='personalDeal' AND DEALSTATUS='판매중' ORDER BY REGIDATE ASC
+    </select>
+	
+	<select id="getPopularPersonalDealItemList" resultType="PersonalDealItem">
+    SELECT PERSONALDEALID, TITLE, IMG, LOCATION, DEALSTATUS, PRICE, VIEWS, REGIDATE, P.ITEMID 
+    FROM PERSONALDEALITEM P, ITEM I
+    WHERE P.ITEMID=I.ITEMID AND type='personalDeal' AND DEALSTATUS='판매중' ORDER BY VIEWS DESC	
+	</select>
+	
+	<select id="getLowestPricePersonalDealItemList" resultType="PersonalDealItem">
+    SELECT PERSONALDEALID, TITLE, IMG, LOCATION, DEALSTATUS, PRICE, VIEWS, REGIDATE, P.ITEMID 
+    FROM PERSONALDEALITEM P, ITEM I
+    WHERE P.ITEMID=I.ITEMID AND type='personalDeal' AND DEALSTATUS='판매중' ORDER BY PRICE ASC	
+	</select>
+	
+	<select id="getHightestPricePersonalDealItemList" resultType="PersonalDealItem">
+    SELECT PERSONALDEALID, TITLE, IMG, LOCATION, DEALSTATUS, PRICE, VIEWS, REGIDATE, P.ITEMID 
+    FROM PERSONALDEALITEM P, ITEM I
+    WHERE P.ITEMID=I.ITEMID AND type='personalDeal' AND DEALSTATUS='판매중' ORDER BY PRICE DESC 	
+	</select>
+	
+	<select id="getFourPersonalDealItemList" resultType="PersonalDealItem">
+  <![CDATA[
+  	SELECT * 
+  	FROM PERSONALDEALITEM P, ITEM I 
+    WHERE P.ITEMID=I.ITEMID AND type='personalDeal' AND DEALSTATUS='판매중' AND rownum <= 4
+    ORDER BY views DESC
+   ]]>    
+  </select>
 </mapper>
