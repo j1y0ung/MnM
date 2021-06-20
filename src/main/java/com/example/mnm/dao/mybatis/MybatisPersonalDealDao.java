@@ -96,4 +96,8 @@ public class MybatisPersonalDealDao implements PersonalDealDao{
 		return personalDealMapper.getPersonalDealItemListById(userId);
 	}
 
+	public List<PersonalDealItem> getRecommendedItemList(String fav) {
+		return personalDealMapper.getRecommendedItemList(fav);
+	}
+
 }

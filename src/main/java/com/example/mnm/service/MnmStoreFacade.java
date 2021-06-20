@@ -110,7 +110,6 @@ public interface MnmStoreFacade {
 	List<PersonalDealItem> getLowestPricePersonalDealItemList();
 	List<PersonalDealItem> getHightestPricePersonalDealItemList();
 	List<PersonalDealItem> getPersonalDealItemListById(String userid);
-	
-	
-	
+	List<PersonalDealItem> getRecommendedItemList(String fav);
+
 }

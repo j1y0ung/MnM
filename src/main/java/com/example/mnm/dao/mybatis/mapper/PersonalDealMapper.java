@@ -29,5 +29,7 @@ public interface PersonalDealMapper {
 	List<PersonalDealItem> getFourPersonalDealItemList();
 	PersonalDealItem getPersonalDealItem(String personalDealId);
 	List<PersonalDealItem> getPersonalDealItemListById(String userId);
+	void removePersonalDealItem(String personalDealId);
+	List<PersonalDealItem> getRecommendedItemList(String fav);
 
 }

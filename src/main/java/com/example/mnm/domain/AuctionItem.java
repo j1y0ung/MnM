@@ -13,27 +13,27 @@ import org.springframework.format.annotation.DateTimeFormat;
 @SuppressWarnings("serial")
 public class AuctionItem implements Serializable {
 	private String auctionId;
-	private int currentPrice;
+	private int currentPrice; // 현재가
 	@Positive
-	private int startPrice;
+	private int startPrice; // 시작가
 	@NotNull
 	@Future
 	@DateTimeFormat(pattern="yyyy-MM-dd\'T\'HH:mm")
-	private Date startDate;
+	private Date startDate; // 경매 시작일
 	@NotNull
 	@Future
 	@DateTimeFormat(pattern="yyyy-MM-dd\'T\'HH:mm")
-	private Date endDate;
+	private Date endDate; // 경매 마감일
 	@Positive
-	private int bidUnit;
-	private int bidNum;
-	private int immdPurchasePrice;
+	private int bidUnit; // 입찰단위
+	private int bidNum; // 입찰수
+	private int immdPurchasePrice; // 즉시구매가격
 	@Valid
-	private Item item;
-	private String itemId;
-	private String status;
-	private String winnerId;
-	private int winningBidPrice;
+	private Item item; // 아이템
+	private String itemId; // 아이템 아이디
+	private String status; // 경매 진행 상태
+	private String winnerId; // 낙찰자
+	private int winningBidPrice; // 낙찰가
 	
 	public AuctionItem() {
 	}

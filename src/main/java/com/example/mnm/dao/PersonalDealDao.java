@@ -26,6 +26,8 @@ public interface PersonalDealDao {
 	public List<PersonalDealItem> getHightestPricePersonalDealItemList();
 	public List<PersonalDealItem> getFourPersonalDealItemList();
 	public List<PersonalDealItem> getPersonalDealItemListById(String userId);
+	public List<PersonalDealItem> getRecommendedItemList(String fav);	
+
 
 }
 

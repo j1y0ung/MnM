@@ -41,6 +41,7 @@ public class RemoveAuctionItemController implements ApplicationContextAware {
 		this.uploadDir = context.getServletContext().getRealPath("/upload/");
 	}
 	
+	// 이미지 파일 삭제
 	private void deleteFile(String img) {
 		File file = new File(this.uploadDir + img);
 		if (file.exists()) {

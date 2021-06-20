@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,7 +22,22 @@
 		<table>
 			<tr>
 				<td colspan="2">
-					<h2>favorite category와 관련된 추천</h2>
+					<hr>
+					<h3>추천 상품</h3>
+					<table>
+						<c:forEach var="recommendItem" items="${recommendItems}">
+						<tr>
+							<td>
+								<a href="/personalDeal/{personalDealId}(personalDealId=${personalDealItem.personalDealId}">
+									<c:out value="${recommendItem.title}"/></a>
+							</td>
+						</tr>
+						<tr>
+							<td th:text="'판매금액: '+${recommendItem.price}+'원'"></td>
+						</tr>
+						</c:forEach>
+					</table>
+					<hr>
 				</td>
 			<tr>
 				<td>
