@@ -6,7 +6,16 @@
 <title>펀딩 등록 내역</title>
 </head>
 <body>
+
+<header th:include="fragment/header :: headerFragment"></header>
+
+<div class="container">
 <br><h1 align="center">펀딩 등록 내역</h1><br>
+
+<h2 th:if="${#lists.isEmpty(myCrowdFundingItemList)}">
+	조회결과가 없습니다.
+</h2>
+
 <table th:unless="${#lists.isEmpty(myCrowdFundingItemList)}">
 	<tr>
 		<th>이미지</th>
@@ -15,9 +24,21 @@
 	<tr th:each="crowdFundingItem : ${myCrowdFundingItemList}">
 		<td th:text="${crowdFundingItem.item.img}">이미지</td>
 		<td th:text="${crowdFundingItem.shortInfo}">펀딩 간단 설명</td>
-		<td><button th:onclick="'location.href=\'/crowdFunding/update/' + ${crowdFundingItem.crowdFundingId} + '\''">수정하기</button></td>
-		<td><button th:onclick="'location.href=\'/crowdFunding/delete/' + ${crowdFundingItem.item.itemId} + '\''">삭제하기</button></td>
+		<td>
+			<form action="" th:action="@{'/crowdFunding/update/{crowdFundingId}'(crowdFundingId=${crowdFundingItem.crowdFundingId})}" method="get">
+	      	<input type="submit"  class="btn btn-primary btn-lg" value="수정하기" >
+	      	</form>
+	      </td>
+		<td>
+			<form action="" th:action="@{'/crowdFunding/delete/{itemId}'(itemId=${crowdFundingItem.item.itemId})}" method="get">
+	      	<input type="submit"  class="btn btn-primary btn-lg" value="삭제하기" >
+	      	</form>
+	    </td>
 	</tr> 
 </table>
+</div>
+
+<footer th:include="fragment/footer :: footerFragment"></footer>
+
 </body>
 </html>

@@ -19,7 +19,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.example.mnm.domain.Account;
 import com.example.mnm.domain.Category;
 import com.example.mnm.domain.PersonalDealItem;
-import com.example.mnm.domain.Product;
 import com.example.mnm.service.MnmStoreFacade;
 
 @Controller
@@ -54,8 +53,8 @@ public class UpdatePersonalDealItemController {
 		List<Category> catlist = this.storeFacade.getCategoryList();
 		model.put("categories", catlist);
 		
-		List<Product> prolist = this.storeFacade.getProductList();
-		model.put("products", prolist);
+//		List<Product> prolist = this.storeFacade.getProductList();
+//		model.put("products", prolist);
 		
 		return "UpdatePersonalDealItemForm";
 	}

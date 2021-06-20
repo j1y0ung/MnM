@@ -76,13 +76,21 @@ public interface MnmStoreFacade {
 	
 	// CrowdFunding	
 	List<CrowdFundingItem> getCrowdFundingItemList();
+	List<CrowdFundingItem> getCrowdFundingItemListRecently();
+	List<CrowdFundingItem> getCrowdFundingItemListMostViews();
+	List<CrowdFundingItem> getCrowdFundingItemListMostSponsors();
+	List<CrowdFundingItem> getCrowdFundingItemListMostAmount();
+	List<CrowdFundingItem> getCrowdFundingItemListDeadLine();
+	List<CrowdFundingItem> getCrowdFundingItemListCategory(Category category);
+	
 	CrowdFundingItem getFundingItemById(String crowdFundingId);
 	List<CrowdFundingItem> getMyFundingItemListById(String userId);
-	List<CrowdFundingItem> getMyFundingItemsCheckoutById(String userId);
+	List<FundingForm> getMyFundingItemsCheckoutById(String userId);
 	void addFundingItem(CrowdFundingItem crowdFundingItem); 
 	void removeFundingItemById(String itemId);
 	void updateFundingItemById(String crowdFundingId, CrowdFundingItem crowdFundingItem); 
 	void fund(FundingForm fundingForm);
+	void cancelMyFundingItemsCheckout(FundingForm fundingForm);
 	
 	//PersonalDeal
 	List<PersonalDealItem> getAllPersonalDealItems();
@@ -92,6 +100,7 @@ public interface MnmStoreFacade {
 	void removePersonalDealItemById(String itemId);
 	void updatePersonalDealItemById(String personalDealId, PersonalDealItem personalDealItem);
 	void finishDealById(int userId, PersonalDealItem personalDealItem);
+	
 	
 	
 }

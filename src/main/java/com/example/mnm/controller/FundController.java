@@ -28,8 +28,10 @@ public class FundController {
 	protected String fund(
 			@PathVariable("crowdFundingId") String crowdFundingId,
 			ModelMap model) {
+		
 		FundingForm fundingForm = new FundingForm();
 		CrowdFundingItem temp = this.storeFacade.getFundingItemById(crowdFundingId);
+		
 		fundingForm.setCrowdFundingItem(temp);
 		fundingForm.getCrowdFundingItem().setItem(temp.getItem());
 		fundingForm.getCrowdFundingItem().setCrowdFundingId(Integer.parseInt(crowdFundingId));
@@ -43,11 +45,12 @@ public class FundController {
 	public String fundExecute(
 			@ModelAttribute(value="fundingForm") FundingForm fundingForm
 			, ModelMap model) throws Exception {
+		
 		fundingForm.getOrders().setUserId("1");
 		System.out.println(fundingForm.getCrowdFundingItem().getItem().getItemId());
 		System.out.println(fundingForm.getCrowdFundingItem().getCrowdFundingId());
 		this.storeFacade.fund(fundingForm);
 
-		return "thyme/orderCompleteView";
+		return "thyme/ViewOrderFundingComplete";
 	}
 }

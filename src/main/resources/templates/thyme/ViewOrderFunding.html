@@ -4,7 +4,9 @@
 <title>JPetStore</title>
 </head>
 <body>
-	<div th:replace="~{IncludeTop::includeTop}"></div>
+	<header th:include="fragment/header :: headerFragment"></header>
+	
+	<div class="container">
 	<form action="" th:action="@{/crowdFunding/fund}" th:object="${fundingForm}" method="post" enctype="multipart/form-data">
 	<table align="center">
 		<tr>
@@ -69,6 +71,9 @@
 		</tr>
 	</table>
 	</form>
-
+	</div>
+	
+	<footer th:include="fragment/footer :: footerFragment"></footer>
+	
 </body>
 </html>

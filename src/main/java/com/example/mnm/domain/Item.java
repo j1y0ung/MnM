@@ -7,7 +7,6 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Positive;
 
 @SuppressWarnings("serial")
-public class Item implements Serializable {
   /* Private Fields */
   private String itemId;
   @NotEmpty
@@ -103,6 +102,7 @@ public void setChildCatId(int childCatId) {
 }
 public int getSupplierId() { return supplierId; }
   public void setSupplierId(int supplierId) { this.supplierId = supplierId; }
+
 
   public double getListPrice() { return listPrice; }
   public void setListPrice(double listPrice) { this.listPrice = listPrice; }
