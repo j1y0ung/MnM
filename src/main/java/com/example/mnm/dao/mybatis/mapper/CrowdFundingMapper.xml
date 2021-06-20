@@ -26,11 +26,6 @@
 		VALUES (#{itemId}, #{title}, #{description}, #{img}, #{quantity}, to_char(sysdate,'yy/mm/dd'),
 		0, 0, #{account.userid}, 'crowdFunding', #{parentCatId}, #{childCatId})
 	</insert>
-		<!-- INSERT INTO
-		item (itemId, title, description, img, quantity, regiDate,
-		views, shipppingFee, userId, productId, type)
-		VALUES (#{itemId}, #{title}, #{description}, #{img}, #{quantity}, #{regiDate},
-		0, #{shipppingFee}, #{userId}, #{productId}, 'crowdFunding') -->
 		
 		
 	<!-- 수정 -->
@@ -61,11 +56,7 @@
 		crowdfundingitem
 		WHERE itemid=#{itemId}
 	</delete>
-	<delete id="removeItemById" parameterType="string">
-		DELETE FROM
-		item
-		WHERE itemid=#{itemId}
-	</delete>
+	
 
 	<!-- 펀딩하기(구매) -->
 	<insert id="fund" parameterType="FundingForm">
