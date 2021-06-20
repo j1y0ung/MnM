@@ -25,7 +25,7 @@ public class RemoveCrowdFundingItemController {
 			, ModelMap model
 			) throws Exception {
 		
-		System.out.println(itemId);
+		System.out.println("itemId == " + itemId);
 		
 		this.storeFacade.removeFundingItemById(itemId);
 		

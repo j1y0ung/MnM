@@ -58,12 +58,12 @@
 	<div th:unless="${#lists.isEmpty(crowdFundingItemList)}">
 		<div th:each="crowdFundingItem : ${crowdFundingItemList}">
 			<table>
-				<!-- <tr>
-					<td rowspan="3" th:text="${crowdFundingItem.item.img}"></td>
-				</tr> -->
+				<tr>
+					<td rowspan="3"><img th:src="@{'/upload/' + ${crowdFundingItem.item.img}}" width="130" height="100"/></td>
+				</tr>
 				<tr>
 					<td>
-						<a th:text="${crowdFundingItem.shortInfo}" th:href="@{/crowdFunding/item(crowdFundingId=${crowdFundingItem.crowdFundingId})}"></a>
+						<a th:text="${crowdFundingItem.shortInfo}" th:href="@{/crowdFunding/item/{crowdFundingId}(crowdFundingId=${crowdFundingItem.crowdFundingId})}"></a>
 					</td>
 				</tr>
 				<tr>

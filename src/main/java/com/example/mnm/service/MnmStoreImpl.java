@@ -297,7 +297,6 @@ public class MnmStoreImpl implements MnmStoreFacade {
 	@Override
 	public void removeFundingItemById(String itemId) {
 		crowdFundingDao.removeFundingItemById(itemId);
-		crowdFundingDao.removeItemById(itemId);
 	}
 
 	@Override

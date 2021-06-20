@@ -65,18 +65,26 @@
     <c:when test="${fn:length(crowdFundingItemList) == 0}">
         조회결과가 없습니다.
     </c:when>
-    <c:otherwise>		
+    <c:otherwise>
+    	<table>		
 		<c:forEach var="crowdFundingItem" items="${crowdFundingItemList}">
-		<ul>
-			<li><c:out value="${crowdFundingItem.item.img}" /></li>
-			<li>마감일 : <c:out value="${crowdFundingItem.closingDate}" /></li>
-			<li>카테고리 : <c:out value="${crowdFundingItem.item.category.catName}" /></li>
-			<li>창작자 : <c:out value="${crowdFundingItem.item.account.userid}" /></li>
-			<li>제목 : <c:out value="${crowdFundingItem.item.title}" /></li>
-			<li>달성 금액 : <c:out value="${crowdFundingItem.currentSponsoredAmount}" /></li>
-			<li><a href="${path}/crowdFunding/item/${crowdFundingItem.crowdFundingId}" class="btn btn-primary">상세 정보 보기</a></li>
-		</ul>
+			<tr>
+				<td>
+					<img border="0" src="/images/${crowdFundingItem.item.img}" width="150" height="150" />
+				</td>
+				<td>
+					<ul>
+						<li>마감일 : <c:out value="${crowdFundingItem.closingDate}" /></li>
+						<li>카테고리 : <c:out value="${crowdFundingItem.item.category.catName}" /></li>
+						<li>창작자 : <c:out value="${crowdFundingItem.item.account.userid}" /></li>
+						<li>제목 : <c:out value="${crowdFundingItem.item.title}" /></li>
+						<li>달성 금액 : <c:out value="${crowdFundingItem.currentSponsoredAmount}" /></li>
+						<li><a href="${path}/crowdFunding/item/${crowdFundingItem.crowdFundingId}" class="btn btn-primary">상세 정보 보기</a></li>
+					</ul>
+				</td>
+			</tr>
 		</c:forEach>
+		</table>
 	</c:otherwise> 
 </c:choose>
 </div> 
