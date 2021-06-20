@@ -38,5 +38,6 @@
 			</td>
 		</tr>
 	</table>
+	<hr>
 </body>
 </html>
