@@ -1,6 +1,8 @@
 package com.example.mnm.controller;
 
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.example.mnm.domain.Account;
 import com.example.mnm.domain.CrowdFundingItem;
 import com.example.mnm.domain.FundingForm;
 import com.example.mnm.service.MnmStoreFacade;
@@ -44,9 +47,10 @@ public class FundController {
 	@PostMapping("")
 	public String fundExecute(
 			@ModelAttribute(value="fundingForm") FundingForm fundingForm
+			, HttpSession session
 			, ModelMap model) throws Exception {
 		
-		fundingForm.getOrders().setUserId("1");
+		fundingForm.getOrders().setUserId(((Account) session.getAttribute("account")).getUserid());
 		System.out.println(fundingForm.getCrowdFundingItem().getItem().getItemId());
 		System.out.println(fundingForm.getCrowdFundingItem().getCrowdFundingId());
 		this.storeFacade.fund(fundingForm);
