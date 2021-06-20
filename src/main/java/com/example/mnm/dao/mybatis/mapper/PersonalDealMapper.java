@@ -12,16 +12,14 @@ import com.example.mnm.domain.Item;
 @Mapper
 public interface PersonalDealMapper {
 	
-	List<PersonalDealItem> getAllPersonalDealItems(); //모든 거래 물품 반환	
 	List<PersonalDealItem> getPersonalDealItemList(); //거래 물품 리스트 반환	
 	PersonalDealItem getPersonalDealItemById(String personalDealId);
 	void addPersonalDealItem(PersonalDealItem personalDealItem); //거래 물품 추가
 	void addItem(Item item);
-	void removePersonalDealItemById(String itemId); //거래 물품 삭제
 	void removePersonalDealItem(PersonalDealItem personalDealItem);
 	void removeItemById(String itemId);
-	void updatePersonalDealItemById(String personalDealId, PersonalDealItem personalDealItem); //거래 물품 정보 업데이트
-	void updateItemById(String itemId, Item item);
+	void removePersonalDealItem(String personalDealId);
+	void updatePersonalDealItem(PersonalDealItem personalDealItem);
 	void finishDealById(int userId, PersonalDealItem personalDealItem); //거래 상태 마감으로 변경
 	List<PersonalDealItem> searchPersonalDealItemList(String word);
 	List<PersonalDealItem> getNewestPersonalDealItemList();
@@ -30,6 +28,8 @@ public interface PersonalDealMapper {
 	List<PersonalDealItem> getHightestPricePersonalDealItemList();
 	List<PersonalDealItem> getFourPersonalDealItemList();
 	PersonalDealItem getPersonalDealItem(String personalDealId);
+	List<PersonalDealItem> getPersonalDealItemListById(String userId);
 	void removePersonalDealItem(String personalDealId);
 	List<PersonalDealItem> getRecommendedItemList(String fav);
+
 }

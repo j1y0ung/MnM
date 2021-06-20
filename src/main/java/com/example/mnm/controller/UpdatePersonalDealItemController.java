@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -38,6 +40,8 @@ public class UpdatePersonalDealItemController implements ApplicationContextAware
 	
 	private WebApplicationContext context;
 	private String uploadDir;
+	private String itemId;
+	private String preImage;
 	
 	private MnmStoreFacade mnmStore;
 	@Autowired
@@ -50,34 +54,65 @@ public class UpdatePersonalDealItemController implements ApplicationContextAware
 		return new PersonalDealItem();
 	}
 
-	@GetMapping
-	public ModelAndView form() {
+	@GetMapping("/{personalDealId}")
+	public ModelAndView updateForm(
+			HttpServletRequest request
+			, @PathVariable("personalDealId") String personalDealId
+			, ModelMap model
+			, HttpSession session
+			) throws Exception {
+
 		ModelAndView mav = new ModelAndView();
-		List<Category> categoryList = mnmStore.getCategoryList();
-		mav.setViewName("RegistPersonalDealItemForm");
-		mav.addObject("categoryList", JSONArray.fromObject(categoryList));
+
+		Account account = (Account) session.getAttribute("account");
+		if(account == null) {
+			mav.setViewName("thyme/personalDeal/myList");
+		} else {
+			mav.setViewName("UpdatePersonalDealItemForm");
+
+			PersonalDealItem personalDealItem = this.mnmStore.getPersonalDealItem(personalDealId);
+			model.put("personalDealItem", personalDealItem);
+
+			// 카테고리
+			List<Category> categoryList = mnmStore.getCategoryList();
+			mav.addObject("categoryList", JSONArray.fromObject(categoryList));
+		}
 		return mav;
 	}
-	
+	/*@GetMapping
+	public String form(@RequestParam String personalDealId, Model model) {
+		PersonalDealItem personalDealItem = mnmStore.getPersonalDealItem(personalDealId);
+		personalDealItem.setItem(mnmStore.getItem(personalDealItem.getItemId()));
+		
+		preImage = personalDealItem.getItem().getImg();
+		itemId = personalDealItem.getItemId();
+		
+		List<Category> categoryList = mnmStore.getCategoryList();
+		
+		model.addAttribute("personalDealItem", personalDealItem);
+		model.addAttribute("categoryList", JSONArray.fromObject(categoryList));
+		
+		return "UpdatePersonalDealItemForm";
+	}*/
+
 	@PostMapping
-	public String submit(@ModelAttribute("personalDealItem") PersonalDealItem personalDealItem, MultipartHttpServletRequest request, 
-			@ModelAttribute("account") Account account, Model model) throws Exception {
-		
-		MultipartFile file = request.getFile("file");
-		personalDealItem.getItem().setImg(file.getOriginalFilename());
-		uploadFile(file);
-		
-		personalDealItem.getItem().setType("personalDeal");
-		personalDealItem.getItem().setUserId(account.getUserid());
-		// 카테고리
+	public String update(@RequestParam String personalDealId, @Valid @ModelAttribute("personalDealItem") PersonalDealItem personalDealItem, BindingResult result, MultipartHttpServletRequest request, Model model) throws Exception {
+		personalDealItem.getItem().setItemId(itemId);
 		personalDealItem.getItem().setParentCatId(Integer.parseInt(request.getParameter("category1")));
 		personalDealItem.getItem().setChildCatId(Integer.parseInt(request.getParameter("category2")));
+
+		if (result.hasErrors()) {
+			List<Category> categoryList = mnmStore.getCategoryList();
+			model.addAttribute("categoryList", JSONArray.fromObject(categoryList));
+            return "UpdatePersonalDealItemForm";
+        }
+
+		mnmStore.updatePersonalDealItem(personalDealItem);
+		mnmStore.updateItem(personalDealItem.getItem());
 		
-		mnmStore.insertItem(personalDealItem.getItem());
-		mnmStore.addPersonalDealItem(personalDealItem);
-			
-		return "redirect:/personalDeal/" + personalDealItem.getPersonalDealId();
+		return "redirect:/personalDeal/" + personalDealId;
 	}
+	
 	@Override					// life-cycle callback method
 	public void setApplicationContext(ApplicationContext appContext)
 		throws BeansException {

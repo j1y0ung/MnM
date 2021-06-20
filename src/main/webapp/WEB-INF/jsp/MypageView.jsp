@@ -13,7 +13,7 @@
 		<a href="/myaccount">내 정보 보기</a>
 	</div>
 	<div>
-		<a href="/sellerPage">판매내역</a><br>
+		<a href="/personalDeal/myList">중고물품 판매내역</a><br>
 		<a href="#">구매내역</a><br>
 		<a href="/crowdFunding/myList">나의 크라우드펀딩</a><br>
 		<a href="/auction/history">경매내역</a><br>

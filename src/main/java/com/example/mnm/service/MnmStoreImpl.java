@@ -5,6 +5,9 @@ import org.slf4j.LoggerFactory;
 import java.util.Date;
 
 import java.util.List;
+
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.stereotype.Service;
@@ -336,14 +339,10 @@ public class MnmStoreImpl implements MnmStoreFacade {
 		personalDealDao.addPersonalDealItem(personalDealItem);
 		
 	}
-	@Override
-	public void removePersonalDealItemById(String itemId) {
-		personalDealDao.removePersonalDealItemById(itemId);
-		personalDealDao.removeItemById(itemId);		
-	}
 	
-	public void updatePersonalDealItemById(String personalDealId, PersonalDealItem personalDealItem) {
-		personalDealDao.updatePersonalDealItemById(personalDealId, personalDealItem);
+	@Override
+	public void updatePersonalDealItem(PersonalDealItem personalDealItem) {
+		personalDealDao.updatePersonalDealItem(personalDealItem);
 	}
 	public void finishDealById(int userId, PersonalDealItem personalDealItem) {
 		personalDealDao.finishDealById(userId, personalDealItem);
@@ -381,6 +380,11 @@ public class MnmStoreImpl implements MnmStoreFacade {
 	public void removePersonalDealItem(String personalDealId) {
 		personalDealDao.removePersonalDealItem(personalDealId);
 	}
+	@Override
+	public List<PersonalDealItem> getPersonalDealItemListById(String userId) {
+		return personalDealDao.getPersonalDealItemListById(userId);
+	}
+	
 	// 홈에 노출되는 아이템들 가져오기
 	public List<PersonalDealItem> getFourPersonalDealItemList() {
 		logger.info("getFourPersonalDealItemList()");

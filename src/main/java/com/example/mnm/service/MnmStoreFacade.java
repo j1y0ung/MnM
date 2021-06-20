@@ -3,6 +3,8 @@ package com.example.mnm.service;
 import java.util.Date;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import com.example.mnm.domain.Account;
 import com.example.mnm.domain.AuctionItem;
 import com.example.mnm.domain.AuctionItemList;
@@ -100,14 +102,14 @@ public interface MnmStoreFacade {
 	PersonalDealItem getPersonalDealItem(String personalDealId);
 	void addPersonalDealItem(PersonalDealItem personalDealItem);
 	void removePersonalDealItem(String personalDealId);
-	void removePersonalDealItemById(String itemId);
-	void updatePersonalDealItemById(String personalDealId, PersonalDealItem personalDealItem);
+	void updatePersonalDealItem(@Valid PersonalDealItem personalDealItem);
 	void finishDealById(int userId, PersonalDealItem personalDealItem);
 	List<PersonalDealItem> searchPersonalDealItemList(String word);
 	List<PersonalDealItem> getNewestPersonalDealItemList();
 	List<PersonalDealItem> getPopularPersonalDealItemList();
 	List<PersonalDealItem> getLowestPricePersonalDealItemList();
 	List<PersonalDealItem> getHightestPricePersonalDealItemList();
+	List<PersonalDealItem> getPersonalDealItemListById(String userid);
 	List<PersonalDealItem> getRecommendedItemList(String fav);
-	
+
 }
