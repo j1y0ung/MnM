@@ -20,6 +20,7 @@
 				<c:if test="${!empty session.account}" ><a href="<c:url value="/logout"/>">logout</a></c:if>
 				<c:if test="${!empty session.account}" ><a href="<c:url value="/cart"/>">cart</a></c:if>
 				<c:if test="${!empty session.account}" ><a href="<c:url value="/auction/viewCart.do"/>">auction cart</a></c:if>
+        <c:if test="${account != null}" ><a href="<c:url value="/auction/history"/>">auction history</a></c:if>
 				<c:if test="${!empty session.account}" ><a href="<c:url value="/mypage"/>">mypage</a></c:if>
 			</td>
 		</tr>

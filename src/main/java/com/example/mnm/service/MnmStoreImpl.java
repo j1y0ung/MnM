@@ -155,8 +155,9 @@ public class MnmStoreImpl implements MnmStoreFacade {
 	public void updateImmediatePurchase(String auctionId, int immdPurchasePrice, String winnerId) {
 		auctionDao.updateImmediatePurchase(auctionId, immdPurchasePrice, winnerId);
 	}
-	public void updateGiveUpWinning(String auctionId) {
-		auctionDao.updateGiveUpWinning(auctionId);
+	public void updateGiveUpWinning(String auctionId, String userId) {
+		auctionDao.updateGiveUpAuctionItem(auctionId);
+		auctionDao.updateGiveUpBid(auctionId, userId);
 	}
 	public List<AuctionItemList> getSellingAuctionItemList(String userId) {
 		return auctionDao.getSellingAuctionItemList(userId);
@@ -173,8 +174,8 @@ public class MnmStoreImpl implements MnmStoreFacade {
 	public Bid findWinnerBid(String auctionId) {
 		return auctionDao.findWinnerBid(auctionId);
 	}
-	public void updateWinner(String winnerId, int bidPrice, String auctionId) {
-		auctionDao.updateWinner(winnerId, bidPrice, auctionId);
+	public void updateWinner(String winnerId, int bidPrice, String auctionId, Date curTime) {
+		auctionDao.updateWinner(winnerId, bidPrice, auctionId, curTime);
 	}
 	public void insertOrders(Orders orders) {
 		auctionDao.insertOrders(orders);
@@ -200,7 +201,7 @@ public class MnmStoreImpl implements MnmStoreFacade {
 			// anonymous class 정의
 			@Override
 			public void run() {   // 스케쥴러에 의해 미래의 특정 시점에 실행될 작업을 정의		
-				if (auctionDao.getStatus(auctionId).equals("경매대기중") || auctionDao.getStatus(auctionId).equals("낙찰") || auctionDao.getStatus(auctionId).equals("유찰")) {
+				if (!auctionDao.getStatus(auctionId).equals("경매진행중") || !auctionDao.getStatus(auctionId).equals("결제완료")) {
 					Date curTime = new Date();
 					auctionDao.startAuctionItemStatus(curTime, auctionId);
 					System.out.println("startAuctionItemRunner is executed at " + curTime);
@@ -214,7 +215,7 @@ public class MnmStoreImpl implements MnmStoreFacade {
 		System.out.println("startAuctionItemRunner has been scheduled to execute at " + startTime);
 	}
 	public void endAuctionScheduler(Date endTime, String auctionId) {
-		
+	
 		Runnable endAuctionItemRunner = new Runnable() {	
 			// anonymous class 정의
 			@Override
@@ -224,7 +225,7 @@ public class MnmStoreImpl implements MnmStoreFacade {
 					Bid bid = auctionDao.findWinnerBid(auctionId);
 					String status = "";
 					if (bid != null) {
-						auctionDao.updateWinner(bid.getUserId(), bid.getBidPrice(), auctionId);
+						auctionDao.updateWinner(bid.getUserId(), bid.getBidPrice(), auctionId, curTime);
 					}
 					else {
 						auctionDao.updateFailedAuctionStatus(curTime, auctionId);

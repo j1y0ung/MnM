@@ -25,7 +25,7 @@ public class AuctionOrderController {
 	private AuctionItem auctionItem;
 	private MnmStoreFacade mnmStore;
 	@Autowired
-	public void setmnmStore(MnmStoreFacade mnmStore) {
+	public void setMnmStore(MnmStoreFacade mnmStore) {
 		this.mnmStore = mnmStore;
 	}
 	

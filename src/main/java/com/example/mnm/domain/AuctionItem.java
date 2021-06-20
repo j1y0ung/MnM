@@ -32,6 +32,7 @@ public class AuctionItem implements Serializable {
 	private Item item;
 	private String itemId;
 	private String status;
+	private String winnerId;
 	private int winningBidPrice;
 	
 	public AuctionItem() {
@@ -109,6 +110,12 @@ public class AuctionItem implements Serializable {
 	}
 	public void setWinningBidPrice(int winningBidPrice) {
 		this.winningBidPrice = winningBidPrice;
+	}
+	public String getWinnerId() {
+		return winnerId;
+	}
+	public void setWinnerId(String winnerId) {
+		this.winnerId = winnerId;
 	}
 	@Override
 	public String toString() {

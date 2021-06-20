@@ -1,5 +1,7 @@
 package com.example.mnm.controller;
 
+import java.util.Date;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
@@ -30,7 +32,7 @@ public class BiddingController {
 	private int parentCatId;
 	private int childCatId; 
 	@Autowired
-	public void setPetStore(MnmStoreFacade mnmStore) {
+	public void setMnmStore(MnmStoreFacade mnmStore) {
 		this.mnmStore = mnmStore;
 	}
 	// 입찰
@@ -66,20 +68,20 @@ public class BiddingController {
 	}
 	// 낙찰포기
 	@RequestMapping("/auction/bidding/{auctionId}/giveup")
-	public String giveUpWinning(@PathVariable String auctionId) {
+	public String giveUpWinning(@PathVariable String auctionId, @ModelAttribute("account") Account account) {
 		
-		mnmStore.updateGiveUpWinning(auctionId);
+		mnmStore.updateGiveUpWinning(auctionId, account.getUserid());
 		
 		return "redirect:/auction/history";
 	}
-	// 후순위자 낙찰 
+	// 후순위자 낙찰
 	@RequestMapping("/auction/bidding/{auctionId}/second")
 	public String secondWinning(@PathVariable String auctionId, RedirectAttributes redirect) throws Exception {
 		
-		Bid firstBid = mnmStore.findWinnerBid(auctionId);
-		Bid secondBid = mnmStore.findSecondBid(auctionId, firstBid.getUserId());
+		AuctionItem auctionItem = mnmStore.getAuctionItem(auctionId);
+		Bid secondBid = mnmStore.findSecondBid(auctionId, auctionItem.getWinnerId());
 		if (secondBid != null) {
-			mnmStore.updateWinner(secondBid.getUserId(), secondBid.getBidPrice(), secondBid.getAuctionId());
+			mnmStore.updateWinner(secondBid.getUserId(), secondBid.getBidPrice(), secondBid.getAuctionId(), new Date());
 		} else {
 			redirect.addAttribute("noSecondBid", true);
 		}
@@ -117,7 +119,7 @@ public class BiddingController {
         }
 		
 		mnmStore.updateRebidding(auctionId);
-		
+		auctionItem.setCurrentPrice(mnmStore.findWinnerBid(auctionId).getBidPrice());
 		mnmStore.updateAuctionItem(auctionItem);
 		mnmStore.updateItem(auctionItem.getItem());
 		

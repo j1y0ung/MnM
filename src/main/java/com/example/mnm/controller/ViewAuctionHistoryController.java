@@ -19,7 +19,7 @@ import com.example.mnm.service.MnmStoreFacade;
 public class ViewAuctionHistoryController {
 	private MnmStoreFacade petStore;
 	@Autowired
-	public void setPetStore(MnmStoreFacade petStore) {
+	public void setMnmStore(MnmStoreFacade petStore) {
 		this.petStore = petStore;
 	}
 	

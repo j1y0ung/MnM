@@ -17,7 +17,7 @@ public class ViewAuctionOrderController {
 	private MnmStoreFacade mnmStore;
 
 	@Autowired
-	public void setPetStore(MnmStoreFacade mnmStore) {
+	public void setMnmStore(MnmStoreFacade mnmStore) {
 		this.mnmStore = mnmStore;
 	}
 

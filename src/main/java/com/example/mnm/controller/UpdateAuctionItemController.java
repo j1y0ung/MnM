@@ -4,13 +4,17 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -33,8 +37,13 @@ public class UpdateAuctionItemController implements ApplicationContextAware {
 	private String preImage;
 	private MnmStoreFacade mnmStore;
 	@Autowired
-	public void setmnmStore(MnmStoreFacade mnmStore) {
+	public void setMnmStore(MnmStoreFacade mnmStore) {
 		this.mnmStore = mnmStore;
+	}
+	
+	@ModelAttribute("auctionItem")
+	public AuctionItem formBacking() {
+		return new AuctionItem();
 	}
 	
 	@GetMapping
@@ -54,11 +63,16 @@ public class UpdateAuctionItemController implements ApplicationContextAware {
 	}
 	
 	@PostMapping
-	public String update(@RequestParam String auctionId, AuctionItem auctionItem, MultipartHttpServletRequest request, Model model) throws Exception {
+	public String update(@RequestParam String auctionId, @Valid @ModelAttribute("auctionItem") AuctionItem auctionItem, BindingResult result, MultipartHttpServletRequest request, Model model) throws Exception {
 		auctionItem.getItem().setItemId(itemId);
 		auctionItem.getItem().setParentCatId(Integer.parseInt(request.getParameter("category1")));
 		auctionItem.getItem().setChildCatId(Integer.parseInt(request.getParameter("category2")));
-		
+
+		if (result.hasErrors()) {
+			List<Category> categoryList = mnmStore.getCategoryList();
+			model.addAttribute("categoryList", JSONArray.fromObject(categoryList));
+            return "UpdateAuctionItemForm";
+        }
 		MultipartFile file = request.getFile("file");
 		if (file.isEmpty()) {
 			System.out.println("기존 파일로 등록");
@@ -68,6 +82,7 @@ public class UpdateAuctionItemController implements ApplicationContextAware {
 			auctionItem.getItem().setImg(file.getOriginalFilename());
 			uploadFile(file);
 		}
+		auctionItem.setCurrentPrice(auctionItem.getStartPrice());
 		mnmStore.updateAuctionItem(auctionItem);
 		mnmStore.updateItem(auctionItem.getItem());
 		

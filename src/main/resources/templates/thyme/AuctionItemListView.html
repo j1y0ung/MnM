@@ -29,7 +29,7 @@
 			</form>
 		</div>
 	</div>
-	<div class="row justify-content-center">
+	<div th:if="${username}" class="row justify-content-center">
 		<div class="col-4">
 			<a href="#" th:href="@{/auction/add}" class="btn btn-primary btn-lg">경매 물품 등록하기</a>	
 		</div>
