@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.dao.DataAccessException;
 
 import com.example.mnm.domain.PersonalDealItem;
+import com.example.mnm.domain.AuctionItemList;
 import com.example.mnm.domain.Item;
 
 public interface PersonalDealDao {
@@ -21,5 +22,6 @@ public interface PersonalDealDao {
 	public void updateItemById(String itemId, Item item) throws DataAccessException;
 	public void finishDealById(int userId, PersonalDealItem personalDealItem) throws DataAccessException; //거래 상태 마감으로 변경
 
+	List<PersonalDealItem> getFourPersonalDealItemList() throws DataAccessException;
 }
 

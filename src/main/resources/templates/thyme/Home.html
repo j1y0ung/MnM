@@ -13,16 +13,33 @@
 	<script th:src="@{/js/page/home.js}"></script>
 </th:block>
 
-<div layout:fragment="content">
+<div align="center" layout:fragment="content">
 	<h3>PersonalDeal</h3>
+	<!-- <div th:unless="${#lists.isEmpty(personalDealItems)}">
+		<div th:each="personalDealItem : ${personalDealItems}">
+			<table>
+				<tr>
+					<td rowspan="3" th:text="${crowdFundingItem.item.img}"></td>
+				</tr>
+				<tr>
+					<td th:text="${personalDealItem.shortInfo}"></td>
+				</tr>
+				<tr>
+					<td th:text="((${crowdFundingItem.currentSponsoredAmount} / ${crowdFundingItem.targetAmount}) * 100) + '% 달성'">~% 달성</td>
+				</tr>
+			</table>
+		</div>
+	</div> -->
 	
 	<h3>Auction</h3>
-	<div align="center" th:unless="${#lists.isEmpty(auctionItems)}">
+	<div th:unless="${#lists.isEmpty(auctionItems)}">
 		<div th:each="auctionItem : ${auctionItems}">
 			<table>
 				<tr>
 					<td rowspan="4"><img th:src="@{'/upload/' + ${auctionItem.img}}" width="130" height="100"/></td>
-					<td th:text="${auctionItem.title}"></td>
+					<td>
+						<a th:text="${auctionItem.title}" th:href="@{/auction/{auctionId}(auctionId=${auctionItem.auctionId})}"></a>
+					</td>
 				</tr>
 				<tr>
 					<td th:text="'현재 입찰가: '+${auctionItem.currentPrice}+'원'"></td>
@@ -38,14 +55,16 @@
 	</div>
 	
 	<h3>CrowdFunding</h3>
-	<div align="center" th:unless="${#lists.isEmpty(crowdFundingItemList)}">
-		<div th:each="crowdFundingItem : ${crowdFundingItemList.pageList}">
+	<div th:unless="${#lists.isEmpty(crowdFundingItemList)}">
+		<div th:each="crowdFundingItem : ${crowdFundingItemList}">
 			<table>
-				<tr>
+				<!-- <tr>
 					<td rowspan="3" th:text="${crowdFundingItem.item.img}"></td>
-				</tr>
+				</tr> -->
 				<tr>
-					<td th:text="'제목 : ' + ${crowdFundingItem.item.title}"></td>
+					<td>
+						<a th:text="${crowdFundingItem.shortInfo}" th:href="@{/crowdFunding/item(crowdFundingId=${crowdFundingItem.crowdFundingId})}"></a>
+					</td>
 				</tr>
 				<tr>
 					<td th:text="((${crowdFundingItem.currentSponsoredAmount} / ${crowdFundingItem.targetAmount}) * 100) + '% 달성'">~% 달성</td>

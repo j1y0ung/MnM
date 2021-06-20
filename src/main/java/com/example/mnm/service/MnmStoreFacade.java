@@ -31,6 +31,7 @@ public interface MnmStoreFacade {
 	String getCategoryName(String categoryId);
 	
 	// 홈에 노출되는 아이템
+	List<PersonalDealItem> getFourPersonalDealItemList();
 	List<AuctionItemList> getFourAuctionItemList();
 	List<CrowdFundingItem> getFourCrowdFundingItemList();
 	

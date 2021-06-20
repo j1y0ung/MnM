@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.mnm.domain.Account;
 import com.example.mnm.domain.AuctionItemList;
+import com.example.mnm.domain.CrowdFundingItem;
+import com.example.mnm.domain.PersonalDealItem;
 import com.example.mnm.service.MnmStoreFacade;
 
 @Controller
@@ -33,17 +35,16 @@ public class HomeController {
 	@RequestMapping("/")
 	public String goHome(HttpServletRequest request, HttpSession session, ModelMap model) throws Exception {
 		logger.info("goHome()");
-//		List<PersonalDealItemList> personalDealItemList = store.getPersonalDealItemList();
 		
-		// 경매 아이템 4개 가져옴
+		// 각 카테고리별로 4개씩 가져오기
+//		List<PersonalDealItem> personalDealItemList = store.getFourPersonalDealItemList();
+//		model.put("personalDealItems", personalDealItemList);
+//		System.out.println("@@@@@@@@@@@@ " + personalDealItemList);
 		List<AuctionItemList> auctionItems = store.getFourAuctionItemList();
 		model.put("auctionItems", auctionItems);
 		
-		// 크라우드펀딩 아이템 4개 가져옴
-//		List<CrowdFundingItem> crowdFundingItems = store.getFourCrowdFundingItemList();
-//		PagedListHolder<CrowdFundingItem> pagedList = new PagedListHolder<CrowdFundingItem>(crowdFundingItems);
-//		pagedList.setPageSize(10);
-//		model.put("crowdFundingItemList", pagedList);
+		List<CrowdFundingItem> crowdFundingItems = store.getFourCrowdFundingItemList();
+		model.put("crowdFundingItemList", crowdFundingItems);
 
 		return "thyme/home";
 	}
@@ -52,16 +53,16 @@ public class HomeController {
 //	public String goPersonalDealList(HttpServletRequest request, Model model) {
 //		return "thyme/";
 //	}
-
-	@RequestMapping("/auctionList.go")
-	public String goAuctionList(HttpServletRequest request, Model model) {
-		return "thyme/auctionItemListView";
-	}
-	
-	@RequestMapping("/crowdFundingList.go")
-	public String goCrowdFundingList(HttpServletRequest request, Model model) {
-		return "thyme/crowdFundingListView";
-	}
+//
+//	@RequestMapping("/auctionList.go")
+//	public String goAuctionList(HttpServletRequest request, Model model) {
+//		return "thyme/auctionItemListView";
+//	}
+//	
+//	@RequestMapping("/crowdFundingList.go")
+//	public String goCrowdFundingList(HttpServletRequest request, Model model) {
+//		return "thyme/crowdFundingListView";
+//	}
 	
 	// 세션 체크용
 	@RequestMapping("/sessionCheck")
