@@ -26,19 +26,20 @@ public class ViewAuctionHistoryController {
 	@RequestMapping("/auction/history")
 	public String handleRequest(@ModelAttribute("account") Account account, Model model, 
 								@RequestParam(required = false, defaultValue = "false") boolean noSecondBid) {
-		// 판매한 물품 목록
+		// 판매한 물품 목록, 세션에 저장한 account의 userId 이용
 		List<AuctionItemList> sellingAuctionItemList = petStore.getSellingAuctionItemList(account.getUserid());
 
-		// 입찰한 물품 목록
+		// 입찰한 물품 목록, 세션에 저장한 account의 userId 이용
 		List<AuctionItemList> biddingAuctionItemList = petStore.getBiddingAuctionItemList(account.getUserid());
 
-		// 낙찰받은 물품 목록
+		// 낙찰받은 물품 목록, 세션에 저장한 account의 userId 이용
 		List<AuctionItemList> auctionedItemList = petStore.getAuctionedItemList(account.getUserid());
 
 		model.addAttribute("sellingAuctionItemList", sellingAuctionItemList);
 		model.addAttribute("biddingAuctionItemList", biddingAuctionItemList);
 		model.addAttribute("auctionedItemList", auctionedItemList);
 		
+		// 후순위 입찰 내역이 없을 경우
 		if (noSecondBid) {
 			model.addAttribute("noSecondBid", noSecondBid);
 		}

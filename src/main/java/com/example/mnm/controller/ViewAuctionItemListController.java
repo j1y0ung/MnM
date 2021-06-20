@@ -24,6 +24,7 @@ public class ViewAuctionItemListController {
 	public String sortByLatest(Model model, @SessionAttribute(required = false) Account account) {
 		List<AuctionItemList> auctionItems = mnmStore.getRecentAuctionItemList();
 		model.addAttribute("auctionItems", auctionItems);
+		// 세션에 저장한 account 가 존재할 경우
 		if (account != null) {
 			model.addAttribute("username", account.getUserid());
 		}
@@ -34,6 +35,7 @@ public class ViewAuctionItemListController {
 	public String sortByViews(Model model, @SessionAttribute(required = false) Account account) {
 		List<AuctionItemList> auctionItems = mnmStore.getPopularAuctionItemList();
 		model.addAttribute("auctionItems", auctionItems);
+		// 세션에 저장한 account 가 존재할 경우
 		if (account != null) {
 			model.addAttribute("username", account.getUserid());
 		}
@@ -44,6 +46,7 @@ public class ViewAuctionItemListController {
 	public String sortByBids(Model model, @SessionAttribute(required = false) Account account) {
 		List<AuctionItemList> auctionItems = mnmStore.getMostBiddingAuctionItemList();
 		model.addAttribute("auctionItems", auctionItems);
+		// 세션에 저장한 account 가 존재할 경우
 		if (account != null) {
 			model.addAttribute("username", account.getUserid());
 		}
@@ -54,6 +57,7 @@ public class ViewAuctionItemListController {
 	public String sortByDeadline(Model model, @SessionAttribute(required = false) Account account) {
 		List<AuctionItemList> auctionItems = mnmStore.getClosingAuctionItemList();
 		model.addAttribute("auctionItems", auctionItems);
+		// 세션에 저장한 account 가 존재할 경우
 		if (account != null) {
 			model.addAttribute("username", account.getUserid());
 		}
@@ -64,6 +68,7 @@ public class ViewAuctionItemListController {
 	public String search(@RequestParam String word, Model model, @SessionAttribute(required = false) Account account) {
 		List<AuctionItemList> auctionItems = mnmStore.searchAuctionItemList(word);
 		model.addAttribute("auctionItems", auctionItems);
+		// 세션에 저장한 account 가 존재할 경우
 		if (account != null) {
 			model.addAttribute("username", account.getUserid());
 		}

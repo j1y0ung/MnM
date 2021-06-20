@@ -62,7 +62,7 @@ public class AddAuctionItemController implements ApplicationContextAware {
 	@PostMapping
 	public String submit(@Valid @ModelAttribute("auctionItem") AuctionItem auctionItem, BindingResult result, MultipartHttpServletRequest request, 
 			@ModelAttribute("account") Account account, Model model) throws Exception {
-		
+		// AuctionItem 유효성 검사
 		if (result.hasErrors()) {
 			List<Category> categoryList = mnmStore.getCategoryList();
 			model.addAttribute("categoryList", JSONArray.fromObject(categoryList));
@@ -74,11 +74,13 @@ public class AddAuctionItemController implements ApplicationContextAware {
 		uploadFile(file);
 		
 		auctionItem.getItem().setType("auction");
+		// 세션에 저장된 account의 id를 꺼내 item의 userId(판매자)에 세팅.
 		auctionItem.getItem().setUserId(account.getUserid());
-		// 카테고리
+		// 카테고리 - 경매 등록 폼에서 선택된 값들을 item의 부모,자식 카테고리 아이디에 세팅
 		auctionItem.getItem().setParentCatId(Integer.parseInt(request.getParameter("category1")));
 		auctionItem.getItem().setChildCatId(Integer.parseInt(request.getParameter("category2")));
 		
+		// Item, AuctionItem 테이블에 저장
 		mnmStore.insertItem(auctionItem.getItem());
 		mnmStore.insertAuctionItem(auctionItem);
 		
