@@ -95,7 +95,7 @@
 		</tr>		
 	</table>
 	<a th:href="@{/auction/recently}">경매 아이템 목록</a>&nbsp;
-	<a th:href="@{/auction/addItemToCart.do(auctionId=${auctionItem.auctionId}, itemId=${auctionItem.itemId}, img=${auctionItem.item.img})}" onclick="return cart();">장바구니 넣기</a>&nbsp;	
+	<a th:href="@{/auction/addItemToCart.do(auctionId=${auctionItem.auctionId}, itemId=${auctionItem.itemId}, img=${auctionItem.item.img})}" onclick="return cart();">관심물품에 넣기</a>&nbsp;	
 	<a th:if="${auctionItem.status} == '경매대기중' and ${auctionItem.item.userId} == ${username}" th:href="@{/auction/update/(auctionId=${auctionItem.auctionId})}">수정하기</a>&nbsp;
 	<a th:if="${auctionItem.status} == '경매대기중' and ${auctionItem.item.userId} == ${username}" th:href="@{/auction/remove/{auctionId}(auctionId=${auctionItem.auctionId}, itemId=${auctionItem.itemId}, img=${auctionItem.item.img})}" onclick="return remove();">삭제하기</a>&nbsp;	
 	<div class="accordion" id="accordionPanelsStayOpenExample">

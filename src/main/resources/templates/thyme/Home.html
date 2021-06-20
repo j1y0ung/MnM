@@ -46,7 +46,7 @@
 					<td th:text="'현재 입찰가: '+${auctionItem.currentPrice}+'원'"></td>
 				</tr>
 				<tr>
-					<td th:text="'마감일: '+${auctionItem.endDate}"></td>
+					<td th:text="'마감일: '+${#dates.format(auctionItem.endDate, 'yyyy/MM/dd HH:mm')}"></td>
 				</tr>
 				<tr>
 					<td th:text="'조회수: '+${auctionItem.views}"></td>
