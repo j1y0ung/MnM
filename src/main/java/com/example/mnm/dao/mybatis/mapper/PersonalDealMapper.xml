@@ -105,4 +105,12 @@
 		personalDealItemId=#{personalDealItemId}
 	</update>
 	
+	<select id="getFourPersonalDealItemList" resultType="PersonalDealItem">
+	<![CDATA[
+		select * from personaldealitem c, item i
+		where c.itemid=i.itemid and type='personalDeal' and dealstatus='판매중' and rownum <= 4
+		order by views DESC
+	]]>
+	</select>
+	
 </mapper>

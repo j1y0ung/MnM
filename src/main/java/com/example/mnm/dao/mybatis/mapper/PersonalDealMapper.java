@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
 import com.example.mnm.domain.PersonalDealItem;
+import com.example.mnm.domain.CrowdFundingItem;
 import com.example.mnm.domain.Item;
 
 @Repository
@@ -23,4 +24,5 @@ public interface PersonalDealMapper {
 	void updateItemById(String itemId, Item item);
 	void finishDealById(int userId, PersonalDealItem personalDealItem); //거래 상태 마감으로 변경
 
+	List<PersonalDealItem> getFourPersonalDealItemList(); // 홈에 노출될 아이템 4개 반환
 }

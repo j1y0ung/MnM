@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.example.mnm.dao.PersonalDealDao;
 import com.example.mnm.dao.mybatis.mapper.PersonalDealMapper;
 import com.example.mnm.domain.PersonalDealItem;
+import com.example.mnm.domain.CrowdFundingItem;
 import com.example.mnm.domain.Item;
 
 @Repository
@@ -56,5 +57,9 @@ public class MybatisPersonalDealDao implements PersonalDealDao{
 		personalDealMapper.finishDealById(userId, personalDealItem);
 	}
 
+	@Override
+	public List<PersonalDealItem> getFourPersonalDealItemList() throws DataAccessException {
+		return personalDealMapper.getFourPersonalDealItemList();
+	}
 
 }
