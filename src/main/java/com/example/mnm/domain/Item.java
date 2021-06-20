@@ -9,32 +9,22 @@ import javax.validation.constraints.Positive;
 @SuppressWarnings("serial")
 public class Item implements Serializable{
   /* Private Fields */
-  private String itemId;
+  private String itemId; // 아이템 아이디
   @NotEmpty
-  private String title;
+  private String title; // 제목
   @NotEmpty
-  private String description;
-  private String img;
-  private Date regiDate;
-  private int views;
-  private int shippingFee;
-  private int parentCatId; // 카테고리 id
-  private int childCatId; // 카테고리 id
-  private double listPrice;
-  private double unitCost;
-  private int supplierId;
-  private String status;
-  private String attribute1;
-  private String attribute2;
-  private String attribute3;
-  private String attribute4;
-  private String attribute5;
-  private Category category;
+  private String description; // 설명
+  private String img; // 이미지
+  private Date regiDate; // 등록일
+  private int views; // 조회수
+  private int shippingFee; // 배송비
+  private int parentCatId; // 부모 카테고리 id
+  private int childCatId; // 자식 카테고리 id
+  private Category category; // 카테고리
   @Positive
-  private int quantity;
-  private String type;
-  private String userId;
-
+  private int quantity; // 수량
+  private String type; // 타입 (ex) 경매, 크라우드펀딩, 중고거래)
+  private String userId; // 판매자
   private Account account;
 
   /* JavaBeans Properties */
@@ -103,29 +93,6 @@ public int getChildCatId() {
 public void setChildCatId(int childCatId) {
 	this.childCatId = childCatId;
 }
-public int getSupplierId() { return supplierId; }
-  public void setSupplierId(int supplierId) { this.supplierId = supplierId; }
-
-
-  public double getListPrice() { return listPrice; }
-  public void setListPrice(double listPrice) { this.listPrice = listPrice; }
-
-  public double getUnitCost() { return unitCost; }
-  public void setUnitCost(double unitCost) { this.unitCost = unitCost; }
-
-  public String getStatus() { return status; }
-  public void setStatus(String status) { this.status = status; }
- 
-  public String getAttribute1() { return attribute1; }
-  public void setAttribute1(String attribute1) { this.attribute1 = attribute1; }
-  public String getAttribute2() { return attribute2; }
-  public void setAttribute2(String attribute2) { this.attribute2 = attribute2; }
-  public String getAttribute3() { return attribute3; }
-  public void setAttribute3(String attribute3) { this.attribute3 = attribute3; }
-  public String getAttribute4() { return attribute4; }
-  public void setAttribute4(String attribute4) { this.attribute4 = attribute4; }
-  public String getAttribute5() { return attribute5; }
-  public void setAttribute5(String attribute5) { this.attribute5 = attribute5; }
   
   public String getType() { return type; }
   public void setType(String type) { this.type = type; }
@@ -146,13 +113,8 @@ public int getSupplierId() { return supplierId; }
 	public String toString() {
 		return "Item [itemId=" + itemId + ", title=" + title + ", description=" + description + ", img=" + img
 				+ ", regiDate=" + regiDate + ", views=" + views + ", shippingFee=" + shippingFee + ", parentCatId="
-				+ parentCatId + ", childCatId=" + childCatId + ", listPrice=" + listPrice + ", unitCost=" + unitCost
-				+ ", supplierId=" + supplierId + ", status=" + status + ", attribute1=" + attribute1 + ", attribute2="
-				+ attribute2 + ", attribute3=" + attribute3 + ", attribute4=" + attribute4 + ", attribute5="
-				+ attribute5 + ", category=" + category + ", quantity=" + quantity + ", type=" + type + ", userId="
-				+ userId + ", account=" + account + "]";
+				+ parentCatId + ", childCatId=" + childCatId + ", category=" + category + ", quantity=" + quantity
+				+ ", type=" + type + ", userId=" + userId + ", account=" + account + "]";
 	}
-	
-	
-  
+
 }

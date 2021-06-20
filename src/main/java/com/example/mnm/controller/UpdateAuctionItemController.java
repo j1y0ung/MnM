@@ -51,9 +51,11 @@ public class UpdateAuctionItemController implements ApplicationContextAware {
 		AuctionItem auctionItem = mnmStore.getAuctionItem(auctionId);
 		auctionItem.setItem(mnmStore.getItem(auctionItem.getItemId()));
 		
+		// 기존 이미지
 		preImage = auctionItem.getItem().getImg();
 		itemId = auctionItem.getItemId();
 		
+		// 카테고리 리스트
 		List<Category> categoryList = mnmStore.getCategoryList();
 		
 		model.addAttribute("auctionItem", auctionItem);
@@ -63,25 +65,30 @@ public class UpdateAuctionItemController implements ApplicationContextAware {
 	}
 	
 	@PostMapping
-	public String update(@RequestParam String auctionId, @Valid @ModelAttribute("auctionItem") AuctionItem auctionItem, BindingResult result, MultipartHttpServletRequest request, Model model) throws Exception {
+	public String update(@RequestParam String auctionId, @Valid @ModelAttribute("auctionItem") AuctionItem auctionItem, 
+			BindingResult result, MultipartHttpServletRequest request, Model model) throws Exception {
+		
 		auctionItem.getItem().setItemId(itemId);
+		// 카테고리 아이디
 		auctionItem.getItem().setParentCatId(Integer.parseInt(request.getParameter("category1")));
 		auctionItem.getItem().setChildCatId(Integer.parseInt(request.getParameter("category2")));
 
+		// AuctionItem 유효성 검사
 		if (result.hasErrors()) {
 			List<Category> categoryList = mnmStore.getCategoryList();
 			model.addAttribute("categoryList", JSONArray.fromObject(categoryList));
             return "UpdateAuctionItemForm";
         }
 		MultipartFile file = request.getFile("file");
-		if (file.isEmpty()) {
+		if (file.isEmpty()) { // 새로 등록한 이미지 파일이 있을 경우
 			System.out.println("기존 파일로 등록");
 			auctionItem.getItem().setImg(preImage);
-		} else {
+		} else { // 새로 등록한 이미지 파일이 없을 경우
 			System.out.println("새로 등록한 파일 있음");
 			auctionItem.getItem().setImg(file.getOriginalFilename());
 			uploadFile(file);
 		}
+		// 현재가 = 시작가
 		auctionItem.setCurrentPrice(auctionItem.getStartPrice());
 		mnmStore.updateAuctionItem(auctionItem);
 		mnmStore.updateItem(auctionItem.getItem());

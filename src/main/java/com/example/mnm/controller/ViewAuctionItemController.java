@@ -30,12 +30,14 @@ public class ViewAuctionItemController {
 
 		AuctionItem auctionItem = mnmStore.getAuctionItem(auctionId);
 		
+		// 조회수 증가
 		mnmStore.increaseItemViews(auctionItem.getItemId());
-		
+		// 입찰 내역 목록
 		List<Bid> bids = mnmStore.getBids(auctionId);
 		
 		auctionItem.setItem(mnmStore.getItem(auctionItem.getItemId()));
 		
+		// 세션에 저장한 account 가 존재할 경우
 		if (account != null) {
 			model.addAttribute("username", account.getUserid());
 		}
@@ -44,10 +46,11 @@ public class ViewAuctionItemController {
 		model.addAttribute("parentCatId", mnmStore.getCategoryName(Integer.toString(auctionItem.getItem().getParentCatId())));
 		model.addAttribute("childCatId", mnmStore.getCategoryName(Integer.toString(auctionItem.getItem().getChildCatId())));
 		
+		// 장바구니 목록에 해당 물품이 이미 추가된 경우
 		if (alreadyAdded) {
 			model.addAttribute("alreadyAdded", alreadyAdded);
 		}
-		
+		// 입찰시 현재가보다 입찰가가 낮을 경우
 		if (lowBidPrice) {
 			model.addAttribute("lowBidPrice", lowBidPrice);
 		}

@@ -4,10 +4,10 @@ import java.io.Serializable;
 
 @SuppressWarnings("serial")
 public class Bid implements Serializable {
-	private int bidPrice;
-	private String userId;
+	private int bidPrice; // 입찰가
+	private String userId; // 입찰자
 	private String auctionId;
-	private String giveUp;
+	private String giveUp; // 낙찰 포기 여부
 	
 	public Bid() {
 	}

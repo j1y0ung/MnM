@@ -7,12 +7,12 @@ public class Category implements Serializable {
 
   /* Private Fields */
 
-	private int catId;
-	private String catName;
-	private String parentCatName;
-	private String childCatName;
-	private int catIdRef;
-	private int level;
+	private int catId; // 카테고리 아이디
+	private String catName; // 카테고리 이름
+	private String parentCatName; // 부모 카테고리 이름
+	private String childCatName; // 자식 카테고리 이름
+	private int catIdRef; // 참조하는 카테고리 아이디
+	private int level; // 카테고리 계층
 	
 	
 	public int getCatId() {

@@ -39,16 +39,18 @@ public class BiddingController {
 	@PostMapping("/auction/bidding/{auctionId}")
 	public String bid(@PathVariable String auctionId, @ModelAttribute("account") Account account, 
 			HttpServletRequest request, RedirectAttributes redirect) throws Exception {
-
+		// 폼에 입력된 입찰가
 		int bidPrice = Integer.parseInt(request.getParameter("bidPrice"));
 		AuctionItem auctionItem = mnmStore.getAuctionItem(auctionId);
 		
+		// 입찰가 < 현재가 => 뷰로 돌아가 alert창 띄움
 		if (bidPrice <= auctionItem.getCurrentPrice()) {
 			redirect.addAttribute("lowBidPrice", true);
-		} else {
+		} else { // 입찰가 > 현재가
 			Bid bid = new Bid();
 			bid.setAuctionId(auctionId);
 			bid.setBidPrice(bidPrice);
+			// 세션에 저장된 account의 userId를 가져와 Bid의 userId(입찰자)에 세팅
 			bid.setUserId(account.getUserid());
 			
 			mnmStore.insertBidding(bid);
@@ -61,7 +63,7 @@ public class BiddingController {
 	@RequestMapping("/auction/bidding/{auctionId}/immd")
 	public String immdPurchase(@PathVariable String auctionId, @ModelAttribute("account") Account account, 
 								@RequestParam int immdPurchasePrice) {
-		
+		// 세션에 저장된 account의 userId를 가져와 세팅
 		mnmStore.updateImmediatePurchase(auctionId, immdPurchasePrice, account.getUserid());
 		
 		return "redirect:/auction/" + auctionId;
@@ -69,7 +71,7 @@ public class BiddingController {
 	// 낙찰포기
 	@RequestMapping("/auction/bidding/{auctionId}/giveup")
 	public String giveUpWinning(@PathVariable String auctionId, @ModelAttribute("account") Account account) {
-		
+		// 세션에 저장된 account의 userId를 가져와 세팅
 		mnmStore.updateGiveUpWinning(auctionId, account.getUserid());
 		
 		return "redirect:/auction/history";
@@ -79,10 +81,11 @@ public class BiddingController {
 	public String secondWinning(@PathVariable String auctionId, RedirectAttributes redirect) throws Exception {
 		
 		AuctionItem auctionItem = mnmStore.getAuctionItem(auctionId);
+		// 2번째로 높은 입찰가를 보유한 입찰 내역
 		Bid secondBid = mnmStore.findSecondBid(auctionId, auctionItem.getWinnerId());
-		if (secondBid != null) {
+		if (secondBid != null) { // 후순위 입찰 내역이 있을 경우
 			mnmStore.updateWinner(secondBid.getUserId(), secondBid.getBidPrice(), secondBid.getAuctionId(), new Date());
-		} else {
+		} else { // 후순위 입찰 내역이 없을 경우
 			redirect.addAttribute("noSecondBid", true);
 		}
 		
@@ -91,8 +94,6 @@ public class BiddingController {
 	//예외적 재입찰 (재경매)
 	@GetMapping("/auction/rebidding/{auctionId}")
 	public String rebiddingForm(@PathVariable String auctionId, Model model) {
-		mnmStore.updateRebidding(auctionId);
-		
 		AuctionItem auctionItem = mnmStore.getAuctionItem(auctionId);
 		auctionItem.setItem(mnmStore.getItem(auctionItem.getItemId()));
 
@@ -108,12 +109,13 @@ public class BiddingController {
 	
 	//예외적 재입찰 (재경매)
 	@PostMapping("/auction/rebidding/{auctionId}")
-	public String rebiddingSubmit(@PathVariable String auctionId, @Valid @ModelAttribute("auctionItem") AuctionItem auctionItem, BindingResult result, Model model) throws Exception {
+	public String rebiddingSubmit(@PathVariable String auctionId, @Valid @ModelAttribute("auctionItem") AuctionItem auctionItem, 
+			BindingResult result, Model model) throws Exception {
 		auctionItem.getItem().setImg(image);
 		auctionItem.getItem().setItemId(itemId);
 		auctionItem.getItem().setParentCatId(parentCatId);
 		auctionItem.getItem().setChildCatId(childCatId);
-		
+		// AuctionItem 유효성 검사
 		if (result.hasErrors()) {
             return "thyme/AuctionRebiddingForm";
         }

@@ -9,22 +9,14 @@ public class LineItem implements Serializable {
 
   private int orderId;
   private int lineNumber;
-  private int quantity;
-  private String itemId;
+  private int quantity; // 수량
+  private String itemId; // 아이템 아이디
   private double unitPrice;
   private Item item;
 
   /* Constructors */
 
   public LineItem() {}
-
-//  public LineItem(int lineNumber, CartItem cartItem) {
-//    this.lineNumber = lineNumber;
-//    this.quantity = cartItem.getQuantity();
-//    this.itemId = cartItem.getItem().getItemId();
-//    this.unitPrice = cartItem.getItem().getListPrice();
-//    this.item = cartItem.getItem();
-//  }
   
   public LineItem(int lineNumber, AuctionItem auctionItem) {
 	    this.lineNumber = lineNumber;

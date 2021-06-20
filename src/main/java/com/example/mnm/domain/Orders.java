@@ -10,24 +10,22 @@ import javax.validation.constraints.NotEmpty;
 @SuppressWarnings("serial")
 public class Orders implements Serializable{
 	private int orderId;
-	private Date orderDate;
+	private Date orderDate; // 주문일자
 	@NotEmpty
-	private String shipAddr;
-	private int totalPrice;
+	private String shipAddr; // 배송받을 주소
+	private int totalPrice; // 총 가격
 	@NotEmpty
-	private String shipToName;
+	private String shipToName; // 이름
 	@NotEmpty
-	private String bankName;
+	private String bankName; // 은행명
 	@NotEmpty
-	private String cardNumber;
+	private String cardNumber; // 카드 번호
 	@NotEmpty
-	private String expiryDate;
+	private String expiryDate; // 카드 만료일
 	@NotEmpty
-	private String phone;
-	private String userId;
-  
+	private String phone; // 전화번호
+	private String userId; // 주문인 아이디
 	private int lineNum;
-
 	private List<LineItem> lineItems = new ArrayList<LineItem>();
 
 	public Orders() {

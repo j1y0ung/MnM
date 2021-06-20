@@ -7,18 +7,18 @@ import org.springframework.format.annotation.DateTimeFormat;
 @SuppressWarnings("serial")
 public class AuctionItemList implements Serializable {
 	private String auctionId;
-	private String title;
-	private String img;
-	private int currentPrice;
-	private int bidNum;
-	private int views;
-	private String userid;
+	private String title; // 제목
+	private String img; // 이미지
+	private int currentPrice; // 현재가
+	private int bidNum; // 입찰수
+	private int views; // 조회수
+	private String userid; // 판매자
 	@DateTimeFormat(pattern="yyyy-MM-dd\'T\'HH:mm")
-	private Date startDate;
+	private Date startDate; // 경매 시작일
 	@DateTimeFormat(pattern="yyyy-MM-dd\'T\'HH:mm")
-	private Date endDate;
+	private Date endDate; // 경매 마감일
 	private String itemId;
-	private String status;
+	private String status; // 경매 진행 상태
 	
 	public AuctionItemList() {
 	}

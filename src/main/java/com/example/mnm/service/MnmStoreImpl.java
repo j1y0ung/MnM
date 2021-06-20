@@ -223,11 +223,10 @@ public class MnmStoreImpl implements MnmStoreFacade {
 				Date curTime = new Date();
 				if (auctionDao.getStatus(auctionId).equals("경매진행중")) {
 					Bid bid = auctionDao.findWinnerBid(auctionId);
-					String status = "";
-					if (bid != null) {
+					if (bid != null) { // 입찰자가 있을 경우
 						auctionDao.updateWinner(bid.getUserId(), bid.getBidPrice(), auctionId, curTime);
 					}
-					else {
+					else { // 입찰자가 없는 경우
 						auctionDao.updateFailedAuctionStatus(curTime, auctionId);
 					}
 				}

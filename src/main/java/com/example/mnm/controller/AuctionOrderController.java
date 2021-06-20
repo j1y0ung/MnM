@@ -47,7 +47,7 @@ public class AuctionOrderController {
 	public String submit(@Valid @ModelAttribute("orders") Orders orders, BindingResult result, 
 			@RequestParam String auctionId, @RequestParam int winningBidPrice,
 			@ModelAttribute("account") Account account, Model model) throws Exception {
-
+		//  orders 유효성 검사
 		if (result.hasErrors()) {
 			model.addAttribute("auctionItem", auctionItem);
 			return "thyme/AuctionOrderForm";
@@ -57,7 +57,7 @@ public class AuctionOrderController {
 		orders.addAuctionLineItem(auctionItem);
 		
 		mnmStore.insertOrders(orders);
-		
+		// 경매 물품은 한 번에 한가지 물품만 주문 가능
 		orders.getLineItems().get(0).setOrderId(orders.getOrderId());
 		
 		mnmStore.insertLineItem(orders.getLineItems());
