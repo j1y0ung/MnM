@@ -81,7 +81,7 @@
 	select * from (select * from item i
 					where i.type='personalDeal' 
 					and i.parentcatid=(select catid from category
-										where catname=#{fav})
+										where catname=#{fav, jdbcType=VARCHAR})
 					order by dbms_random.value)
 					where rownum <= 3
    ]]>    
