@@ -37,8 +37,8 @@ public class HomeController {
 		logger.info("goHome()");
 		
 		// 각 카테고리별로 4개씩 가져오기
-		//List<PersonalDealItem> personalDealItems = store.getFourPersonalDealItemList();
-		//model.put("personalDealItems", personalDealItems);
+		List<PersonalDealItem> personalDealItems = store.getFourPersonalDealItemList();
+		model.put("personalDealItems", personalDealItems);
 
 		List<AuctionItemList> auctionItems = store.getFourAuctionItemList();
 		model.put("auctionItems", auctionItems);

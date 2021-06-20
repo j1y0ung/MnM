@@ -14,16 +14,15 @@
 </th:block>
 
 <div align="center" layout:fragment="content">
-	<h3>PersonalDeal</h3>
+	<h3>중고거래</h3>
 	<div th:unless="${#lists.isEmpty(personalDealItems)}">
 		<div th:each="personalDealItem : ${personalDealItems}">
 			<table>
 				<tr>
 					<!--<td rowspan="4"><img th:src="@{'/upload/' + ${personalDealItem.img}}" width="130" height="100"/></td>-->
-					<td th:text="${personalDealItem.title}"></td>
-				</tr>
-				<tr>
-					<td th:text="'제목: '+${personalDealItem.item.title}"></td>
+					<td>
+						<a th:text="${personalDealItem.title}" th:href="@{/personalDeal/{personalDealId}(personalDealId=${personalDealItem.personalDealId})}"></a>
+					</td>
 				</tr>
 				<tr>
 					<td th:text="'판매금액: '+${personalDealItem.price}+'원'"></td>
@@ -32,7 +31,7 @@
 		</div>
 	</div>
 	
-	<h3>Auction</h3>
+	<h3>경매 물품</h3>
 	<div th:unless="${#lists.isEmpty(auctionItems)}">
 		<div th:each="auctionItem : ${auctionItems}">
 			<table>
@@ -55,7 +54,7 @@
 		</div>
 	</div>
 	
-	<h3>CrowdFunding</h3>
+	<h3>크라우드펀딩</h3>
 	<div th:unless="${#lists.isEmpty(crowdFundingItemList)}">
 		<div th:each="crowdFundingItem : ${crowdFundingItemList}">
 			<table>
