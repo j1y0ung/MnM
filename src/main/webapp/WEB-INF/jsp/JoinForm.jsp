@@ -10,10 +10,9 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
 </head>
 <body>
+<div align="center">
+<jsp:include page="header.jsp" flush="false"/>
 <table>
-	<tr>
-		<td><jsp:include page="header.jsp" flush="false"/></td>
-	</tr>
 	<tr>
 		<td>
 			<h2>회원가입</h2>
@@ -67,12 +66,8 @@
 			</form:form>
 		</td>
 	</tr>
-	<tr>
-		<td>
-			<jsp:include page="footer.jsp" flush="false"/>
-		</td>
-	</tr>
 </table>
+<jsp:include page="footer.jsp" flush="false"/>
 <script>
 // 컨트롤러에서 데이터 받기
 var jsonData = JSON.parse('${categoryList}');
@@ -100,5 +95,6 @@ for(var i = 0; i < cate1Arr.length; i++) {
 }
 </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+</div>
 </body>
 </html>

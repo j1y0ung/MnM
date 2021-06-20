@@ -30,7 +30,7 @@
 			</table>
 		</div>
 	</div>
-	
+	<hr>
 	<h3>경매 물품</h3>
 	<div th:unless="${#lists.isEmpty(auctionItems)}">
 		<div th:each="auctionItem : ${auctionItems}">
@@ -53,7 +53,7 @@
 			</table>
 		</div>
 	</div>
-	
+	<hr>
 	<h3>크라우드펀딩</h3>
 	<div th:unless="${#lists.isEmpty(crowdFundingItemList)}">
 		<div th:each="crowdFundingItem : ${crowdFundingItemList}">
