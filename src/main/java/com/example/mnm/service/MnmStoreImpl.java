@@ -349,7 +349,39 @@ public class MnmStoreImpl implements MnmStoreFacade {
 	public void finishDealById(int userId, PersonalDealItem personalDealItem) {
 		personalDealDao.finishDealById(userId, personalDealItem);
 	}
-	
+	@Override
+	public List<PersonalDealItem> searchPersonalDealItemList(String word) {
+		
+		return personalDealDao.searchPersonalDealItemList(word);
+	}
+	@Override
+	public List<PersonalDealItem> getNewestPersonalDealItemList() {
+		
+		return personalDealDao.getNewestPersonalDealItemList();
+	}
+	@Override
+	public List<PersonalDealItem> getPopularPersonalDealItemList() {
+		
+		return personalDealDao.getPopularPersonalDealItemList();
+	}
+	@Override
+	public List<PersonalDealItem> getLowestPricePersonalDealItemList() {
+		
+		return personalDealDao.getLowestPricePersonalDealItemList();
+	}
+	@Override
+	public List<PersonalDealItem> getHightestPricePersonalDealItemList() {
+		
+		return personalDealDao.getHightestPricePersonalDealItemList();
+	}
+	@Override
+	public PersonalDealItem getPersonalDealItem(String personalDealId) {
+		return personalDealDao.getPersonalDealItem(personalDealId);
+	}
+	@Override
+	public void removePersonalDealItem(String personalDealId) {
+		personalDealDao.removePersonalDealItem(personalDealId);
+	}
 	// 홈에 노출되는 아이템들 가져오기
 	public List<PersonalDealItem> getFourPersonalDealItemList() {
 		logger.info("getFourPersonalDealItemList()");

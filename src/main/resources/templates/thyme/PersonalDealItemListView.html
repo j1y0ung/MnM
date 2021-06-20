@@ -1,48 +1,41 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
+<html xmlns:th="http://www.thymeleaf.org"      
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/default_layout">
+
 <meta charset="utf-8">
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0"
-	crossorigin="anonymous"
->
-<title>중고 물품 목록</title>
-</head>
-<body>
-	<br>
-	<h1 align="center">중고 물품 목록</h1>
-	<br>
-	<hr> 
+<!-- index.html 怨좎쑀 CSS 異붽� -->
+<th:block layout:fragment="css">
+	<link rel="stylesheet" th:href="@{/css/page/home.css}" >
+</th:block>
+    
+<!-- index.html 怨좎쑀 �뒪�겕由쏀듃 異붽� -->
+<th:block layout:fragment="script">
+	<script th:src="@{/js/page/home.js}"></script>
+</th:block>
+
+<div layout:fragment="content">
+	<br><h1 align="center">중고 물품 목록</h1><br>
+	<a href="#" th:href="@{/personalDeal/newest}">신규 등록순</a>&nbsp;
+	<a href="#" th:href="@{/personalDeal/mostViews}">조회순</a>&nbsp;
+	<a href="#" th:href="@{/personalDeal/lowestPrice}">최저가순</a>&nbsp;
+	<a href="#" th:href="@{/personalDeal/hightestPrice}">최고가순</a>
 	<br>
 	<form name="form" method="POST" th:action="@{/personalDeal/search/}"> 
 		<input type="text" name="word" class="form-control">
 		<input type="submit" value="검색" class="form-control btn btn-success">
 	</form>
-	<br>
-	상세 검색:
-	<select class="form-select form-select-sm" th:field="*{categories}">
-		<option th:each="category : ${categories}" th:value="${category}" th:text="${category.name}">카테고리</option>
-	</select> 
-	정렬 순서:
-	<select class="form-select form-select-sm" th:field="*{sorts}">
-		<option th:each="sort : ${sorts}" th:value="${sort}" th:text="${sort}">정렬</option>
-	</select>
 	<hr>
 	<div th:unless="${#lists.isEmpty(personalDealItems)}">
-		<ul th:each="personalDealItem : ${personalDealItems.pageList}">
-			<li th:text="${personalDealItem.item.img}"/></li>
+		<ul th:each="personalDealItem : ${personalDealItems}">
+			<!--<li><img th:src="@{'/upload/' + ${personalDealItem.img}}" width="600" height="400"/></li> -->
 			<li th:text="${personalDealItem.title}"></li>
-			<li th:text="'카테고리: ' + ${personalDealItem.item.product.category.name}"></li>
-			<li th:text="'판매희망가: ' + ${personalDealItem.price}"></li>
-			<li th:text="'거래지역: ' + ${personalDealItem.location}"></li>
-			<li th:text="'조회수: ' + ${personalDealItem.views}"></li>
-			<br>
+			<li th:text="'판매희망가: '+${personalDealItem.price}+'원'"></li>
+			<li th:text="'거래희망지역: '+${personalDealItem.location}"></li>
+			<li th:text="'조회수: '+${personalDealItem.views}"></li>
+			<a href="#" th:href="@{/personalDeal/{personalDealId}(personalDealId=${personalDealItem.personalDealId})}" class="btn btn-primary">상세 정보 보기</a><br><br>
 		</ul>
 	</div>
-	<br>
-	<a href="#" th:href="@{/sellerPage/addItem}" method="get" class="btn btn-primary">중고물품 등록하기</a>
-	<br>
-</body>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+</div>
 </html>

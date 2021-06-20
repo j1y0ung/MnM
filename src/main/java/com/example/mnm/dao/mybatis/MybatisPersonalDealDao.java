@@ -1,5 +1,6 @@
 package com.example.mnm.dao.mybatis;
 
+import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -8,14 +9,13 @@ import org.springframework.stereotype.Repository;
 import com.example.mnm.dao.PersonalDealDao;
 import com.example.mnm.dao.mybatis.mapper.PersonalDealMapper;
 import com.example.mnm.domain.PersonalDealItem;
-import com.example.mnm.domain.CrowdFundingItem;
 import com.example.mnm.domain.Item;
 
 @Repository
 public class MybatisPersonalDealDao implements PersonalDealDao{
 	
 	@Autowired
-	PersonalDealMapper personalDealMapper;
+	private PersonalDealMapper personalDealMapper;
 	
 	public List<PersonalDealItem> getAllPersonalDealItems() throws DataAccessException{
 		return personalDealMapper.getPersonalDealItemList();
@@ -58,8 +58,44 @@ public class MybatisPersonalDealDao implements PersonalDealDao{
 	}
 
 	@Override
-	public List<PersonalDealItem> getFourPersonalDealItemList() throws DataAccessException {
+	public List<PersonalDealItem> searchPersonalDealItemList(String word) {
+		return personalDealMapper.searchPersonalDealItemList(word);
+	}
+
+	@Override
+	public List<PersonalDealItem> getNewestPersonalDealItemList() {
+		return personalDealMapper.getNewestPersonalDealItemList();
+	}
+
+	@Override
+	public List<PersonalDealItem> getPopularPersonalDealItemList() {
+		return personalDealMapper.getPopularPersonalDealItemList();
+	}
+
+	@Override
+	public List<PersonalDealItem> getLowestPricePersonalDealItemList() {
+		return personalDealMapper.getLowestPricePersonalDealItemList();
+	}
+
+	@Override
+	public List<PersonalDealItem> getHightestPricePersonalDealItemList() {
+		return personalDealMapper.getHightestPricePersonalDealItemList();
+	}
+
+	@Override
+	public List<PersonalDealItem> getFourPersonalDealItemList() {
 		return personalDealMapper.getFourPersonalDealItemList();
 	}
+
+	@Override
+	public PersonalDealItem getPersonalDealItem(String personalDealId) {
+		return personalDealMapper.getPersonalDealItem(personalDealId);
+	}
+
+	@Override
+	public void removePersonalDealItem(String personalDealId) {
+		personalDealMapper.removePersonalDealItem(personalDealId);
+	}
+
 
 }
