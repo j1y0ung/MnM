@@ -39,4 +39,8 @@ public class MybatisAccountDao implements AccountDao {
 		return accountMapper.getAccount(id);
 	}
 	
+	public String hasAccount(String id) throws DataAccessException {
+		return accountMapper.hasAccount(id);
+	}
+	
 }

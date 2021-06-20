@@ -2,7 +2,11 @@ package com.example.mnm.domain;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.HashMap;
+
+import javax.validation.Valid;
+import javax.validation.constraints.Future;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -10,17 +14,26 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class AuctionItem implements Serializable {
 	private String auctionId;
 	private int currentPrice;
+	@Positive
 	private int startPrice;
+	@NotNull
+	@Future
 	@DateTimeFormat(pattern="yyyy-MM-dd\'T\'HH:mm")
 	private Date startDate;
+	@NotNull
+	@Future
 	@DateTimeFormat(pattern="yyyy-MM-dd\'T\'HH:mm")
 	private Date endDate;
+	@Positive
 	private int bidUnit;
 	private int bidNum;
 	private int immdPurchasePrice;
+	@Valid
 	private Item item;
 	private String itemId;
 	private String status;
+	private String winnerId;
+	private int winningBidPrice;
 	
 	public AuctionItem() {
 	}
@@ -91,6 +104,19 @@ public class AuctionItem implements Serializable {
 	public void setItemId(String itemId) {
 		this.itemId = itemId;
 	}
+	
+	public int getWinningBidPrice() {
+		return winningBidPrice;
+	}
+	public void setWinningBidPrice(int winningBidPrice) {
+		this.winningBidPrice = winningBidPrice;
+	}
+	public String getWinnerId() {
+		return winnerId;
+	}
+	public void setWinnerId(String winnerId) {
+		this.winnerId = winnerId;
+	}
 	@Override
 	public String toString() {
 		return "AuctionItem [auctionId=" + auctionId + ", currentPrice=" + currentPrice + ", startPrice=" + startPrice
@@ -98,5 +124,4 @@ public class AuctionItem implements Serializable {
 				+ ", immdPurchasePrice=" + immdPurchasePrice + ", item=" + item + ", itemId=" + itemId + ", status="
 				+ status + "]";
 	}
-	
 }

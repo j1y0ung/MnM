@@ -2,6 +2,8 @@ package com.example.mnm.domain;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.validation.constraints.NotEmpty;
 
@@ -23,8 +25,11 @@ public class Orders implements Serializable{
 	@NotEmpty
 	private String phone;
 	private String userId;
+  
 	private int lineNum;
-	
+
+	private List<LineItem> lineItems = new ArrayList<LineItem>();
+
 	public Orders() {
 	}
 	public int getOrderId() {
@@ -87,11 +92,32 @@ public class Orders implements Serializable{
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
+
 	public int getLineNum() {
 		return lineNum;
 	}
 	public void setLineNum(int lineNum) {
 		this.lineNum = lineNum;
+
+	public List<LineItem> getLineItems() {
+		return lineItems;
+	}
+	public void setLineItems(List<LineItem> lineItems) {
+		this.lineItems = lineItems;
+	}
+	public void addAuctionLineItem(AuctionItem auctionItem) {
+		LineItem lineItem = new LineItem(lineItems.size() + 1, auctionItem);
+		addLineItem(lineItem);
+	}
+	public void addLineItem(LineItem lineItem) {
+		lineItems.add(lineItem);
+	}
+	@Override
+	public String toString() {
+		return "Orders [orderId=" + orderId + ", orderDate=" + orderDate + ", shipAddr=" + shipAddr + ", totalPrice="
+				+ totalPrice + ", shipToName=" + shipToName + ", bankName=" + bankName + ", cardNumber=" + cardNumber
+				+ ", expiryDate=" + expiryDate + ", phone=" + phone + ", userId=" + userId + "]";
+
 	}
 	
 	

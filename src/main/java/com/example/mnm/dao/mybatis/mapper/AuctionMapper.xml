@@ -6,14 +6,14 @@
   
   <insert id="insertAuctionItem" parameterType="AuctionItem" useGeneratedKeys="true" keyProperty="auctionId" keyColumn="auctionId">
     INSERT INTO AUCTIONITEM
-      (AUCTIONID, STARTPRICE, BIDUNIT, IMMDPURCHASEPRICE, STARTDATE, ENDDATE, STATUS, ITEMID)
+      (AUCTIONID, CURRENTPRICE, STARTPRICE, BIDUNIT, IMMDPURCHASEPRICE, STARTDATE, ENDDATE, STATUS, ITEMID)
     VALUES
-      (auctionid_seq.nextval, #{startPrice}, #{bidUnit}, #{immdPurchasePrice}, #{startDate}, #{endDate}, '경매대기중', #{item.itemId})
+      (auctionid_seq.nextval, #{startPrice}, #{startPrice}, #{bidUnit}, #{immdPurchasePrice}, #{startDate}, #{endDate}, '경매대기중', #{item.itemId})
   </insert>
   
   <update id="updateAuctionItem" parameterType="AuctionItem">
   	UPDATE AUCTIONITEM
-    SET STARTPRICE = #{startPrice}, BIDUNIT = #{bidUnit}, IMMDPURCHASEPRICE = #{immdPurchasePrice}, STARTDATE = #{startDate}, ENDDATE = #{endDate}
+    SET STARTPRICE = #{startPrice}, CURRENTPRICE = #{currentPrice}, BIDUNIT = #{bidUnit}, IMMDPURCHASEPRICE = #{immdPurchasePrice}, STARTDATE = #{startDate}, ENDDATE = #{endDate}
     WHERE AUCTIONID = #{auctionId}
   </update>
   
@@ -86,15 +86,17 @@
   </select>
   
   <select id="findWinnerBid" resultType="bid">
-  	SELECT BIDPRICE, USERID, AUCTIONID
-	FROM (SELECT BIDPRICE, USERID, AUCTIONID FROM BID WHERE AUCTIONID = #{AUCTIONID} ORDER BY BIDPRICE DESC)
+  	SELECT *
+	FROM (SELECT * FROM BID WHERE AUCTIONID = #{AUCTIONID} AND GIVEUP!='1' ORDER BY BIDPRICE DESC)
 	WHERE ROWNUM=1
   </select>
   
   <update id="updateWinner">
-  	UPDATE AUCTIONITEM
-  	SET WINNERID=#{winnerId}, WINNINGBIDPRICE=#{bidPrice}, STATUS='낙찰'
-  	WHERE AUCTIONID = #{auctionId}
+    <![CDATA[
+	  	UPDATE AUCTIONITEM
+	  	SET WINNERID=#{winnerId}, WINNINGBIDPRICE=#{bidPrice}, STATUS='낙찰'
+	  	WHERE AUCTIONID = #{auctionId} AND ENDDATE <= #{curTime}
+  	]]>
   </update>
   
   <select id="getStatus" resultType="string">
@@ -109,17 +111,58 @@
   	WHERE AUCTIONID = #{param1}
   </update>
   
-  <update id="updateGiveUpWinning">
+  <update id="updateGiveUpAuctionItem">
   	UPDATE AUCTIONITEM
   	SET WINNINGBIDPRICE=NULL, STATUS='낙찰포기'
   	WHERE AUCTIONID = #{auctionId}
   </update>
   
+  <update id="updateGiveUpBid">
+  	UPDATE BID
+  	SET GIVEUP='1'
+  	WHERE AUCTIONID = #{auctionId} AND USERID = #{userId}
+  </update>
+  
   <select id="findSecondBid" resultType="Bid">
    	SELECT *
 	FROM (SELECT * FROM BID WHERE AUCTIONID = #{auctionId} ORDER BY BIDPRICE DESC)
-	WHERE ROWNUM=1 AND USERID != #{preWinnerId}
+	WHERE ROWNUM = 1 AND USERID != #{preWinnerId} AND GIVEUP != '1'
   </select>
+  
+  <update id="updateStatus">
+  	UPDATE AUCTIONITEM
+  	SET STATUS=#{param1}
+  	WHERE AUCTIONID=#{param2}
+  </update>
+  
+  <insert id="insertOrders" parameterType="Orders" useGeneratedKeys="true" keyProperty="orderId" keyColumn="orderId">
+	INSERT INTO Orders 
+	(orderId, orderDate, shipaddr, totalprice, shiptoname, bankname, cardnumber, expirydate, phone, userid)
+	VALUES 
+	(ORDERID_SEQ.nextval, sysdate, #{shipAddr}, #{totalPrice}, #{shipToName}, #{bankName}, 
+	#{cardNumber}, #{expiryDate}, #{phone}, #{userId})
+  </insert>
+  
+  <insert id="insertLineItem" parameterType="LineItem">
+    <foreach collection="list" item="item" open="INSERT ALL" close="SELECT * FROM SYS.DUAL" separator=" ">
+      INTO lineitem(ORDERID, LINENUM, QUANTITY, UNITPRICE, ITEMID) 
+      VALUES (#{item.orderId}, LINENUM_SEQ.nextval, #{item.quantity}, #{item.unitPrice}, #{item.itemId})
+    </foreach>
+  </insert>
+  
+  <select id="getAuctionOrder" resultType="Orders">
+   	SELECT * FROM Orders WHERE orderId = #{orderId}
+  </select>
+  
+  <select id="getOrderId" resultType="int">
+   	SELECT orderId FROM LINEITEM WHERE itemId = #{itemId}
+  </select>
+  
+  <update id="updateRebidding">
+  	UPDATE AUCTIONITEM
+  	SET WINNINGBIDPRICE=NULL, WINNERID=NULL
+  	WHERE AUCTIONID = #{auctionId}
+  </update>
   
   <select id="getSellingAuctionItemList" resultType="AuctionItemList">
     SELECT AUCTIONID, TITLE, IMG, STATUS, BIDNUM, STARTDATE, ENDDATE, A.ITEMID FROM AUCTIONITEM A, ITEM I

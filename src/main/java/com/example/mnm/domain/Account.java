@@ -6,12 +6,17 @@ import java.io.Serializable;
 public class Account implements Serializable {
 	private String userid;
 	private String email;
+	private String emailDomain;
 	private String name;
 	private String addr;
 	private String phone;
+	private String phone2;
+	private String phone3;
 	private String favcategory;
 	private String accountNum;
 	private String pwd;
+	private String pwdconfirm;
+	private String kakao;
 	
 	public String getUserid() {
 		return userid;
@@ -24,6 +29,12 @@ public class Account implements Serializable {
 	}
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	public String getEmailDomain() {
+		return emailDomain;
+	}
+	public void setEmailDomain(String emailDomain) {
+		this.emailDomain = emailDomain;
 	}
 	public String getName() {
 		return name;
@@ -43,6 +54,18 @@ public class Account implements Serializable {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
+	public String getPhone2() {
+		return phone2;
+	}
+	public void setPhone2(String phone2) {
+		this.phone2 = phone2;
+	}
+	public String getPhone3() {
+		return phone3;
+	}
+	public void setPhone3(String phone3) {
+		this.phone3 = phone3;
+	}
 	public String getFavcategory() {
 		return favcategory;
 	}
@@ -61,11 +84,25 @@ public class Account implements Serializable {
 	public void setPwd(String pwd) {
 		this.pwd = pwd;
 	}
-	@Override
-	public String toString() {
-		return "Account [userid=" + userid + ", email=" + email + ", name=" + name + ", addr=" + addr + ", phone="
-				+ phone + ", favcategory=" + favcategory + ", accountNum=" + accountNum + ", pwd=" + pwd + "]";
+
+	public String getPwdconfirm() {
+		return pwdconfirm;
+	}
+	public void setPwdconfirm(String pwdconfirm) {
+		this.pwdconfirm = pwdconfirm;
+	}
+	public String getKakao() {
+		return kakao;
+	}
+	public void setKakao(String kakao) {
+		this.kakao = kakao;
 	}
 	
+	public boolean isSamePwdConfirmPwd() {
+		if(pwd == null || pwdconfirm == null) {
+			return false;
+		}
+		return pwd.equals(pwdconfirm);
+	}
 	
 }

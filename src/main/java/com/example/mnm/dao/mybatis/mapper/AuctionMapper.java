@@ -8,7 +8,8 @@ import org.apache.ibatis.annotations.Mapper;
 import com.example.mnm.domain.AuctionItem;
 import com.example.mnm.domain.AuctionItemList;
 import com.example.mnm.domain.Bid;
-import com.example.mnm.domain.Item;
+import com.example.mnm.domain.LineItem;
+import com.example.mnm.domain.Orders;
 
 @Mapper
 public interface AuctionMapper {
@@ -41,7 +42,7 @@ public interface AuctionMapper {
 	  
 	  List<Bid> getBids(String auctionId);
 	  
-	  void updateWinner(String winnerId, int bidPrice, String auctionId);
+	  void updateWinner(String winnerId, int bidPrice, String auctionId, Date curTime);
 	  
 	  Bid findWinnerBid(String auctionId);
 	  
@@ -49,9 +50,23 @@ public interface AuctionMapper {
 	  
 	  void updateImmediatePurchase(String auctionId, int immdPurchasePrice, String winnerId);
 	  
-	  void updateGiveUpWinning(String auctionId);
+	  void updateGiveUpAuctionItem(String auctionId);
+	  
+	  void updateGiveUpBid(String auctionId, String userId);
 	  
 	  Bid findSecondBid(String auctionId, String preWinnerId);
+	  
+	  void insertOrders(Orders orders);
+	  
+	  void insertLineItem(List<LineItem> lineItems);
+	  
+	  void updateStatus(String status, String auctionId);
+	  
+	  Orders getAuctionOrder(int orderId);
+	  
+	  int getOrderId(int itemId);
+	  
+	  void updateRebidding(String auctionId);
 
 	  List<AuctionItemList> getSellingAuctionItemList(String userId);
 	  

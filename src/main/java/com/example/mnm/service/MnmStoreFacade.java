@@ -11,6 +11,8 @@ import com.example.mnm.domain.Category;
 import com.example.mnm.domain.CrowdFundingItem;
 import com.example.mnm.domain.FundingForm;
 import com.example.mnm.domain.Item;
+import com.example.mnm.domain.LineItem;
+import com.example.mnm.domain.Orders;
 import com.example.mnm.domain.PersonalDealItem;
 
 public interface MnmStoreFacade {
@@ -39,6 +41,7 @@ public interface MnmStoreFacade {
 	List<Account> getAccountList(); 
 	String getPwd(String userid);
 	Account getAccount(String userid);
+	String hasAccount(String userid);
   
 	//Auction
 	void insertAuctionItem(AuctionItem auctionItem);
@@ -57,10 +60,16 @@ public interface MnmStoreFacade {
 	void endAuctionScheduler(Date endTime, String auctionId);
 	String getStatus(String auctionId);
 	void updateImmediatePurchase(String auctionId, int immdPurchasePrice, String winnerId);
-	void updateGiveUpWinning(String auctionId);
+	void updateGiveUpWinning(String auctionId, String userId);
 	Bid findSecondBid(String auctionId, String preWinnerId);
 	Bid findWinnerBid(String auctionId);
-	void updateWinner(String winnerId, int bidPrice, String auctionId);
+	void updateWinner(String winnerId, int bidPrice, String auctionId, Date curTime);
+	void insertOrders(Orders orders);
+	void insertLineItem(List<LineItem> lineItems);
+	void updateStatus(String status, String auctionId);
+	Orders getAuctionOrder(int orderId);
+	int getOrderId(int itemId);
+	void updateRebidding(String auctionId);
 	List<AuctionItemList> getSellingAuctionItemList(String userId);
 	List<AuctionItemList> getBiddingAuctionItemList(String userId);
 	List<AuctionItemList> getAuctionedItemList(String userId);

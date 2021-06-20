@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.util.WebUtils;
-
 import com.example.mnm.domain.AuctionCart;
 
 @Controller
@@ -30,25 +28,11 @@ public class ViewAuctionCartController {
 			@RequestParam(value="page", required=false) String page,
 			@ModelAttribute("sessionCart") AuctionCart cart) 
 			throws Exception {
-		UserSession userSession = 
-			(UserSession) WebUtils.getSessionAttribute(request, "userSession");
-		handleRequest(page, cart, userSession);
+		handleRequest(page, cart);
 		return new ModelAndView("thyme/AuctionCart", "cart", cart);
 	}
-
-	@RequestMapping("/auction/checkout.do")
-	public ModelAndView checkout(
-			HttpServletRequest request,
-			@RequestParam(value="page", required=false) String page,
-			@ModelAttribute("sessionCart") AuctionCart cart) 
-			throws Exception {
-		UserSession userSession = 
-			(UserSession) WebUtils.getSessionAttribute(request, "userSession");
-		handleRequest(page, cart, userSession);
-		return new ModelAndView("thyme/AuctionCheckout", "cart", cart);
-	}
 	
-	private void handleRequest(String page, AuctionCart cart, UserSession userSession)
+	private void handleRequest(String page, AuctionCart cart)
 			throws Exception {
 		if ("nextCart".equals(page)) {
 			cart.getCartItemList().nextPage();

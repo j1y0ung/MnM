@@ -5,9 +5,9 @@
 
 	<insert id="insertAccount" parameterType="Account">
 		insert into account
-		(userid, email, name, addr, phone, favcategory, pwd)
+		(userid, email, name, addr, phone, favcategory, pwd, account_idx, kakao)
     	values
-		(#{userid}, #{email}, #{name}, #{addr}, #{phone}, #{favcategory}, #{pwd})
+		(#{userid}, #{email,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{addr,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{favcategory,jdbcType=VARCHAR}, #{pwd,jdbcType=VARCHAR}, account_seq.nextval, #{kakao,jdbcType=VARCHAR})
 	</insert>
 	
 	<delete id="deleteAccount" parameterType="String">
@@ -28,6 +28,11 @@
 	
 	<select id="getAccount" parameterType="String" resultType="Account">
 		select * from account
+		where userid=#{id}
+	</select>
+	
+	<select id="hasAccount" parameterType="String" resultType="String">
+		select userid from account
 		where userid=#{id}
 	</select>
 
