@@ -19,12 +19,20 @@
 	<a href="#" th:href="@{/personalDeal/newest}">신규 등록순</a>&nbsp;
 	<a href="#" th:href="@{/personalDeal/mostViews}">조회순</a>&nbsp;
 	<a href="#" th:href="@{/personalDeal/lowestPrice}">최저가순</a>&nbsp;
-	<a href="#" th:href="@{/personalDeal/hightestPrice}">최고가순</a>
+	<a href="#" th:href="@{/personalDeal/hightestPrice}">최고가순</a><br>
 	<br>
-	<form name="form" method="POST" th:action="@{/personalDeal/search/}"> 
-		<input type="text" name="word" class="form-control">
-		<input type="submit" value="검색" class="form-control btn btn-success">
-	</form>
+	<div class="row justify-content-end">
+		<form name="form" method="POST" th:action="@{/personalDeal/search/}"> 
+			<input type="text" name="word" size=30>
+			<input type="submit" value="검색" class="btn btn-success">
+		</form><br>
+		<div class="row justify-content-end">
+		<div class="col-4">
+			<a href="#" th:href="@{/personalDeal/add}" class="btn btn-primary">중고거래 물품 등록하기</a>	
+		</div>
+		</div>
+	</div>
+<br>
 	<hr>
 	<div th:unless="${#lists.isEmpty(personalDealItems)}">
 		<ul th:each="personalDealItem : ${personalDealItems}">

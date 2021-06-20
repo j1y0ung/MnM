@@ -4,26 +4,17 @@
 <html>
 <head>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+<title>중고물품 수정 화면</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script src="//code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-function checkDisable(frm)
-{
-    if( frm.immdPurchase.checked == true ){
-    	document.getElementById('immdPurchasePrice').value=0;
-	   frm.immdPurchasePrice.disabled = true;
-	} else 
-	{
-	   frm.immdPurchasePrice.disabled = false;
-	}
-}
-</script>
 </head>
 <body>
 <%@include file ="header.jsp" %>
-<br><h1 align="center">중고물품 등록하기</h1><br>
+<br><h1 align="center">중고물품 수정하기</h1><br>
 <div class="container">
-	<form:form action="/personalDeal/add" modelAttribute="personalDealItem" method="post" enctype="multipart/form-data">
+	<form:form action="/personalDeal/update" modelAttribute="personalDealItem" method="post" enctype="multipart/form-data">
+		<form:hidden path="personalDealId"/>
+		<form:hidden path="item.itemId"></form:hidden>
 		<label>상위 카테고리</label>:
 		<select class="category1" id="category1" name="category1">
 			<option value="">전체</option>
@@ -41,7 +32,12 @@ function checkDisable(frm)
 		<form:label path="item.description">물품 설명</form:label>:<br>
 		<form:textarea path="item.description" rows="20" cols="170"/>
 		<br>
-		<form:label path="item.img">이미지</form:label>:<br>
+		<form:label path="dealStatus">물품상태</form:label>:<br>
+		<form:textarea path="dealStatus" rows="20" cols="170"/>
+		<br>
+		기존 이미지: <a href="">${personalDealItem.item.img}</a>
+		<br>
+		<form:label path="item.img">수정할 이미지</form:label>:<br>
 		<input type="file" id="file" name="file" placeholder="파일 선택">
 		<br>
 		<form:label path="item.quantity">수량</form:label>:<br>
@@ -59,7 +55,7 @@ function checkDisable(frm)
 		<form:label path="item.shippingFee">배송비</form:label>:<br>
 		<form:input path="item.shippingFee" />
 		<hr>
-		<input type="submit" class="btn btn-primary btn-lg" value="등록하기">
+		<input type="submit" class="btn btn-primary btn-lg" value="저장하기">
 	</form:form>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>

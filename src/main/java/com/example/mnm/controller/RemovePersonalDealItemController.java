@@ -31,10 +31,11 @@ public class RemovePersonalDealItemController implements ApplicationContextAware
 	}
 
 	@RequestMapping("/personalDeal/remove/{personalDealId}")
-	public String handleRequest(@PathVariable String personalDealId, @RequestParam String itemId, @RequestParam String img) {
+	//public String handleRequest(@PathVariable String personalDealId, @RequestParam String itemId, @RequestParam String img) {
+	public String handleRequest(@PathVariable String personalDealId) {
 		mnmStore.removePersonalDealItem(personalDealId);
-		deleteFile(img);
-		mnmStore.deleteItem(itemId);
+		//deleteFile(img);
+		//mnmStore.deleteItem(itemId);
 		return "redirect:/personalDeal/newest";
 	}
 	

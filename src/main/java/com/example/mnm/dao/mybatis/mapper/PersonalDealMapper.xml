@@ -10,21 +10,21 @@
     WHERE PERSONALDEALID=#{PERSONALDEALID}
     </select>
 		
-	<insert id="addPersonalDealItem" parameterType="PersonalDealItem">
+	<insert id="addPersonalDealItem" parameterType="PersonalDealItem" useGeneratedKeys="true" keyProperty="personalDealId" keyColumn="personalDealId">
 		INSERT INTO 
-		PERSONALDEALITEM(PERSONALDEALID, LOCATION, DEALSTATUS, PRICE, ITEMID)
-		VALUES (personalDealId_seq.nextval, #{location}, '판매중', #{price}, #{item.itemid})
+		PERSONALDEALITEM (PERSONALDEALID, LOCATION, DEALSTATUS, PRICE, ITEMID)
+		VALUES (personalDealId_seq.nextval, #{location}, '판매중', #{price}, #{item.itemId})
 	</insert>
-		
+
 	<update id="updatePersonalDealItem" parameterType="PersonalDealItem">
 	UPDATE PERSONALDEALITEM 
-	SET LOCATION = #{location}, PRICE = #{price}
-	WHERE PERSONALDEALID=#{PERSONALDEALID}
+	SET LOCATION = #{location}, DEALSTATUS = #{dealStatus} , PRICE = #{price}
+	WHERE PERSONALDEALID=#{personalDealId}
 	</update>
 	
    <delete id="removePersonalDealItem" parameterType="string">
     DELETE FROM PERSONALDEALITEM 
-    WHERE PERSONALDEALID=#{PERSONALDEALID}
+    WHERE PERSONALDEALID=#{personalDealId}
    </delete>
 	
 	<update id="finishDealById" parameterType="PersonalDealItem">
@@ -65,6 +65,14 @@
     SELECT PERSONALDEALID, TITLE, IMG, LOCATION, DEALSTATUS, PRICE, VIEWS, REGIDATE, P.ITEMID 
     FROM PERSONALDEALITEM P, ITEM I
     WHERE P.ITEMID=I.ITEMID AND type='personalDeal' AND DEALSTATUS='판매중' ORDER BY PRICE DESC 	
+	</select>
+	
+	<select id="getPersonalDealItemListById" parameterType="string" resultType="PersonalDealItem"> 
+	SELECT PERSONALDEALID, TITLE, IMG, LOCATION, DEALSTATUS, PRICE, VIEWS, REGIDATE, P.ITEMID 
+    FROM PERSONALDEALITEM P, ITEM I, ACCOUNT A
+    WHERE P.ITEMID=I.ITEMID AND type='personalDeal' AND A.USERID=I.USERID AND I.USERID=#{userId}
+    ORDER BY REGIDATE ASC
+    
 	</select>
 	
 	<select id="getFourPersonalDealItemList" resultType="PersonalDealItem">

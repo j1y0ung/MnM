@@ -37,20 +37,14 @@ public class MybatisPersonalDealDao implements PersonalDealDao{
 		personalDealMapper.addItem(item);
 	}
 	
-	public void removePersonalDealItemById(String itemId) throws DataAccessException{
-		personalDealMapper.removePersonalDealItemById(itemId);
-	}
-	
 	public void removeItemById(String itemId) throws DataAccessException{
 		personalDealMapper.removeItemById(itemId);
 	}
-	
-	public void updatePersonalDealItemById (String personalDealId, PersonalDealItem personalDealItem) throws DataAccessException{
-		personalDealMapper.updatePersonalDealItemById(personalDealId, personalDealItem);
-	}
-	
-	public void updateItemById(String itemId, Item item) throws DataAccessException{
-		personalDealMapper.updateItemById(itemId, item);
+
+	@Override
+	public void updatePersonalDealItem(PersonalDealItem personalDealItem) {
+		personalDealMapper.updatePersonalDealItem(personalDealItem);
+		
 	}
 	
 	public void finishDealById(int userId, PersonalDealItem personalDealItem) throws DataAccessException{
@@ -97,5 +91,9 @@ public class MybatisPersonalDealDao implements PersonalDealDao{
 		personalDealMapper.removePersonalDealItem(personalDealId);
 	}
 
+	@Override
+	public List<PersonalDealItem> getPersonalDealItemListById(String userId) {
+		return personalDealMapper.getPersonalDealItemListById(userId);
+	}
 
 }
