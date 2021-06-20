@@ -9,12 +9,9 @@
 </head>
 
 <body>
+<div align="center">
+<jsp:include page="header.jsp" flush="false"/>
 <table>
-	<tr>
-		<td>
-			<jsp:include page="header.jsp" flush="false"/>
-		</td>
-	</tr>
 	<tr>
 		<td>
 			<form:form modelAttribute="login">
@@ -35,11 +32,8 @@
 			</a>
 		</td>
 	</tr>
-	<tr>
-		<td>
-			<jsp:include page="footer.jsp" flush="false"/>
-		</td>
-	</tr>
 </table>
+<jsp:include page="footer.jsp" flush="false"/>
+</div>
 </body>
 </html>
