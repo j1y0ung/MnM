@@ -15,15 +15,12 @@
 				<a href="<c:url value="/"/>"><img border="0" src="/images/mnm_logo.png" width="150" /></a>
 			</td>
 			<td style="text-align:right">
-
-				<c:if test="${empty session.account}" ><a href="<c:url value="/login"/>">login</a></c:if>
-				<c:if test="${empty session.account}" ><a href="<c:url value="/join"/>">join</a></c:if>
-				<c:if test="${!empty session.account}" ><a href="<c:url value="/logout"/>">logout</a></c:if>
-				<c:if test="${!empty session.account}" ><a href="<c:url value="/cart"/>">cart</a></c:if>
-				<c:if test="${!empty session.account}" ><a href="<c:url value="/auction/viewCart.do"/>">auction cart</a></c:if>
-        <c:if test="${account != null}" ><a href="<c:url value="/auction/history"/>">auction history</a></c:if>
-				<c:if test="${!empty session.account}" ><a href="<c:url value="/mypage"/>">mypage</a></c:if>
-
+				<c:if test="${account == null}" ><a href="<c:url value="/login"/>">login</a></c:if>
+				<c:if test="${account == null}" ><a href="<c:url value="/join"/>">join</a></c:if>
+				<c:if test="${account != null}" ><a href="<c:url value="/logout"/>">logout</a></c:if>
+				<c:if test="${account != null}" ><a href="<c:url value="/cart"/>">cart</a></c:if>
+				<c:if test="${account != null}" ><a href="<c:url value="/auction/viewCart.do"/>">auction cart</a></c:if>
+				<c:if test="${account != null}" ><a href="<c:url value="/mypage"/>">mypage</a></c:if>
 			</td>
 		</tr>
 		<tr>
