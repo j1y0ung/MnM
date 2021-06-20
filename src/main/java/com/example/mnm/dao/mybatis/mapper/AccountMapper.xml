@@ -16,8 +16,8 @@
 	</delete>
 	
 	<update id="updateAccount" parameterType="Account">
-		udpate account
-		set email=#{email}, addr=#{addr}, phone=#{phone}, favcategory=#{favcategory}, pwd=#{pwd}
+		update account
+		set email=#{email,jdbcType=VARCHAR}, addr=#{addr,jdbcType=VARCHAR}, phone=#{phone,jdbcType=VARCHAR}, favcategory=#{favcategory,jdbcType=VARCHAR}, pwd=#{pwd,jdbcType=VARCHAR}
 		where userid=#{userid}
 	</update>
 	
