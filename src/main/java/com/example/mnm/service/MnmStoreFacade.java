@@ -76,11 +76,12 @@ public interface MnmStoreFacade {
 	
 	CrowdFundingItem getFundingItemById(String crowdFundingId);
 	List<CrowdFundingItem> getMyFundingItemListById(String userId);
-	List<CrowdFundingItem> getMyFundingItemsCheckoutById(String userId);
+	List<FundingForm> getMyFundingItemsCheckoutById(String userId);
 	void addFundingItem(CrowdFundingItem crowdFundingItem); 
 	void removeFundingItemById(String itemId);
 	void updateFundingItemById(String crowdFundingId, CrowdFundingItem crowdFundingItem); 
 	void fund(FundingForm fundingForm);
+	void cancelMyFundingItemsCheckout(FundingForm fundingForm);
 	
 	//PersonalDeal
 	List<PersonalDealItem> getAllPersonalDealItems();

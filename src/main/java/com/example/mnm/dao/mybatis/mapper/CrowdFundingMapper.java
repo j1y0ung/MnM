@@ -5,7 +5,6 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
-import com.example.mnm.domain.AuctionItemList;
 import com.example.mnm.domain.Category;
 import com.example.mnm.domain.CrowdFundingItem;
 import com.example.mnm.domain.FundingForm;
@@ -25,7 +24,7 @@ public interface CrowdFundingMapper {
 	
 	CrowdFundingItem getFundingItemById(String crowdFundingId); // 펀딩 반환
 	List<CrowdFundingItem> getMyFundingItemListById(String userId); // 내가 등록한 펀딩 반환 
-	List<CrowdFundingItem> getMyFundingItemsCheckoutById(String userId); //내가 펀딩한 펀딩 반환 
+	List<FundingForm> getMyFundingItemsCheckoutById(String userId); //내가 펀딩한 펀딩 반환 
 	void addFundingItem(CrowdFundingItem crowdFundingItem); // 펀딩 추가
 	void addItem(Item item);
 	void removeFundingItemById(String itemId); // 펀딩 삭제
@@ -36,6 +35,11 @@ public interface CrowdFundingMapper {
 	void fund(FundingForm fundingForm); // orders에 삽입 
 	void fund2(FundingForm fundingForm); // LineItem에 삽입 
 	void fundUpdate(FundingForm fundingForm); // crowdFunding 업데이트
+	// 펀딩 취소
+	void cancelMyFundingItemsCheckout(FundingForm fundingForm);
+	void cancel2(FundingForm fundingForm);
+	void cancelUpdate(FundingForm fundingForm);
 	
 	List<CrowdFundingItem> getFourCrowdFundingItemList(); // 홈에 노출될 아이템 4개 반환
+	
 }

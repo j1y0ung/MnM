@@ -257,7 +257,7 @@ public class MnmStoreImpl implements MnmStoreFacade {
 	}
 
 	@Override
-	public List<CrowdFundingItem> getMyFundingItemsCheckoutById(String userId) {
+	public List<FundingForm> getMyFundingItemsCheckoutById(String userId) {
 		return crowdFundingDao.getMyFundingItemsCheckoutById(userId);
 	}
 	
@@ -284,6 +284,12 @@ public class MnmStoreImpl implements MnmStoreFacade {
 		crowdFundingDao.fund(fundingForm);
 		crowdFundingDao.fund2(fundingForm);
 		crowdFundingDao.fundUpdate(fundingForm);
+	}
+	@Override
+	public void cancelMyFundingItemsCheckout(FundingForm fundingForm) {
+		crowdFundingDao.cancelMyFundingItemsCheckout(fundingForm);
+		crowdFundingDao.cancel2(fundingForm);
+		crowdFundingDao.cancelUpdate(fundingForm);
 	}
 	
 	// 홈에 노출되는 아이템들 가져오기
@@ -332,6 +338,7 @@ public class MnmStoreImpl implements MnmStoreFacade {
 	public void finishDealById(int userId, PersonalDealItem personalDealItem) {
 		personalDealDao.finishDealById(userId, personalDealItem);
 	}
+	
 	
 	
 }

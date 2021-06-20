@@ -11,7 +11,7 @@
 
 <div class="container">
 <br><h1 align="center">펀딩 내역</h1><br>
-<table th:if="${#lists.isEmpty(myCrowdFundingItemList)}">
+<table th:if="${#lists.isEmpty(myLists)}">
 	<h2>조회결과가 없습니다.</h2>
 </table>
 
@@ -23,13 +23,17 @@
 		<th>상태</th>
 	</tr>
 	<tr th:each="myList : ${myLists}">
-		<!-- <form action="" th:action="@{/crowdFunding/myFundingCheckout/cancel} th:object="${myList}" method="post" enctype="multipart/form-data"> -->
-		<td th:text="${myList.startDate}">펀딩 일시</td>
-		<td th:text="${myList.item.title}">펀딩아이템 제목</td>
-		<td th:text="${myList.closingDate}">펀딩 마감일</td>
-		<td th:text="${myList.status}">상태</td>
-		<td><!-- <input type="hidden" th:value="${myList.crowdFundingItem.crowdFundingId}" th:field="${fundingForm.crowdFundingItem.crowdFundingId}"> -->
-		<!-- <input type="submit" value="펀딩 취소" class="btn btn-primary float-right">--></td>
+		<form action="" th:action="@{/crowdFunding/myFundingCheckout/cancel}" method="post" enctype="multipart/form-data">
+		<td th:text="${myList.crowdFundingItem.startDate}">펀딩 일시</td>
+		<td th:text="${myList.crowdFundingItem.item.title}">펀딩아이템 제목</td>
+		<td th:text="${myList.crowdFundingItem.closingDate}">펀딩 마감일</td>
+		<td th:text="${myList.crowdFundingItem.status}">상태</td>
+		<td>
+			<input type="hidden" th:name="crowdFundingId" th:value="${myList.crowdFundingItem.crowdFundingId}">
+			<input type="hidden" th:name="orderId" th:value="${myList.orders.orderId}">
+			<input type="hidden" th:name="lineNum" th:value="${myList.orders.lineNum}">
+			<input type="submit" value="펀딩 취소" class="btn btn-primary float-right">
+		</td>
 		</form>
 	</tr>
 </table>

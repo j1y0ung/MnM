@@ -23,6 +23,7 @@ public class Orders implements Serializable{
 	@NotEmpty
 	private String phone;
 	private String userId;
+	private int lineNum;
 	
 	public Orders() {
 	}
@@ -85,6 +86,12 @@ public class Orders implements Serializable{
 	}
 	public void setUserId(String userId) {
 		this.userId = userId;
+	}
+	public int getLineNum() {
+		return lineNum;
+	}
+	public void setLineNum(int lineNum) {
+		this.lineNum = lineNum;
 	}
 	
 	
