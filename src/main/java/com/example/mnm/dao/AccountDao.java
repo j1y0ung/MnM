@@ -24,6 +24,9 @@ public interface AccountDao {
 	String getPwd(String id) throws DataAccessException;
 
 	// 계정 정보 가져오기
-	Account getAccount(String id);
+	Account getAccount(String id) throws DataAccessException;
+	
+	// 계정 유무 확인
+	String hasAccount(String id) throws DataAccessException;
 	
 }
