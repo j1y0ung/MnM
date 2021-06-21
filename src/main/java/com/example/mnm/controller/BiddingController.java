@@ -40,7 +40,7 @@ public class BiddingController {
 	public String bid(@PathVariable String auctionId, @ModelAttribute("account") Account account, 
 			HttpServletRequest request, RedirectAttributes redirect) throws Exception {
 		
-		if (request.getParameter("bidPrice") == null) {
+		if (request.getParameter("bidPrice") == "") {
 			return "redirect:/auction/" + auctionId;
 		}
 		// 폼에 입력된 입찰가
@@ -123,9 +123,19 @@ public class BiddingController {
 		if (result.hasErrors()) {
             return "thyme/AuctionRebiddingForm";
         }
-		
+		// 입찰가와 입찰자 null로 update
 		mnmStore.updateRebidding(auctionId);
-		auctionItem.setCurrentPrice(mnmStore.findWinnerBid(auctionId).getBidPrice());
+		// 기존 입찰자(낙찰포기 안 한 경우) 중 가장 높은 입찰가로 현재가 설정
+		if (mnmStore.findWinnerBid(auctionId) != null) {
+			// 기존 입찰자의 입찰가 < 재경매시 경매시작가 => 현재가 = 재경매시 경매시작가
+			if (mnmStore.findWinnerBid(auctionId).getBidPrice()<auctionItem.getStartPrice()) {
+				auctionItem.setCurrentPrice(auctionItem.getStartPrice());
+			} else {// 기존 입찰자의 입찰가 > 재경매시 경매시작가 => 현재가 = 기존 입찰자의 입찰가
+			auctionItem.setCurrentPrice(mnmStore.findWinnerBid(auctionId).getBidPrice());
+			}
+		} else {
+			auctionItem.setCurrentPrice(auctionItem.getStartPrice());
+		}
 		mnmStore.updateAuctionItem(auctionItem);
 		mnmStore.updateItem(auctionItem.getItem());
 		
