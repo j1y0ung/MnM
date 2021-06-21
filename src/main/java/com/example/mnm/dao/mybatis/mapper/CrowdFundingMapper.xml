@@ -127,6 +127,7 @@
 		WHERE c.itemid = i.itemid 
 		AND i.userid = a.userid 
 		AND i.childCatId = ca.catId
+		AND c.status='등록'
 		order by regiDate DESC
 	</select>
 	<select id="getCrowdFundingItemListRecently" resultType="CrowdFundingItem">
@@ -147,6 +148,7 @@
 		WHERE c.itemid = i.itemid 
 		AND i.userid = a.userid 
 		AND i.childCatId = ca.catId
+		AND c.status='등록'
 		order by regiDate DESC
 	</select>
 	<select id="getCrowdFundingItemListMostViews" resultType="CrowdFundingItem">
@@ -167,6 +169,7 @@
 		WHERE c.itemid = i.itemid 
 		AND i.userid = a.userid 
 		AND i.childCatId = ca.catId
+		AND c.status='등록'
 		order by i.views DESC
 	</select>
 	<select id="getCrowdFundingItemListMostSponsors" resultType="CrowdFundingItem">
@@ -187,6 +190,7 @@
 		WHERE c.itemid = i.itemid 
 		AND i.userid = a.userid 
 		AND i.childCatId = ca.catId
+		AND c.status='등록'
 		order by numberOfSponsor DESC
 	</select>
 	<select id="getCrowdFundingItemListMostAmount" resultType="CrowdFundingItem">
@@ -207,6 +211,7 @@
 		WHERE c.itemid = i.itemid 
 		AND i.userid = a.userid 
 		AND i.childCatId = ca.catId
+		AND c.status='등록'
 		order by currentSponsoredAmount DESC
 	</select>
 	<select id="getCrowdFundingItemListDeadLine" resultType="CrowdFundingItem">
@@ -227,6 +232,7 @@
 		WHERE c.itemid = i.itemid 
 		AND i.userid = a.userid 
 		AND i.childCatId = ca.catId
+		AND c.status='등록'
 		order by closingDate ASC
 	</select>
 	<select id="getCrowdFundingItemListCategory" resultType="Category">
@@ -249,6 +255,7 @@
 		AND i.childCatId = ca.catId
 		AND ca.catId = #{catId}
 		AND ca.catIdRef = #{catIdRef}
+		AND c.status='등록'
 		order by closingDate ASC
 	</select>
 	
