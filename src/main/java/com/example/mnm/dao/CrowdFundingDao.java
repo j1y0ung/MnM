@@ -35,6 +35,7 @@ public interface CrowdFundingDao {
 	public void cancelMyFundingItemsCheckout(FundingForm fundingForm) throws DataAccessException;
 	public void cancel2(FundingForm fundingForm) throws DataAccessException;
 	public void cancelUpdate(FundingForm fundingForm) throws DataAccessException;
+	public void fundConclude(String crowdFundingId) throws DataAccessException;
 	
 	
 
