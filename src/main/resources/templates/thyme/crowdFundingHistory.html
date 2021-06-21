@@ -27,6 +27,7 @@
 			<th>펀딩 아이템 제목</th>
 			<th>펀딩 마감일</th>
 			<th>상태</th>
+			<th>펀딩 금액(원)</th>
 		</tr>
 		<tr th:each="myList : ${myLists}">
 			<form action="" th:action="@{/crowdFunding/myFundingCheckout/cancel}" method="post" enctype="multipart/form-data">
@@ -34,10 +35,11 @@
 			<td th:text="${myList.crowdFundingItem.item.title}">펀딩아이템 제목</td>
 			<td th:text="${myList.crowdFundingItem.closingDate}">펀딩 마감일</td>
 			<td th:text="${myList.crowdFundingItem.status}">상태</td>
+			<td th:text="${myList.orders.cLineItem.unitPrice}">펀딩 금액</td>
 			<td>
 				<input type="hidden" th:name="crowdFundingId" th:value="${myList.crowdFundingItem.crowdFundingId}">
 				<input type="hidden" th:name="orderId" th:value="${myList.orders.orderId}">
-				<input type="hidden" th:name="lineNum" th:value="${myList.orders.lineNum}">
+				<input type="hidden" th:name="lineNum" th:value="${myList.orders.cLineItem.lineNumber}">
 				<input type="submit" value="펀딩 취소" class="btn btn-primary float-right">
 			</td>
 			</form>
