@@ -25,8 +25,8 @@ public class Orders implements Serializable{
 	@NotEmpty
 	private String phone; // 전화번호
 	private String userId; // 주문인 아이디
-	private int lineNum;
 	private List<LineItem> lineItems = new ArrayList<LineItem>();
+	private LineItem cLineItem;
 
 	public Orders() {
 	}
@@ -91,13 +91,6 @@ public class Orders implements Serializable{
 		this.userId = userId;
 	}
 
-	public int getLineNum() {
-		return lineNum;
-	}
-	public void setLineNum(int lineNum) {
-		this.lineNum = lineNum;
-	}
-
 	public List<LineItem> getLineItems() {
 		return lineItems;
 	}
@@ -111,13 +104,21 @@ public class Orders implements Serializable{
 	public void addLineItem(LineItem lineItem) {
 		lineItems.add(lineItem);
 	}
+	
+	public LineItem getcLineItem() {
+		return cLineItem;
+	}
+	public void setcLineItem(LineItem cLineItem) {
+		this.cLineItem = cLineItem;
+	}
 	@Override
 	public String toString() {
 		return "Orders [orderId=" + orderId + ", orderDate=" + orderDate + ", shipAddr=" + shipAddr + ", totalPrice="
 				+ totalPrice + ", shipToName=" + shipToName + ", bankName=" + bankName + ", cardNumber=" + cardNumber
-				+ ", expiryDate=" + expiryDate + ", phone=" + phone + ", userId=" + userId + "]";
-
+				+ ", expiryDate=" + expiryDate + ", phone=" + phone + ", userId=" + userId + ", lineItems=" + lineItems
+				+ ", lineItem=" + cLineItem + "]";
 	}
+
 	
 	
 }
