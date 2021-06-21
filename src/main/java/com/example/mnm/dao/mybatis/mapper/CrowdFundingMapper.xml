@@ -26,7 +26,14 @@
 		VALUES (#{itemId}, #{title}, #{description}, #{img}, #{quantity}, to_char(sysdate,'yy/mm/dd'),
 		0, 0, #{account.userid}, 'crowdFunding', #{parentCatId}, #{childCatId})
 	</insert>
-		
+	
+	<!-- 펀딩 종료 -->
+	<update id="fundConclude"
+		parameterType="String">
+		UPDATE crowdfundingitem 
+		SET status = '종료' 
+		WHERE crowdfundingid=#{crowdFundingId}
+	</update>
 		
 	<!-- 수정 -->
 	<update id="updateFundingItemById"

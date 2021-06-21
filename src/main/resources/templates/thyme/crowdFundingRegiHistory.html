@@ -26,10 +26,12 @@
 		<tr>
 			<th>이미지</th>
 			<th>펀딩 간단 설명</th>
+			<th>펀딩 상태(등록/종료)</th>
 		</tr>
 		<tr th:each="crowdFundingItem : ${myCrowdFundingItemList}">
 			<td><img th:src="@{'/upload/' + ${crowdFundingItem.item.img}}" alt="대표 사진" width="200" height="200" /></td>
 			<td th:text="${crowdFundingItem.shortInfo}">펀딩 간단 설명</td>
+			<td th:text="${crowdFundingItem.status}">펀딩 상태</td>
 			<td>
 				<form action="" th:action="@{'/crowdFunding/update/{crowdFundingId}'(crowdFundingId=${crowdFundingItem.crowdFundingId})}" method="get">
 		      	<input type="submit"  class="btn btn-primary btn-lg" value="수정하기" >
@@ -38,6 +40,11 @@
 			<td>
 				<form action="" th:action="@{'/crowdFunding/delete/{itemId}'(itemId=${crowdFundingItem.item.itemId})}" method="get">
 		      	<input type="submit"  class="btn btn-primary btn-lg" value="삭제하기" >
+		      	</form>
+		    </td>
+		    <td th:if="${crowdFundingItem.status.equals('등록')}">
+				<form action="" th:action="@{'/crowdFunding/fund/conclude/{crowdFundingId}'(crowdFundingId=${crowdFundingItem.crowdFundingId})}" method="post">
+		      	<input type="submit"  class="btn btn-primary btn-lg" value="종료하기" >
 		      	</form>
 		    </td>
 		</tr> 

@@ -131,6 +131,11 @@ public class MybatisCrowdFundingDao implements CrowdFundingDao{
 		crowdFundingMapper.cancelUpdate(fundingForm);
 	}
 
+	@Override
+	public void fundConclude(String crowdFundingId) throws DataAccessException {
+		crowdFundingMapper.fundConclude(crowdFundingId);
+	}
+
 	
 
 	

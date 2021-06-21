@@ -31,10 +31,13 @@ public interface CrowdFundingMapper {
 	void removeItemById(String itemId); // 펀딩 삭제
 	void updateFundingItemById(String crowdFundingId, CrowdFundingItem crowdFundingItem); // 펀딩 내용 수정
 	void updateItemById(String itemId, Item item);
+	void fundConclude(String crowdFundingId); // 펀딩 종료 
+	
 	// 펀딩하기 
 	void fund(FundingForm fundingForm); // orders에 삽입 
 	void fund2(FundingForm fundingForm); // LineItem에 삽입 
 	void fundUpdate(FundingForm fundingForm); // crowdFunding 업데이트
+	
 	// 펀딩 취소
 	void cancelMyFundingItemsCheckout(FundingForm fundingForm);
 	void cancel2(FundingForm fundingForm);
