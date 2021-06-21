@@ -15,7 +15,7 @@
 	</div>
 	<div>
 		<h2>&lt;구매내역&gt;</h2>
-		<a href="#">중고물품</a><br>
+		<a href="/personalDeal/myPurchaseList">중고물품</a><br>
 		<a href="/crowdFunding/myFundingCheckout">크라우드 펀딩</a><br>
 		<h2>&lt;판매내역&gt;</h2>
 		<a href="/personalDeal/myList">중고물품</a><br>

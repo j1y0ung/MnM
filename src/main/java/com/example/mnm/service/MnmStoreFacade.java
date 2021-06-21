@@ -11,11 +11,13 @@ import com.example.mnm.domain.AuctionItemList;
 import com.example.mnm.domain.Bid;
 import com.example.mnm.domain.Category;
 import com.example.mnm.domain.CrowdFundingItem;
+import com.example.mnm.domain.DealForm;
 import com.example.mnm.domain.FundingForm;
 import com.example.mnm.domain.Item;
 import com.example.mnm.domain.LineItem;
 import com.example.mnm.domain.Orders;
 import com.example.mnm.domain.PersonalDealItem;
+import com.example.mnm.domain.PersonalDealItemList;
 
 public interface MnmStoreFacade {
 	// item
@@ -33,7 +35,7 @@ public interface MnmStoreFacade {
 	String getCategoryName(String categoryId);
 	
 	// 홈에 노출되는 아이템
-	List<PersonalDealItem> getFourPersonalDealItemList();
+	List<PersonalDealItemList> getFourPersonalDealItemList();
 	List<AuctionItemList> getFourAuctionItemList();
 	List<CrowdFundingItem> getFourCrowdFundingItemList();
 	
@@ -99,18 +101,21 @@ public interface MnmStoreFacade {
 	//PersonalDeal
 	List<PersonalDealItem> getAllPersonalDealItems();
 	List<PersonalDealItem> getPersonalDealItemList();
+	List<PersonalDealItemList> searchPersonalDealItemList(String word);
+	List<PersonalDealItemList> getNewestPersonalDealItemList();
+	List<PersonalDealItemList> getPopularPersonalDealItemList();
+	List<PersonalDealItemList> getLowestPricePersonalDealItemList();
+	List<PersonalDealItemList> getHightestPricePersonalDealItemList();
 	PersonalDealItem getPersonalDealItemById(String personalDealId);
 	PersonalDealItem getPersonalDealItem(String personalDealId);
 	void addPersonalDealItem(PersonalDealItem personalDealItem);
 	void removePersonalDealItem(String personalDealId);
 	void updatePersonalDealItem(@Valid PersonalDealItem personalDealItem);
 	void finishDealById(int userId, PersonalDealItem personalDealItem);
-	List<PersonalDealItem> searchPersonalDealItemList(String word);
-	List<PersonalDealItem> getNewestPersonalDealItemList();
-	List<PersonalDealItem> getPopularPersonalDealItemList();
-	List<PersonalDealItem> getLowestPricePersonalDealItemList();
-	List<PersonalDealItem> getHightestPricePersonalDealItemList();
 	List<PersonalDealItem> getPersonalDealItemListById(String userid);
 	List<PersonalDealItem> getRecommendedItemList(String fav);
+	void purchase(DealForm dealForm);
+	void updatePurchase(String string, String personalDealId);
+	List<PersonalDealItem> getPurchasedPersonalDealItemListById(String userid);
 
 }

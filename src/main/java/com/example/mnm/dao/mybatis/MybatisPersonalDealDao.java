@@ -9,6 +9,8 @@ import org.springframework.stereotype.Repository;
 import com.example.mnm.dao.PersonalDealDao;
 import com.example.mnm.dao.mybatis.mapper.PersonalDealMapper;
 import com.example.mnm.domain.PersonalDealItem;
+import com.example.mnm.domain.PersonalDealItemList;
+import com.example.mnm.domain.DealForm;
 import com.example.mnm.domain.Item;
 
 @Repository
@@ -52,32 +54,32 @@ public class MybatisPersonalDealDao implements PersonalDealDao{
 	}
 
 	@Override
-	public List<PersonalDealItem> searchPersonalDealItemList(String word) {
+	public List<PersonalDealItemList> searchPersonalDealItemList(String word) {
 		return personalDealMapper.searchPersonalDealItemList(word);
 	}
 
 	@Override
-	public List<PersonalDealItem> getNewestPersonalDealItemList() {
+	public List<PersonalDealItemList> getNewestPersonalDealItemList() {
 		return personalDealMapper.getNewestPersonalDealItemList();
 	}
 
 	@Override
-	public List<PersonalDealItem> getPopularPersonalDealItemList() {
+	public List<PersonalDealItemList> getPopularPersonalDealItemList() {
 		return personalDealMapper.getPopularPersonalDealItemList();
 	}
 
 	@Override
-	public List<PersonalDealItem> getLowestPricePersonalDealItemList() {
+	public List<PersonalDealItemList> getLowestPricePersonalDealItemList() {
 		return personalDealMapper.getLowestPricePersonalDealItemList();
 	}
 
 	@Override
-	public List<PersonalDealItem> getHightestPricePersonalDealItemList() {
+	public List<PersonalDealItemList> getHightestPricePersonalDealItemList() {
 		return personalDealMapper.getHightestPricePersonalDealItemList();
 	}
 
 	@Override
-	public List<PersonalDealItem> getFourPersonalDealItemList() {
+	public List<PersonalDealItemList> getFourPersonalDealItemList() {
 		return personalDealMapper.getFourPersonalDealItemList();
 	}
 
@@ -98,6 +100,29 @@ public class MybatisPersonalDealDao implements PersonalDealDao{
 
 	public List<PersonalDealItem> getRecommendedItemList(String fav) {
 		return personalDealMapper.getRecommendedItemList(fav);
+	}
+
+	@Override
+	public void purchase(DealForm dealForm) {
+		personalDealMapper.purchase(dealForm);
+		
+	}
+
+	/*@Override
+	public void purchase2(DealForm dealForm) {
+		personalDealMapper.purchase2(dealForm);
+		
+	}*/
+
+	@Override
+	public void updatePurchase(String status, String personalDealId) {
+		personalDealMapper.updatePurchase(status, personalDealId);
+		
+	}
+
+	@Override
+	public List<PersonalDealItem> getPurchasedPersonalDealItemListById(String userid) {
+		return personalDealMapper.getPurchasedPersonalDealItemListById(userid);
 	}
 
 }

@@ -34,15 +34,24 @@
 	</div>
 <br>
 	<hr>
-	<div th:unless="${#lists.isEmpty(personalDealItems)}">
-		<ul th:each="personalDealItem : ${personalDealItems}">
-			<!--<li><img th:src="@{'/upload/' + ${personalDealItem.img}}" width="600" height="400"/></li> -->
-			<li th:text="${personalDealItem.title}"></li>
-			<li th:text="'판매희망가: '+${personalDealItem.price}+'원'"></li>
-			<li th:text="'거래희망지역: '+${personalDealItem.location}"></li>
-			<li th:text="'조회수: '+${personalDealItem.views}"></li>
-			<a href="#" th:href="@{/personalDeal/{personalDealId}(personalDealId=${personalDealItem.personalDealId})}" class="btn btn-primary">상세 정보 보기</a><br><br>
-		</ul>
+	<div th:unless="${#lists.isEmpty(personalDealItems)}" class="container">
+		<div class="row">
+			<div th:each="personalDealItem : ${personalDealItems}" class="col-md-3">
+		  		<div class="card" style="width: 18rem;">
+				    <img class="card-img-top" th:src="@{'/upload/' + ${personalDealItem.img}}" width="286" height="180">
+				    <div class="card-body">
+				      <h5 class="card-title" th:text="${personalDealItem.title}"></h5>
+				      <h5 class="card-title" th:text="'판매희망가: '+${personalDealItem.price}+'원'"></h5>
+				      <p class="card-text" th:text="'거래희망지역: '+${personalDealItem.location}"></p>
+				      <p class="card-text" th:text="'조회수: '+${personalDealItem.views}"></p>
+				      </div>
+				    <div class="card-footer">
+		      			<a href="#" th:href="@{/personalDeal/{personalDealId}(personalDealId=${personalDealItem.personalDealId})}" class="btn btn-primary">상세 정보 보기</a>
+		    		</div>
+				</div>
+				<br>
+			</div>
+		</div>
 	</div>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
 </div>

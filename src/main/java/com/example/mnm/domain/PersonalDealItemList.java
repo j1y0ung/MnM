@@ -6,11 +6,11 @@ import java.io.Serializable;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @SuppressWarnings("serial")
-public class PersonalDealItem implements Serializable{
+public class PersonalDealItemList implements Serializable{
 	private String personalDealId;
-	private Item item;
 	private String itemId;
 	private String title; //개인 간 거래  글 제목
+	private String img; // 이미지
 	private String shippingFee; //배송비 추가 여부
 	private String description; //판매자 추가 설명
 	private String location; //거래 지역 정보
@@ -21,24 +21,14 @@ public class PersonalDealItem implements Serializable{
 	private int views; //조회수
 	private int price; //판매희망가
 
-	public PersonalDealItem() {
+	public PersonalDealItemList() {
 		
-	}
-	public PersonalDealItem(Item item) {
-		this.item = item;
 	}
 	public String getPersonalDealId() {
 		return personalDealId;
 	}
 	public void setPersonalDealId(String personalDealId) {
 		this.personalDealId = personalDealId;
-	}
-	
-	public Item getItem() {
-		return item;
-	}
-	public void setItem(Item item) {
-		this.item = item;
 	}
 	public String getItemId() {
 		return itemId;
@@ -51,6 +41,12 @@ public class PersonalDealItem implements Serializable{
 	}
 	public void setTitle(String title) {
 		this.title = title;
+	}
+	public String getImg() {
+		return img;
+	}
+	public void setImg(String img) {
+		this.img = img;
 	}
 	public String getShippingFee() {
 		return shippingFee;
@@ -104,9 +100,10 @@ public class PersonalDealItem implements Serializable{
 	
 	@Override
 	public String toString() {
-		return "PersonalDealItem [item=" + item + ", itemId=" + itemId + ", title=" + title + ", shippingFee=" + shippingFee + ", description="
+		return "PersonalDealItemList [personalDealId" + personalDealId + ", itemId=" + itemId + ", title=" + title + ", shippingFee=" + shippingFee + ", description="
 				+ description + ", location=" + location + ", productStatus=" + productStatus + ", date=" + date + ", dealStatus=" + dealStatus + ", views="
 				+ views + ", price=" + price + "]";	
 	}
+
 }
 

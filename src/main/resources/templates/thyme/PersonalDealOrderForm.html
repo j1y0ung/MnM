@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/default_layout">
+<meta charset="UTF-8">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+
+<title>중고거래 물품 결제</title>
+<!-- index.html 고유 CSS 추가 -->
+<th:block layout:fragment="css">
+	<link rel="stylesheet" th:href="@{/css/page/home.css}" >
+</th:block>
+    
+<!-- index.html 고유 스크립트 추가 -->
+<th:block layout:fragment="script">
+	<script th:src="@{/js/page/home.js}"></script>
+</th:block>
+<div layout:fragment="content">
+	<br><h1>중고거래 물품 결제</h1>
+	<br>
+		<form action="" th:action="@{/personalDeal/order}" th:object="${dealForm}" method="post">
+		<table align="center">
+			<tr>
+				<td>
+					<table bgcolor="#FFFF88" class="table table-bordered">
+						<tr>
+							<td colspan="4"><font color="green" size="4"><b>주문내역</b></font></td>
+						</tr>
+						<tr>
+							<td><b>거래지역</b></td>
+							<td><b>판매가격</b></td>
+							<!--<td><b>판매자</b></td>-->
+						</tr>
+						<tr bgcolor="#FFFF88">
+							<td th:href="@{/personalDeal/{personalDealId}(personalDealId=${dealForm.personalDealItem.personalDealId})}"
+								th:text="${dealForm.personalDealItem.location}">location</td>
+							<td th:text="${dealForm.personalDealItem.price}">price</td>
+							<!--  <td th:text="${dealForm.personalDealItem.item.userId}">seller</td>-->
+						</tr>
+						<tr>
+							<td colspan="4"><font color="green" size="4"><b>배송정보</b></font></td>
+						</tr>
+						<tr>
+							<td colspan="1">이름 :</td>
+							<td colspan="3"><input type="text" th:field="${dealForm.orders.shipToName}" /></td>
+						</tr>
+						<tr>
+							<td colspan="1">전화번호 :</td>
+							<td colspan="3"><input type="text" th:field="${dealForm.orders.phone}" placeholder="010-XXXX-XXXX"/></td>
+						</tr>
+						<tr>
+							<td colspan="1">주소 :</td>
+							<td colspan="3"><input type="text" th:field="${dealForm.orders.shipAddr}" /></td>
+						</tr>
+						<tr>
+							<td colspan="4"><font color="green" size="4"><b>결제정보</b></font></td>
+						</tr>
+						<tr>
+							<td colspan="1">은행 :</td>
+							<td colspan="3"><input type="text" th:field="${dealForm.orders.bankName}"></td>
+						</tr>
+						<tr>
+							<td>카드번호 :</td>
+							<td colspan="3"><input type="text" th:field="${dealForm.orders.cardNumber}" placeholder="XXXX-XXXX-XXXX-XXXX"/></td>
+						</tr>
+						<tr>
+							<td>만료일 :</td>
+							<td colspan="3"><input type="text" th:field="${dealForm.orders.expiryDate}" placeholder="MM/YYYY"/></td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td>
+				<input type="hidden" th:value="${dealForm.personalDealItem.personalDealId}" th:field="${dealForm.personalDealItem.personalDealId}">
+				<input type="submit" value="결제하기"/></td>
+			</tr>
+		</table>
+		</form>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+</div>
+</html>
