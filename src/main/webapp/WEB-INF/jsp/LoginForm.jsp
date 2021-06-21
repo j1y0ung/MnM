@@ -21,12 +21,12 @@
 			      <input type="hidden" name="forwardAction"
 			        value='<c:url value="${signonForwardAction}"/>' />
 			    </c:if>
-				<form:label path="userId">id</form:label>
-				<form:input path="userId"></form:input>
+				<form:label path="userId"/>id
+				<form:input path="userId"/>
 				<form:errors path="userId"/>
 				<br>
-				<form:label path="pwd">pwd</form:label>
-				<form:input path="pwd"></form:input>
+				<form:label path="pwd"/>pwd
+				<form:password path="pwd"/>
 				<form:errors path="pwd"/>
 				<br>
 				<input type="submit" value="로그인"/>
