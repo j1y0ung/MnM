@@ -2,6 +2,7 @@ package com.example.mnm.service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -33,13 +34,13 @@ public class KakaoAPI {
             // POST 요청을 위해 기본값이 false인 setDoOutput을 true로
             conn.setRequestMethod("POST");
             conn.setDoOutput(true);
-            
+
             // POST 요청에 필요로 요구하는 파라미터 스트림을 통해 전송
             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
             StringBuilder sb = new StringBuilder();
             sb.append("grant_type=authorization_code");
             sb.append("&client_id=7f2d0803ec4cb51e879b3e59579f6fe1");
-            sb.append("&redirect_uri=http://localhost:8088/kakaoLogin");
+            sb.append("&redirect_uri=http://localhost:" + 8080 + "/kakaoLogin");
             sb.append("&code=" + authorize_code);
             bw.write(sb.toString());
             bw.flush();
