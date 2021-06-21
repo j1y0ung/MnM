@@ -66,6 +66,6 @@ public class FundController {
 		
 		this.storeFacade.fundConclude(crowdFundingId);
 
-		return "thyme/crowdFundingRegiHistory";
+		return "redirect:/crowdFunding/fund";
 	}
 }
