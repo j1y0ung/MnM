@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,6 +25,9 @@ public class KakaoLoginController {
 	@Autowired
 	private KakaoAPI kakao;
 	
+//	@Value("${server.port}")
+//    private String portNum;
+	
 	@Autowired
 	private MnmStoreFacade store;
 	public void setStore(MnmStoreFacade store) {
@@ -34,6 +38,7 @@ public class KakaoLoginController {
 	@RequestMapping(method=RequestMethod.GET)
 	public String kakaoLogin(@RequestParam("code") String code, HttpSession session) {
 		logger.info("kakaoLogin()");
+		
 	    String access_Token = kakao.getAccessToken(code);
 	    HashMap<String, Object> userInfo = kakao.getUserInfo(access_Token);
 	    logger.info("userInfo: " + userInfo);
