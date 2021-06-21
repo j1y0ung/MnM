@@ -29,6 +29,7 @@ public class Orders implements Serializable{
 	private LineItem cLineItem;
 
 	public Orders() {
+		cLineItem = new LineItem();
 	}
 	public int getOrderId() {
 		return orderId;

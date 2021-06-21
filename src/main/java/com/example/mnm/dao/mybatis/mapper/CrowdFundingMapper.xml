@@ -94,7 +94,7 @@
 	<!-- 펀딩 취소 -->
 	<delete id="cancelMyFundingItemsCheckout" parameterType="FundingForm">
 		DELETE FROM lineitem
-		WHERE orderId=#{orders.orderId} AND linenum=#{orders.lineNum}
+		WHERE orderId=#{orders.orderId} AND linenum=#{orders.cLineItem.lineNumber}
 	</delete>
 	<delete id="cancel2" parameterType="FundingForm">
 		DELETE FROM

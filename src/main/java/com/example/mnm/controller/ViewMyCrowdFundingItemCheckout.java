@@ -50,7 +50,9 @@ public class ViewMyCrowdFundingItemCheckout {
 			, @RequestParam("lineNum") int lineNum
 			, @ModelAttribute FundingForm fundingForm
 			) throws Exception {
-		
+		System.out.println(crowdFundingId);
+		System.out.println(orderId);
+		System.out.println(lineNum);
 		fundingForm.getCrowdFundingItem().setCrowdFundingId(crowdFundingId);
 		fundingForm.getOrders().setOrderId(orderId);
 		fundingForm.getOrders().getcLineItem().setLineNumber(lineNum);
