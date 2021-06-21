@@ -66,6 +66,6 @@ public class FundController {
 		
 		this.storeFacade.fundConclude(crowdFundingId);
 
-		return "redirect:/crowdFunding/fund";
+		return "redirect:/crowdFunding/myList";
 	}
 }
