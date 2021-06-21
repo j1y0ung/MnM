@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.mnm.service.MnmStoreFacade;
 import com.example.mnm.domain.PersonalDealItem;
+import com.example.mnm.domain.PersonalDealItemList;
 
 @Controller
 public class ViewPersonalDealItemListController {
@@ -23,7 +24,7 @@ public class ViewPersonalDealItemListController {
 	//검색
 	@RequestMapping("/personalDeal/search")
 	public String search(@RequestParam String word, Model model) {
-		List<PersonalDealItem> personalDealItems = mnmStore.searchPersonalDealItemList(word);
+		List<PersonalDealItemList> personalDealItems = mnmStore.searchPersonalDealItemList(word);
 		model.addAttribute("personalDealItems", personalDealItems);
 		return "thyme/PersonalDealItemListView";
 	}
@@ -31,7 +32,7 @@ public class ViewPersonalDealItemListController {
 	//최신순
 	@RequestMapping("/personalDeal/newest")
 	public String sortByNewest(Model model) {
-		List<PersonalDealItem> personalDealItems = mnmStore.getNewestPersonalDealItemList();
+		List<PersonalDealItemList> personalDealItems = mnmStore.getNewestPersonalDealItemList();
 		model.addAttribute("personalDealItems", personalDealItems);
 		return "thyme/PersonalDealItemListView";
 	}
@@ -39,7 +40,7 @@ public class ViewPersonalDealItemListController {
 	//조회순
 	@RequestMapping("/personalDeal/mostViews")
 	public String sortByViews(Model model) {
-		List<PersonalDealItem> personalDealItems = mnmStore.getPopularPersonalDealItemList();
+		List<PersonalDealItemList> personalDealItems = mnmStore.getPopularPersonalDealItemList();
 		model.addAttribute("personalDealItems", personalDealItems);
 		return "thyme/PersonalDealItemListView";
 	}	
@@ -47,7 +48,7 @@ public class ViewPersonalDealItemListController {
 	//최저가순
 	@RequestMapping("/personalDeal/lowestPrice")
 	public String sortByLowestPrice(Model model) {
-		List<PersonalDealItem> personalDealItems = mnmStore.getLowestPricePersonalDealItemList();
+		List<PersonalDealItemList> personalDealItems = mnmStore.getLowestPricePersonalDealItemList();
 		model.addAttribute("personalDealItems", personalDealItems);
 		return "thyme/PersonalDealItemListView";
 	}	
@@ -55,7 +56,7 @@ public class ViewPersonalDealItemListController {
 	//최고가순
 	@RequestMapping("/personalDeal/hightestPrice")
 	public String sortByHightestPrice(Model model) {
-		List<PersonalDealItem> personalDealItems = mnmStore.getHightestPricePersonalDealItemList();
+		List<PersonalDealItemList> personalDealItems = mnmStore.getHightestPricePersonalDealItemList();
 		model.addAttribute("personalDealItems", personalDealItems);
 		return "thyme/PersonalDealItemListView";
 	}	

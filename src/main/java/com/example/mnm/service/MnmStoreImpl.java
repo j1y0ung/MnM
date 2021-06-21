@@ -25,11 +25,13 @@ import com.example.mnm.domain.AuctionItemList;
 import com.example.mnm.domain.Bid;
 import com.example.mnm.domain.Category;
 import com.example.mnm.domain.CrowdFundingItem;
+import com.example.mnm.domain.DealForm;
 import com.example.mnm.domain.FundingForm;
 import com.example.mnm.domain.Item;
 import com.example.mnm.domain.LineItem;
 import com.example.mnm.domain.Orders;
 import com.example.mnm.domain.PersonalDealItem;
+import com.example.mnm.domain.PersonalDealItemList;
 
 @Service
 @Transactional
@@ -45,6 +47,8 @@ public class MnmStoreImpl implements MnmStoreFacade {
 	private ItemDao itemDao;
 	@Autowired 
 	private CrowdFundingDao crowdFundingDao;
+	@Autowired 
+	PersonalDealDao personalDealDao;
 	@Autowired 
 	private CategoryDao categoryDao;
 	@Autowired
@@ -319,7 +323,6 @@ public class MnmStoreImpl implements MnmStoreFacade {
 	}
 	
 	//PersonalDeal
-	@Autowired PersonalDealDao personalDealDao;
 	
 	public List<PersonalDealItem> getAllPersonalDealItems() {
 		return personalDealDao.getAllPersonalDealItems();
@@ -347,27 +350,27 @@ public class MnmStoreImpl implements MnmStoreFacade {
 		personalDealDao.finishDealById(userId, personalDealItem);
 	}
 	@Override
-	public List<PersonalDealItem> searchPersonalDealItemList(String word) {
+	public List<PersonalDealItemList> searchPersonalDealItemList(String word) {
 		
 		return personalDealDao.searchPersonalDealItemList(word);
 	}
 	@Override
-	public List<PersonalDealItem> getNewestPersonalDealItemList() {
+	public List<PersonalDealItemList> getNewestPersonalDealItemList() {
 		
 		return personalDealDao.getNewestPersonalDealItemList();
 	}
 	@Override
-	public List<PersonalDealItem> getPopularPersonalDealItemList() {
+	public List<PersonalDealItemList> getPopularPersonalDealItemList() {
 		
 		return personalDealDao.getPopularPersonalDealItemList();
 	}
 	@Override
-	public List<PersonalDealItem> getLowestPricePersonalDealItemList() {
+	public List<PersonalDealItemList> getLowestPricePersonalDealItemList() {
 		
 		return personalDealDao.getLowestPricePersonalDealItemList();
 	}
 	@Override
-	public List<PersonalDealItem> getHightestPricePersonalDealItemList() {
+	public List<PersonalDealItemList> getHightestPricePersonalDealItemList() {
 		
 		return personalDealDao.getHightestPricePersonalDealItemList();
 	}
@@ -383,9 +386,23 @@ public class MnmStoreImpl implements MnmStoreFacade {
 	public List<PersonalDealItem> getPersonalDealItemListById(String userId) {
 		return personalDealDao.getPersonalDealItemListById(userId);
 	}
+	@Override
+	public void purchase(DealForm dealForm) {
+		personalDealDao.purchase(dealForm);
+		//personalDealDao.purchase2(dealForm);	
+	}
+	@Override
+	public void updatePurchase(String status, String personalDealId) {
+		personalDealDao.updatePurchase(status, personalDealId);		
+	}
+	@Override
+	public List<PersonalDealItem> getPurchasedPersonalDealItemListById(String userid) {
+		return personalDealDao.getPurchasedPersonalDealItemListById(userid);
+	}
+
 	
 	// 홈에 노출되는 아이템들 가져오기
-	public List<PersonalDealItem> getFourPersonalDealItemList() {
+	public List<PersonalDealItemList> getFourPersonalDealItemList() {
 		logger.info("getFourPersonalDealItemList()");
 		return personalDealDao.getFourPersonalDealItemList();
 	}
@@ -401,4 +418,6 @@ public class MnmStoreImpl implements MnmStoreFacade {
 		logger.info("getRecommendedItemList()");
 		return personalDealDao.getRecommendedItemList(fav);
 	}
+
+	
 }

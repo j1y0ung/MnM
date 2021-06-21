@@ -19,6 +19,7 @@ import com.example.mnm.domain.Account;
 import com.example.mnm.domain.AuctionItemList;
 import com.example.mnm.domain.CrowdFundingItem;
 import com.example.mnm.domain.PersonalDealItem;
+import com.example.mnm.domain.PersonalDealItemList;
 import com.example.mnm.service.MnmStoreFacade;
 
 @Controller
@@ -37,7 +38,7 @@ public class HomeController {
 		logger.info("goHome()");
 		
 		// 각 카테고리별로 4개씩 가져오기
-		List<PersonalDealItem> personalDealItems = store.getFourPersonalDealItemList();
+		List<PersonalDealItemList> personalDealItems = store.getFourPersonalDealItemList();
 		model.put("personalDealItems", personalDealItems);
 
 		List<AuctionItemList> auctionItems = store.getFourAuctionItemList();
