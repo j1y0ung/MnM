@@ -35,7 +35,7 @@ function checkDisable(frm)
 		</select>
 		
 		<br>
-		<form:label path="item.title">물품 제목</form:label>:<br>
+		<form:label path="item.title">물품명</form:label>:<br>
 		<form:input path="item.title" />
 		<br>
 		<form:label path="item.description">물품 설명</form:label>:<br>
