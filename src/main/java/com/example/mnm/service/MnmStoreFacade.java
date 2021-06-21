@@ -96,6 +96,7 @@ public interface MnmStoreFacade {
 	void updateFundingItemById(String crowdFundingId, CrowdFundingItem crowdFundingItem); 
 	void fund(FundingForm fundingForm);
 	void cancelMyFundingItemsCheckout(FundingForm fundingForm);
+	void fundConclude(String crowdFundingId);
 	
 	//PersonalDeal
 	List<PersonalDealItem> getAllPersonalDealItems();

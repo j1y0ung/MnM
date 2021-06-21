@@ -26,7 +26,14 @@
 		VALUES (#{itemId}, #{title}, #{description}, #{img}, #{quantity}, to_char(sysdate,'yy/mm/dd'),
 		0, 0, #{account.userid}, 'crowdFunding', #{parentCatId}, #{childCatId})
 	</insert>
-		
+	
+	<!-- 펀딩 종료 -->
+	<update id="fundConclude"
+		parameterType="String">
+		UPDATE crowdfundingitem 
+		SET status = '종료' 
+		WHERE crowdfundingid=#{crowdFundingId}
+	</update>
 		
 	<!-- 수정 -->
 	<update id="updateFundingItemById"
@@ -87,7 +94,7 @@
 	<!-- 펀딩 취소 -->
 	<delete id="cancelMyFundingItemsCheckout" parameterType="FundingForm">
 		DELETE FROM lineitem
-		WHERE orderId=#{orders.orderId} AND linenum=#{orders.lineNum}
+		WHERE orderId=#{orders.orderId} AND linenum=#{orders.cLineItem.lineNumber}
 	</delete>
 	<delete id="cancel2" parameterType="FundingForm">
 		DELETE FROM
@@ -120,6 +127,7 @@
 		WHERE c.itemid = i.itemid 
 		AND i.userid = a.userid 
 		AND i.childCatId = ca.catId
+		AND c.status='등록'
 		order by regiDate DESC
 	</select>
 	<select id="getCrowdFundingItemListRecently" resultType="CrowdFundingItem">
@@ -140,6 +148,7 @@
 		WHERE c.itemid = i.itemid 
 		AND i.userid = a.userid 
 		AND i.childCatId = ca.catId
+		AND c.status='등록'
 		order by regiDate DESC
 	</select>
 	<select id="getCrowdFundingItemListMostViews" resultType="CrowdFundingItem">
@@ -160,6 +169,7 @@
 		WHERE c.itemid = i.itemid 
 		AND i.userid = a.userid 
 		AND i.childCatId = ca.catId
+		AND c.status='등록'
 		order by i.views DESC
 	</select>
 	<select id="getCrowdFundingItemListMostSponsors" resultType="CrowdFundingItem">
@@ -180,6 +190,7 @@
 		WHERE c.itemid = i.itemid 
 		AND i.userid = a.userid 
 		AND i.childCatId = ca.catId
+		AND c.status='등록'
 		order by numberOfSponsor DESC
 	</select>
 	<select id="getCrowdFundingItemListMostAmount" resultType="CrowdFundingItem">
@@ -200,6 +211,7 @@
 		WHERE c.itemid = i.itemid 
 		AND i.userid = a.userid 
 		AND i.childCatId = ca.catId
+		AND c.status='등록'
 		order by currentSponsoredAmount DESC
 	</select>
 	<select id="getCrowdFundingItemListDeadLine" resultType="CrowdFundingItem">
@@ -220,6 +232,7 @@
 		WHERE c.itemid = i.itemid 
 		AND i.userid = a.userid 
 		AND i.childCatId = ca.catId
+		AND c.status='등록'
 		order by closingDate ASC
 	</select>
 	<select id="getCrowdFundingItemListCategory" resultType="Category">
@@ -242,6 +255,7 @@
 		AND i.childCatId = ca.catId
 		AND ca.catId = #{catId}
 		AND ca.catIdRef = #{catIdRef}
+		AND c.status='등록'
 		order by closingDate ASC
 	</select>
 	
@@ -316,9 +330,10 @@
 		o.orderid AS "orders.orderId", 
 		o.orderDate AS "orders.orderDate",
 		o.totalPrice AS "orders.totalPrice",
-		l.linenum AS "orders.lineNum"
+		l.linenum AS "orders.cLineItem.lineNumber",
+		l.unitPrice AS "orders.cLineItem.unitPrice" 
 		FROM crowdFundingItem c, item i, orders o, lineitem l
-		WHERE c.itemid = i.itemid AND i.userid = o.userid AND o.orderId = l.orderId
+		WHERE c.itemid = i.itemid AND o.orderId = l.orderId AND l.itemid = i.itemid
 		AND o.userid=#{userId}
 	</select>
 	

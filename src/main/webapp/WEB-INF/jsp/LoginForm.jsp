@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,15 +10,16 @@
 </head>
 
 <body>
+<div align="center">
+<jsp:include page="header.jsp" flush="false"/>
 <table>
 	<tr>
 		<td>
-			<jsp:include page="header.jsp" flush="false"/>
-		</td>
-	</tr>
-	<tr>
-		<td>
-			<form:form modelAttribute="login">
+			<form:form modelAttribute="login" method="post" action="/login">
+				<c:if test="${!empty signonForwardAction}">
+			      <input type="hidden" name="forwardAction"
+			        value='<c:url value="${signonForwardAction}"/>' />
+			    </c:if>
 				<form:label path="userId">id</form:label>
 				<form:input path="userId"></form:input>
 				<form:errors path="userId"/>
@@ -35,11 +37,8 @@
 			</a>
 		</td>
 	</tr>
-	<tr>
-		<td>
-			<jsp:include page="footer.jsp" flush="false"/>
-		</td>
-	</tr>
 </table>
+<jsp:include page="footer.jsp" flush="false"/>
+</div>
 </body>
 </html>

@@ -57,4 +57,15 @@ public class FundController {
 
 		return "thyme/ViewOrderFundingComplete";
 	}
+	
+	@PostMapping("/conclude/{crowdFundingId}")
+	public String fundEnd(
+			@PathVariable("crowdFundingId") String crowdFundingId
+			, HttpSession session
+			, ModelMap model) throws Exception {
+		
+		this.storeFacade.fundConclude(crowdFundingId);
+
+		return "redirect:/crowdFunding/fund";
+	}
 }

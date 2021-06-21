@@ -10,19 +10,24 @@
 <div align="center">
 	<jsp:include page="header.jsp" flush="false"/>
 	<div>
-		<a href="/myaccount">내 정보 보기</a>
+		<h2><a href="/myaccount">내 정보 보기</a></h2>
+		<hr>
 	</div>
 	<div>
-		<a href="/personalDeal/myList">중고물품 판매내역</a><br>
-		<a href="/personalDeal/myPurchaseList">중고물품 구매내역</a><br>
-		<a href="/crowdFunding/myFundingCheckout">나의 크라우드펀딩</a><br>
-		<a href="/auction/history">경매내역</a><br>
+		<h2>&lt;구매내역&gt;</h2>
+		<a href="/personalDeal/myPurchaseList">중고물품</a><br>
+		<a href="/crowdFunding/myFundingCheckout">크라우드 펀딩</a><br>
+		<h2>&lt;판매내역&gt;</h2>
+		<a href="/personalDeal/myList">중고물품</a><br>
+		<a href="#">구매내역</a><br>
+		<a href="/crowdFunding/myList">크라우드 펀딩</a><br>
+		<h2><a href="/auction/history">&lt;경매내역&gt;</a></h2>
 	</div>
+	<hr>
 	<div>
 		<table>
 			<tr>
 				<td colspan="2">
-					<hr>
 					<h3>추천 상품</h3>
 					<table>
 						<c:forEach var="recommendItem" items="${recommendItems}">
@@ -37,8 +42,11 @@
 						</tr>
 						</c:forEach>
 					</table>
-					<hr>
 				</td>
+			<tr>
+		</table>
+		<hr>
+		<table>
 			<tr>
 				<td>
 					<p>중고거래</p>

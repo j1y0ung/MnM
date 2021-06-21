@@ -5,7 +5,6 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <c:set var="path" value="${pageContext.request.contextPath}" />
 
-<!DOCTYPE html>
 <head>
 	<title>펀딩 아이템 목록</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -18,7 +17,7 @@
 
 </head>
 <body>
-
+<div align="center">
 <jsp:include page="/WEB-INF/jsp/header.jsp"></jsp:include>
 
 <br><h1 align="center">펀딩 아이템 목록</h1><br>
@@ -156,6 +155,6 @@ $(document).on("change", "select.category1", function(){
 	});
 </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
-
+</div>
 </body>
 </html>

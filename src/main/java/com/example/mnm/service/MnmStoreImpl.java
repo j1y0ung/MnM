@@ -321,9 +321,12 @@ public class MnmStoreImpl implements MnmStoreFacade {
 		crowdFundingDao.cancel2(fundingForm);
 		crowdFundingDao.cancelUpdate(fundingForm);
 	}
+	@Override
+	public void fundConclude(String crowdFundingId) {
+		crowdFundingDao.fundConclude(crowdFundingId);
+	}
 	
-	//PersonalDeal
-	
+	//PersonalDeal	
 	public List<PersonalDealItem> getAllPersonalDealItems() {
 		return personalDealDao.getAllPersonalDealItems();
 	}
@@ -388,8 +391,7 @@ public class MnmStoreImpl implements MnmStoreFacade {
 	}
 	@Override
 	public void purchase(DealForm dealForm) {
-		personalDealDao.purchase(dealForm);
-		//personalDealDao.purchase2(dealForm);	
+		personalDealDao.purchase(dealForm);	
 	}
 	@Override
 	public void updatePurchase(String status, String personalDealId) {
@@ -418,6 +420,5 @@ public class MnmStoreImpl implements MnmStoreFacade {
 		logger.info("getRecommendedItemList()");
 		return personalDealDao.getRecommendedItemList(fav);
 	}
-
 	
 }
