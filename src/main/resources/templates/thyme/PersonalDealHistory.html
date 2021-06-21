@@ -14,37 +14,39 @@
 	<script th:src="@{/js/page/home.js}"></script>
 </th:block>
 
-<div class="container">
-<br><h1 align="center">중고물품 등록 내역</h1><br>
+<div align="center" layout:fragment="content">
+	<div class="container">
+	<br><h1 align="center">중고물품 등록 내역</h1><br>
 
-<h2 th:if="${#lists.isEmpty(myPersonalDealItemList)}">
-	등록한 중고 물품이 없습니다.
-</h2>
+	<h2 th:if="${#lists.isEmpty(myPersonalDealItemList)}">
+		등록한 중고 물품이 없습니다.
+	</h2>
 
-<table th:unless="${#lists.isEmpty(myPersonalDealItemList)}">
-	<tr>
-		<th>물품 제목</th>
-		<th>희망 가격</th>
-	</tr>
-	<tr th:each="personalDealItem : ${myPersonalDealItemList}">
-		<td th:text="${personalDealItem.title}"></td>
-		<td th:text="${personalDealItem.price}+'원'"></td>
-		<td>
-			<!--<form action="" th:action="@{'/personalDeal/update/{personalDealId}'(personalDealId=${personalDealItem.personalDealId})}" method="get">
-	      	<input type="submit"  class="btn btn-primary btn-lg" value="수정하기" >
-	      	</form>-->
-	    </td>
-	    <td>
-			<form action="" th:action="@{'/personalDeal/{personalDealId}'(personalDealId=${personalDealItem.personalDealId})}" method="get">
-	      	<input type="submit"  class="btn btn-primary btn-lg" value="상세정보 보기" >
-	      	</form>
-	    </td>
-		<td>
-			<form action="" th:action="@{'/personalDeal/remove/{personalDealId}'(personalDealId=${personalDealItem.personalDealId})}" method="get">
-	      	<input type="submit"  class="btn btn-primary btn-lg" value="삭제하기" >
-	      	</form>
-	    </td>
-	</tr> 
-</table>
+	<table th:unless="${#lists.isEmpty(myPersonalDealItemList)}">
+		<tr>
+			<th>물품 제목</th>
+			<th>희망 가격</th>
+		</tr>
+		<tr th:each="personalDealItem : ${myPersonalDealItemList}">
+			<td th:text="${personalDealItem.title}"></td>
+			<td th:text="${personalDealItem.price}+'원'"></td>
+			<td>
+				<!--<form action="" th:action="@{'/personalDeal/update/{personalDealId}'(personalDealId=${personalDealItem.personalDealId})}" method="get">-->
+		      	<input type="submit"  class="btn btn-primary btn-lg" value="수정하기" >
+		      	</form>
+		    </td>
+		    <td>
+				<form action="" th:action="@{'/personalDeal/{personalDealId}'(personalDealId=${personalDealItem.personalDealId})}" method="get">
+		      	<input type="submit"  class="btn btn-primary btn-lg" value="상세정보 보기" >
+		      	</form>
+		    </td>
+			<td>
+				<form action="" th:action="@{'/personalDeal/remove/{personalDealId}'(personalDealId=${personalDealItem.personalDealId})}" method="get">
+		      	<input type="submit"  class="btn btn-primary btn-lg" value="삭제하기" >
+		      	</form>
+		    </td>
+		</tr> 
+	</table>
+	</div>
 </div>
 </html>

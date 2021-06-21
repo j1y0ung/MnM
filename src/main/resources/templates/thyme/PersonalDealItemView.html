@@ -12,7 +12,8 @@
 <div class="container">
   <div class="row">
   	<hr>
-    <h1><span th:text="${personalDealItem.item.title}"> -<span th:text="${personalDealItem.title}"></span></h1>
+    <h1><span th:text="${personalDealItem.item.title}"></span></h1>
+    <h3>-<span th:text="${personalDealItem.title}"></span></h3>
   </div>	
   <div class="row">
     <div class="col">
@@ -32,7 +33,7 @@
       	<input type="submit"  class="btn btn-primary btn-lg" value="구매하기" >
       </form>
       <a href="#" th:href="@{/personalDeal/newest}">중고물품 목록</a>&nbsp;
-      <a href="#" th:href="@{/personalDeal/addItemToCart.do(personalDealId=${personalDealItem.personalDealId}, itemId=${personalDealItem.itemId}, img=${personalDealItem.item.img})}">장바구니 넣기</a>&nbsp;
+     <!-- <a href="#" th:href="@{/personalDeal/addItemToCart.do(personalDealId=${personalDealItem.personalDealId}, itemId=${personalDealItem.itemId}, img=${personalDealItem.item.img})}">장바구니 넣기</a>  -->&nbsp;
     </div>
 </div>
 <footer th:include="fragment/footer :: footerFragment"></footer>

@@ -43,7 +43,6 @@
 				      <h5 class="card-title" th:text="${personalDealItem.title}"></h5>
 				      <h5 class="card-title" th:text="'판매희망가: '+${personalDealItem.price}+'원'"></h5>
 				      <p class="card-text" th:text="'거래희망지역: '+${personalDealItem.location}"></p>
-				      <p class="card-text" th:text="'조회수: '+${personalDealItem.views}"></p>
 				      </div>
 				    <div class="card-footer">
 		      			<a href="#" th:href="@{/personalDeal/{personalDealId}(personalDealId=${personalDealItem.personalDealId})}" class="btn btn-primary">상세 정보 보기</a>
