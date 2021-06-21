@@ -21,6 +21,10 @@
 			return confirm("정말 재경매하시겠습니까?");		
 		}
 		function bid() {
+			if (frm.bidPrice.value="") {
+				alert("입찰가를 입력해주세요");
+				return false;
+			}
 			return confirm("정말 입찰하시겠습니까?");		
 		}
 		function immd() {
@@ -78,7 +82,7 @@
 				<p>배송료: <span th:text="${auctionItem.item.shippingFee}+'원'"></span></p>
 				<p>판매자 ID: <span th:text="${auctionItem.item.userId}"></span></p>
 				<div th:if="${auctionItem.status.toString().equals('경매진행중')}">
-					<form action="#" th:action="@{/auction/bidding/{auctionId}(auctionId=${auctionItem.auctionId})}" method="post">
+					<form name="frm" action="#" th:action="@{/auction/bidding/{auctionId}(auctionId=${auctionItem.auctionId})}" method="post">
 						<label for="bidPrice">입찰가</label> :
 						<input type="text" id="bidPrice" name="bidPrice" th:value="${auctionItem.currentPrice}" />
 						<input type="button" class="btn btn-outline-primary" onclick="return add();" th:value="'+'+${auctionItem.bidUnit}" />

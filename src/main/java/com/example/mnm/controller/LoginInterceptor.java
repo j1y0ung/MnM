@@ -2,15 +2,17 @@ package com.example.mnm.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.ModelAndViewDefiningException;
+import org.springframework.web.util.WebUtils;
 
 import com.example.mnm.domain.Account;
+import com.example.mnm.domain.Login;
 
 @Component
 public class LoginInterceptor implements HandlerInterceptor {
@@ -20,20 +22,26 @@ public class LoginInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         logger.info("[LoginInterceptor INFO] preHandle()");
-        
-        // session 객체 가져옴
-        HttpSession session = request.getSession();
-        
-        // login처리를 담당하는 사용자 정보를 담고 있는 객체를 가져옴
-        Object obj = session.getAttribute("account");
-          
-        // 로그인이 안되어 있는 상태면 로그인 폼으로 redirect
-        if ( obj == null ){
-            response.sendRedirect("/loginForm.do");
-            return false;
-        }
-        return true;
-    }
+        Account account = (Account)WebUtils.getSessionAttribute(request, "account");
+        if (account == null) {
+        	String url = request.getRequestURL().toString(); 
+        	String query = request.getQueryString();
+        	ModelAndView modelAndView = new ModelAndView();
+        	modelAndView.setViewName("LoginForm");
+			if (query != null) {
+				modelAndView.addObject("login", new Login());
+				modelAndView.addObject("signonForwardAction", url+"?"+query);
+			}  
+			else {
+				modelAndView.addObject("login", new Login());
+				modelAndView.addObject("signonForwardAction", url);
+			}
+			throw new ModelAndViewDefiningException(modelAndView);
+		}
+		else {
+			return true;
+		}
+	}
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {

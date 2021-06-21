@@ -11,6 +11,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.example.mnm.domain.Account;
 import com.example.mnm.domain.Login;
@@ -44,11 +46,11 @@ public class LoginController {
 	
 	// 로그인 실행
 	@RequestMapping(method=RequestMethod.POST)
-	public String submit(HttpSession session, @ModelAttribute("login") Login login, BindingResult result, Model model) {
+	public ModelAndView submit(HttpSession session, @ModelAttribute("login") Login login, BindingResult result, 
+			@RequestParam(value="forwardAction", required=false) String forwardAction, Model model) {
 		logger.info("submit()");
 		String inputUserId = login.getUserId();
 		String inputPwd = login.getPwd();
-//		new LoginValidator().validate(login, result);
 		LoginValidator val = new LoginValidator();
 		val.validate(login, result);
 		
@@ -60,7 +62,7 @@ public class LoginController {
 		}
 		
 		if(result.hasErrors()) {
-            return formViewName;
+			return new ModelAndView("LoginForm");
 		}
 		
 		if (session.getAttribute("userid") != null ){
@@ -73,12 +75,18 @@ public class LoginController {
             	logger.info("로그인 성공");
             	account = store.getAccount(inputUserId);
                 session.setAttribute("account", account);
+                if (forwardAction != null) {
+    				return new ModelAndView("redirect:" + forwardAction);
+    			}
+    			else {
+    				return new ModelAndView("redirect:/");
+    			}
             } else{
             	logger.info("로그인 실패");
-            	return formViewName;
+            	return new ModelAndView("LoginForm");
             }
         }
-		return "redirect:/";
+		return new ModelAndView("redirect:/");
 	}
 	
 }
